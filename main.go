@@ -20,7 +20,7 @@ import (
 	"github.com/pojntfx/sessions/config/locales"
 )
 
-//go:generate go tool github.com/pojntfx/flatpak-go-mod --json .
+//go:generate sh -c "if [ -z \"$FLATPAK_ID\" ]; then go tool github.com/pojntfx/flatpak-go-mod --json .; fi"
 
 func main() {
 	i18t, err := os.MkdirTemp("", "")
