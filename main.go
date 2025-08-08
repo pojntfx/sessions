@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"math"
 	"os"
-	"path"
-	"strings"
 	"time"
 
 	"github.com/diamondburned/gotk4-adwaita/pkg/adw"
@@ -14,46 +12,25 @@ import (
 	"github.com/diamondburned/gotk4/pkg/gio/v2"
 	"github.com/diamondburned/gotk4/pkg/glib/v2"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
-
-	_ "embed"
-)
-
-const (
-	appID      = "com.pojtinger.felicitas.Sessions"
-	appVersion = "0.1.0"
-)
-
-//go:generate sh -c "blueprint-compiler batch-compile . . *.blp && glib-compile-resources *.gresource.xml"
-//go:embed index.gresource
-var ResourceContents []byte
-
-var (
-	appPath = path.Join("/com", "pojtinger", "felicitas", "Sessions")
-
-	appDevelopers = []string{"Felicitas Pojtinger"}
-	appArtists    = appDevelopers
-	appCopyright  = "© 2025 " + strings.Join(appDevelopers, ", ")
-
-	resourceWindowUIPath = path.Join(appPath, "window.ui")
-	resourceMetainfoPath = path.Join(appPath, "metainfo.xml")
+	"github.com/pojntfx/sessions/assets/resources"
 )
 
 func main() {
-	r, err := gio.NewResourceFromData(glib.NewBytesWithGo(ResourceContents))
+	r, err := gio.NewResourceFromData(glib.NewBytesWithGo(resources.ResourceContents))
 	if err != nil {
 		panic(err)
 	}
 	gio.ResourcesRegister(r)
 
-	a := adw.NewApplication(appID, gio.ApplicationHandlesOpen)
+	a := adw.NewApplication(resources.AppID, gio.ApplicationHandlesOpen)
 
 	a.ConnectActivate(func() {
-		aboutDialog := adw.NewAboutDialogFromAppdata(resourceMetainfoPath, appVersion)
-		aboutDialog.SetDevelopers(appDevelopers)
-		aboutDialog.SetArtists(appArtists)
-		aboutDialog.SetCopyright(appCopyright)
+		aboutDialog := adw.NewAboutDialogFromAppdata(resources.ResourceMetainfoPath, resources.AppVersion)
+		aboutDialog.SetDevelopers(resources.AppDevelopers)
+		aboutDialog.SetArtists(resources.AppArtists)
+		aboutDialog.SetCopyright(resources.AppCopyright)
 
-		b := gtk.NewBuilderFromResource(resourceWindowUIPath)
+		b := gtk.NewBuilderFromResource(resources.ResourceWindowUIPath)
 
 		var (
 			w      = b.GetObject("main_window").Cast().(*adw.Window)
