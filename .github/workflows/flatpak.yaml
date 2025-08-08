@@ -4,32 +4,52 @@ on:
   push:
   pull_request:
 
-permissions:
-  contents: write
-
 jobs:
   build-linux:
+    runs-on: ${{ matrix.target.runner }}
+    permissions:
+      contents: read
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
       options: --privileged
     strategy:
       matrix:
-        variant:
-          - arch: x86_64
+        target:
+          - id: flatpak-x86_64
+            arch: x86_64
             runner: ubuntu-24.04
-          - arch: aarch64
+          - id: flatpak-aarch64
+            arch: aarch64
             runner: ubuntu-24.04-arm
-    runs-on: ${{ matrix.variant.runner }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: com.pojtinger.felicitas.Sessions.flatpak
+          bundle: com.pojtinger.felicitas.Sessions.${{ matrix.target.arch }}.flatpak
           manifest-path: com.pojtinger.felicitas.Sessions.json
           cache-key: flatpak-builder-${{ github.sha }}
-          arch: ${{ matrix.variant.arch }}
+          arch: ${{ matrix.target.arch }}
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target.id }}
+          path: "*.flatpak"
+
+  publish-linux:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build-linux
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download output
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/out
       - name: Extract branch name
         id: extract_branch
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -40,11 +60,11 @@ jobs:
           tag_name: release-${{ steps.extract_branch.outputs.branch }}
           prerelease: true
           files: |
-            *.flatpak
+            /tmp/out/*/*
       - name: Publish release to GitHub releases
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           prerelease: false
           files: |
-            *.flatpak
+            /tmp/out/*/*
