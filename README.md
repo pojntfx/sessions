@@ -33,10 +33,10 @@ For other platforms, see [contributing](#contributing); development builds are a
 
 The [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. Here's how to use Sessions:
 
-1. **Set your timer** - Choose your work session duration (25 minutes is typical)
-2. **Start working** - Focus on a single task during the timer
-3. **Take a break** - When the timer ends, take a 5-minute break
-4. **Repeat** - After 4 sessions, take a longer 15-30 minute break
+1. **Set your timer**: Choose your work session duration (25 minutes is typical)
+2. **Start working**: Focus on a single task during the timer
+3. **Take a break**: When the timer ends, take a 5-minute break
+4. **Repeat**: After 4 sessions, take a longer 15-30 minute break
 
 🚀 **That's it!** We hope Sessions helps your with your productivity.
 
