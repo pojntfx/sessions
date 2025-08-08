@@ -31,14 +31,26 @@
     </branding>
 
     <description>
-        <p>A visual timer application designed for the pomodoro technique. Helps you stay productive
-            by breaking work into focused sessions with regular breaks.</p>
+        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
+        <p>It enables you to:</p>
+        <ul>
+            <li>Start focused work sessions with customizable timer durations</li>
+            <li>Track your progress with a clean, distraction-free interface</li>
+            <li>Take regular breaks to maintain productivity</li>
+        </ul>
     </description>
 
     <screenshots>
         <screenshot type="default">
             <image>
-                https://raw.githubusercontent.com/pojntfx/sessions/main/docs/screenshot-timer.png</image>
+                https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-initial.png</image>
+            <caption>Setting up a new timer session</caption>
+        </screenshot>
+        <screenshot>
+            <image>
+                https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-running.png</image>
             <caption>Timer running during a work session</caption>
         </screenshot>
     </screenshots>
