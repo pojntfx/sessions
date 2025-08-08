@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sessions
+Name[en]=Sessions
+Name[en_UK]=Sessions
+Name[fr]=Sessions
+Name[fr_CA]=Sessions
+Name[de]=Sitzungen
+Comment=Visual timer for the pomodoro technique.
+Comment[en]=Visual timer for the pomodoro technique.
+Comment[en_UK]=Visual timer for the pomodoro technique.
+Comment[fr]=Minuteur visuel pour la technique pomodoro.
+Comment[fr_CA]=Minuteur visuel pour la technique pomodoro.
+Comment[de]=Visueller Timer für die Pomodoro-Technik.
+Exec=sessions
+Icon=com.pojtinger.felicitas.Sessions
+Categories=Office;Utility;

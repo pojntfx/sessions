@@ -1,0 +1,120 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.Window main_window {
+    default-width: 360;
+    default-height: 380;
+    title: _("Sessions");
+    visible: true;
+
+    content: Adw.ToolbarView toolbar_view {
+      [top]
+      Adw.HeaderBar {
+        title-widget: Adw.WindowTitle {
+          title: _("Sessions");
+        };
+
+        [end]
+        MenuButton menu_button {
+          icon-name: "open-menu-symbolic";
+          menu-model: main_menu;
+        }
+      }
+
+      content: Box {
+        orientation: vertical;
+
+        Box {
+          orientation: vertical;
+          valign: center;
+          vexpand: true;
+          spacing: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          margin-start: 12;
+          margin-end: 12;
+
+          Overlay {
+            DrawingArea dial_area {
+              width-request: 260;
+              height-request: 260;
+            }
+
+            [overlay]
+            Box {
+              halign: center;
+              valign: center;
+
+              Label analog_time_label {
+                label: _("05:00");
+                margin-top: 12;
+                margin-bottom: 12;
+                margin-start: 12;
+                margin-end: 12;
+
+                styles [
+                  "title-1",
+                ]
+              }
+
+              styles [
+                "card",
+              ]
+            }
+          }
+        }
+
+        Box {
+          orientation: horizontal;
+          halign: center;
+          spacing: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          margin-start: 12;
+          margin-end: 12;
+
+          Button minus_button {
+            action-name: "app.removeTime";
+            icon-name: "list-remove-symbolic";
+            tooltip-text: _("Remove 30s");
+            valign: center;
+
+            styles [
+              "circular",
+            ]
+          }
+
+          Button action_button {
+            action-name: "app.toggleTimer";
+            icon-name: "media-playback-start-symbolic";
+            label: _("Start Timer");
+
+            styles [
+              "suggested-action",
+              "pill",
+            ]
+          }
+
+          Button plus_button {
+            action-name: "app.addTime";
+            icon-name: "list-add-symbolic";
+            tooltip-text: _("Add 30s");
+            valign: center;
+
+            styles [
+              "circular",
+            ]
+          }
+        }
+      };
+    };
+}
+
+menu main_menu {
+  section {
+    item {
+      label: _("About Sessions");
+      action: "app.openAbout";
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "com.pojtinger.felicitas.Sessions",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "48",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
+  "build-options": {
+    "build-args": [
+      "--share=network"
+    ]
+  },
+  "command": "sessions",
+  "finish-args": [
+    "--socket=wayland",
+    "--device=dri",
+    "--talk-name=org.freedesktop.Notifications"
+  ],
+  "modules": [
+    {
+      "name": "blueprint-compiler",
+      "buildsystem": "meson",
+      "cleanup": ["*"],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
+          "tag": "v0.18.0"
+        }
+      ]
+    },
+    {
+      "name": "sessions",
+      "buildsystem": "simple",
+      "build-commands": [
+        ". /usr/lib/sdk/golang/enable.sh && export GOBIN=\"/app/bin\" && go generate ./... && go build -o /app/bin/sessions .",
+        "desktop-file-install --dir=/app/share/applications $FLATPAK_ID.desktop",
+        "install -D -m 0644 metainfo.xml /app/share/metainfo/$FLATPAK_ID.metainfo.xml",
+        "install -D -m 0644 icon.svg /app/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg"
+      ],
+      "sources": [{ "type": "dir", "path": "." }]
+    }
+  ]
+}

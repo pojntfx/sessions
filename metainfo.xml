@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>com.pojtinger.felicitas.Sessions</id>
+    <name>Sessions</name>
+    <summary>Visual timer for the pomodoro technique</summary>
+
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>AGPL-3.0-or-later</project_license>
+
+    <developer id="com.pojtinger.felicitas">
+        <name translatable="no">Felicitas Pojtinger</name>
+    </developer>
+
+    <url type="bugtracker">https://github.com/pojntfx/sessions/issues</url>
+    <url type="homepage">https://github.com/pojntfx/sessions/</url>
+    <url type="donation">https://github.com/sponsors/pojntfx</url>
+    <url type="help">https://matrix.to/#/#sessions:matrix.org?via=matrix.org</url>
+    <url type="contact">https://felicitas.pojtinger.com/imprint</url>
+    <url type="faq">https://github.com/pojntfx/sessions?tab=readme-ov-file#tutorial</url>
+    <url type="vcs-browser">https://github.com/pojntfx/sessions/</url>
+
+    <launchable type="desktop-id">com.pojtinger.felicitas.Sessions.desktop</launchable>
+
+    <provides>
+        <binary>sessions</binary>
+    </provides>
+
+    <branding>
+        <color type="primary" scheme_preference="light">#6fb0ff</color>
+        <color type="primary" scheme_preference="dark">#0087ff</color>
+    </branding>
+
+    <description>
+        <p>A visual timer application designed for the pomodoro technique. Helps you stay productive
+            by breaking work into focused sessions with regular breaks.</p>
+    </description>
+
+    <screenshots>
+        <screenshot type="default">
+            <image>
+                https://raw.githubusercontent.com/pojntfx/sessions/main/docs/screenshot-timer.png</image>
+            <caption>Timer running during a work session</caption>
+        </screenshot>
+    </screenshots>
+
+    <releases>
+        <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.0</url>
+
+            <description>
+                <p>Initial release</p>
+            </description>
+        </release>
+    </releases>
+</component>
