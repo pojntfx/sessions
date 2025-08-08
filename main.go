@@ -103,14 +103,8 @@ func main() {
 		var (
 			timer = glib.SourceHandle(0)
 		)
-		startTimer := func() {
-			running = true
-			remain = time.Duration(totalSec) * time.Second
-
-			updateButtons()
-			updateDial()
-
-			timer = glib.TimeoutAdd(1000, func() bool {
+		createSessionFinishedHandler := func() func() bool {
+			return func() bool {
 				if !running {
 					return false
 				}
@@ -128,15 +122,24 @@ func main() {
 					updateButtons()
 					updateDial()
 
-					n := gio.NewNotification("Timer Complete")
-					n.SetBody("Time's up!")
-					a.SendNotification("session-complete", n)
+					n := gio.NewNotification("Session finished")
+					a.SendNotification("session-finished", n)
 
 					return false
 				}
 
 				return true
-			})
+			}
+		}
+
+		startTimer := func() {
+			running = true
+			remain = time.Duration(totalSec) * time.Second
+
+			updateButtons()
+			updateDial()
+
+			timer = glib.TimeoutAdd(1000, createSessionFinishedHandler())
 		}
 
 		stopTimer := func() {
@@ -152,32 +155,7 @@ func main() {
 
 		resumeTimer := func() {
 			if remain > 0 {
-				timer = glib.TimeoutAdd(1000, func() bool {
-					if !running {
-						return false
-					}
-
-					remain -= time.Second
-					updateDial()
-
-					if remain <= 0 {
-						running = false
-						if timer > 0 {
-							glib.SourceRemove(timer)
-							timer = 0
-						}
-
-						updateButtons()
-						updateDial()
-
-						n := gio.NewNotification("Session finished")
-						a.SendNotification("session-finished", n)
-
-						return false
-					}
-
-					return true
-				})
+				timer = glib.TimeoutAdd(1000, createSessionFinishedHandler())
 			}
 		}
 

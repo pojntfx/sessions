@@ -5,16 +5,10 @@
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
   "build-options": {
-    "build-args": [
-      "--share=network"
-    ]
+    "build-args": ["--share=network"]
   },
   "command": "sessions",
-  "finish-args": [
-    "--socket=wayland",
-    "--device=dri",
-    "--talk-name=org.freedesktop.Notifications"
-  ],
+  "finish-args": ["--socket=wayland", "--device=dri"],
   "modules": [
     {
       "name": "blueprint-compiler",
