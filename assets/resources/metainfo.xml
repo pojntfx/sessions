@@ -3,6 +3,9 @@
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
     <summary>Visual timer for the pomodoro technique</summary>
+    <summary xml:lang="de">Visueller Timer für die Pomodoro-Technik</summary>
+    <summary xml:lang="fr">Minuteur visuel pour la technique pomodoro</summary>
+    <summary xml:lang="fr_CA">Minuterie visuelle pour la technique pomodoro</summary>
 
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
@@ -10,6 +13,8 @@
     <developer id="com.pojtinger.felicitas">
         <name translatable="no">Felicitas Pojtinger</name>
     </developer>
+
+    <content_rating type="oars-1.1" />
 
     <url type="bugtracker">https://github.com/pojntfx/sessions/issues</url>
     <url type="homepage">https://github.com/pojntfx/sessions/</url>
@@ -44,11 +49,36 @@
         <p>Sessions is a simple visual timer application designed specifically for the pomodoro
             technique, helping you stay productive by breaking work into focused sessions with
             regular breaks.</p>
+        <p xml:lang="de">Sessions ist eine einfache visuelle Timer-Anwendung, die speziell für die
+            Pomodoro-Technik entwickelt wurde und Ihnen hilft, produktiv zu bleiben, indem sie die
+            Arbeit in fokussierte Sitzungen mit regelmäßigen Pausen unterteilt.</p>
+        <p xml:lang="fr">Sessions est une application de minuteur visuel simple conçue
+            spécifiquement pour la technique pomodoro, vous aidant à rester productif en divisant le
+            travail en sessions concentrées avec des pauses régulières.</p>
+        <p xml:lang="fr_CA">Sessions est une application de minuterie visuelle simple conçue
+            spécifiquement pour la technique pomodoro, vous aidant à rester productif en divisant le
+            travail en sessions concentrées avec des pauses régulières.</p>
         <p>It enables you to:</p>
+        <p xml:lang="de">Es ermöglicht Ihnen:</p>
+        <p xml:lang="fr">Il vous permet de :</p>
+        <p xml:lang="fr_CA">Elle vous permet de :</p>
         <ul>
             <li>Start focused work sessions with customizable timer durations</li>
+            <li xml:lang="de">Fokussierte Arbeitssitzungen mit anpassbaren Timer-Dauern starten</li>
+            <li xml:lang="fr">Démarrer des sessions de travail concentrées avec des durées de
+                minuteur personnalisables</li>
+            <li xml:lang="fr_CA">Démarrer des sessions de travail concentrées avec des durées de
+                minuterie personnalisables</li>
+            <li xml:lang="en_UK">Start focused work sessions with customisable timer durations</li>
             <li>Track your progress with a clean, distraction-free interface</li>
+            <li xml:lang="de">Ihren Fortschritt mit einer sauberen, ablenkungsfreien
+                Benutzeroberfläche verfolgen</li>
+            <li xml:lang="fr">Suivre vos progrès avec une interface propre et sans distraction</li>
+            <li xml:lang="fr_CA">Suivre vos progrès avec une interface propre et sans distraction</li>
             <li>Take regular breaks to maintain productivity</li>
+            <li xml:lang="de">Regelmäßige Pausen einlegen, um die Produktivität aufrechtzuerhalten</li>
+            <li xml:lang="fr">Prendre des pauses régulières pour maintenir la productivité</li>
+            <li xml:lang="fr_CA">Prendre des pauses régulières pour maintenir la productivité</li>
         </ul>
     </description>
 
@@ -57,11 +87,17 @@
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-initial.png</image>
             <caption>Setting up a new timer session</caption>
+            <caption xml:lang="de">Einrichten einer neuen Timer-Sitzung</caption>
+            <caption xml:lang="fr">Configuration d'une nouvelle session de minuteur</caption>
+            <caption xml:lang="fr_CA">Configuration d'une nouvelle session de minuterie</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-running.png</image>
             <caption>Timer running during a work session</caption>
+            <caption xml:lang="de">Timer läuft während einer Arbeitssitzung</caption>
+            <caption xml:lang="fr">Minuteur en cours pendant une session de travail</caption>
+            <caption xml:lang="fr_CA">Minuterie en cours pendant une session de travail</caption>
         </screenshot>
     </screenshots>
 
@@ -71,6 +107,9 @@
 
             <description>
                 <p>Initial release</p>
+                <p xml:lang="de">Erste Veröffentlichung</p>
+                <p xml:lang="fr">Version initiale</p>
+                <p xml:lang="fr_CA">Version initiale</p>
             </description>
         </release>
     </releases>
