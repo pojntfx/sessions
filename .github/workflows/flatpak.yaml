@@ -55,18 +55,18 @@ jobs:
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       - name: Publish pre-release to GitHub releases
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: softprops/action-gh-release@605f567f95cfaf9465d68c7dbf509f374691fb12
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: release-${{ steps.extract_branch.outputs.branch }}
           prerelease: true
-          overwrite_files: true
-          files: |
-            /tmp/out/*/*
+          # Disabled until https://github.com/pojntfx/sessions/actions/runs/16840746746/job/47712334492 is fixed
+          # files: |
+          #   /tmp/out/*/*
       - name: Publish release to GitHub releases
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@605f567f95cfaf9465d68c7dbf509f374691fb12
+        uses: softprops/action-gh-release@v2
         with:
           prerelease: false
-          overwrite_files: true
-          files: |
-            /tmp/out/*/*
+          # Disabled until https://github.com/pojntfx/sessions/actions/runs/16840746746/job/47712334492 is fixed
+          # files: |
+          #   /tmp/out/*/*

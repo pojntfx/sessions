@@ -20,6 +20,8 @@ import (
 	"github.com/pojntfx/sessions/config/locales"
 )
 
+//go:generate go tool github.com/pojntfx/flatpak-go-mod --json .
+
 func main() {
 	i18t, err := os.MkdirTemp("", "")
 	if err != nil {

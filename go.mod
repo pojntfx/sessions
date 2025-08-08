@@ -9,6 +9,11 @@ require (
 
 require (
 	github.com/KarpelesLab/weak v0.1.1 // indirect
+	github.com/goccy/go-yaml v1.18.0 // indirect
+	github.com/pojntfx/flatpak-go-mod v0.0.0-20250808220202-3246d28571eb // indirect
 	go4.org/unsafe/assume-no-moving-gc v0.0.0-20231121144256-b99613f794b6 // indirect
-	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/mod v0.27.0 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 )
+
+tool github.com/pojntfx/flatpak-go-mod

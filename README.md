@@ -68,7 +68,7 @@ To build and start a development version of Sessions locally, run the following:
 ```shell
 $ git clone https://github.com/pojntfx/sessions.git
 $ cd sessions
-$ go generate ./... # Also see https://github.com/dennwc/flatpak-go-mod for updating the Flatpak manifest for Flathub at https://github.com/flathub/com.pojtinger.felicitas.Sessions with Go dependencies
+$ go generate ./...
 $ go run .
 ```
 
