@@ -2,20 +2,67 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"io/fs"
 	"math"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/diamondburned/gotk4-adwaita/pkg/adw"
 	"github.com/diamondburned/gotk4/pkg/cairo"
+	gcore "github.com/diamondburned/gotk4/pkg/core/glib"
 	"github.com/diamondburned/gotk4/pkg/gdk/v4"
 	"github.com/diamondburned/gotk4/pkg/gio/v2"
 	"github.com/diamondburned/gotk4/pkg/glib/v2"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
 	"github.com/pojntfx/sessions/assets/resources"
+	"github.com/pojntfx/sessions/config/locales"
 )
 
 func main() {
+	i18t, err := os.MkdirTemp("", "")
+	if err != nil {
+		panic(err)
+	}
+	defer os.RemoveAll(i18t)
+
+	if err := fs.WalkDir(locales.FS, ".", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if d.IsDir() {
+			if err := os.MkdirAll(filepath.Join(i18t, path), os.ModePerm); err != nil {
+				return err
+			}
+
+			return nil
+		}
+
+		src, err := locales.FS.Open(path)
+		if err != nil {
+			return err
+		}
+		defer src.Close()
+
+		dst, err := os.Create(filepath.Join(i18t, path))
+		if err != nil {
+			return err
+		}
+		defer dst.Close()
+
+		if _, err := io.Copy(dst, src); err != nil {
+			return err
+		}
+
+		return nil
+	}); err != nil {
+		panic(err)
+	}
+
+	gcore.InitI18n("default", i18t)
+
 	r, err := gio.NewResourceFromData(glib.NewBytesWithGo(resources.ResourceContents))
 	if err != nil {
 		panic(err)
@@ -48,12 +95,12 @@ func main() {
 		updateButtons := func() {
 			if running {
 				action.SetIconName("media-playback-stop-symbolic")
-				action.SetLabel("Stop")
+				action.SetLabel(gcore.Local("Stop"))
 				action.RemoveCSSClass("suggested-action")
 				action.AddCSSClass("destructive-action")
 			} else {
 				action.SetIconName("media-playback-start-symbolic")
-				action.SetLabel("Start Timer")
+				action.SetLabel(gcore.Local("Start Timer"))
 				action.RemoveCSSClass("destructive-action")
 				action.AddCSSClass("suggested-action")
 			}
@@ -99,7 +146,7 @@ func main() {
 					updateButtons()
 					updateDial()
 
-					n := gio.NewNotification("Session finished")
+					n := gio.NewNotification(gcore.Local("Session finished"))
 					a.SendNotification("session-finished", n)
 
 					return false
