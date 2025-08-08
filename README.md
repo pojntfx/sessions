@@ -4,6 +4,8 @@
 
 Visual timer for the pomodoro technique.
 
+<br/>
+
 [![Flatpak CI](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml/badge.svg)](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml)
 ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.22-61CFDD.svg)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pojntfx/sessions.svg)](https://pkg.go.dev/github.com/pojntfx/sessions)
