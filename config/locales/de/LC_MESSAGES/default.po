@@ -1,27 +1,37 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
+#: ../../assets/resources/window.blp:7 ../../assets/resources/window.blp:14
 msgid "Sessions"
 msgstr "Sitzungen"
 
+#: ../../assets/resources/window.blp:49
 msgid "05:00"
 msgstr "05:00"
 
+#: ../../assets/resources/window.blp:79
 msgid "Remove 30s"
 msgstr "30s entfernen"
 
+#: ../../assets/resources/window.blp:90 ../../main.go:105
 msgid "Start Timer"
 msgstr "Timer starten"
 
+#: ../../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "30s hinzufügen"
 
+#: ../../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "Über Sitzungen"
 
+#: ../../main.go:100
 msgid "Stop"
 msgstr "Stoppen"
 
+#: ../../main.go:151
 msgid "Session finished"
 msgstr "Sitzung beendet"

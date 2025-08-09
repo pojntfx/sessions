@@ -1,5 +1,7 @@
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "PO-Revision-Date: 2025-08-09 20:38+0000\n"
 "Last-Translator: rdbende <rdbende@proton.me>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sessions/"
@@ -10,26 +12,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.13-dev\n"
 
+#: ../../assets/resources/window.blp:7 ../../assets/resources/window.blp:14
 msgid "Sessions"
 msgstr "Sessions"
 
+#: ../../assets/resources/window.blp:49
 msgid "05:00"
 msgstr "05:00"
 
+#: ../../assets/resources/window.blp:79
 msgid "Remove 30s"
 msgstr "30mp levonása"
 
+#: ../../assets/resources/window.blp:90 ../../main.go:105
 msgid "Start Timer"
 msgstr "Indítás"
 
+#: ../../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "30mp hozzáadása"
 
+#: ../../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "A Sessions névjegye"
 
+#: ../../main.go:100
 msgid "Stop"
 msgstr "Állj"
 
+#: ../../main.go:151
 msgid "Session finished"
 msgstr "A munkamenet befejeződött"
