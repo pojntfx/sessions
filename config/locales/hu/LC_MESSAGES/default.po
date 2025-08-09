@@ -1,0 +1,32 @@
+msgid ""
+msgstr ""
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: hu\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "Sessions"
+msgstr ""
+
+msgid "05:00"
+msgstr ""
+
+msgid "Remove 30s"
+msgstr ""
+
+msgid "Start Timer"
+msgstr ""
+
+msgid "Add 30s"
+msgstr ""
+
+msgid "About Sessions"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Session finished"
+msgstr ""
