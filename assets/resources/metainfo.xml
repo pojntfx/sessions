@@ -110,6 +110,16 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.2" date='2025-08-09T01:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.2</url>
+
+            <description>
+                <p>Improve translations</p>
+                <p xml:lang="de">Übersetzungen verbessert</p>
+                <p xml:lang="fr">Améliorations des traductions</p>
+                <p xml:lang="fr_CA">Améliorations des traductions</p>
+            </description>
+        </release>
         <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.1</url>
 
