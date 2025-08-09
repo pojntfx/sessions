@@ -10,6 +10,7 @@ Focus with timed work intervals.
 ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.22-61CFDD.svg)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pojntfx/sessions.svg)](https://pkg.go.dev/github.com/pojntfx/sessions)
 [![Matrix](https://img.shields.io/matrix/sessions:matrix.org)](https://matrix.to/#/#sessions:matrix.org?via=matrix.org)
+[![Weblate translation status](https://hosted.weblate.org/widget/sessions/svg-badge.svg)](https://hosted.weblate.org/engage/sessions/)
 
 ## Overview
 
@@ -73,6 +74,10 @@ $ go run .
 ```
 
 You can also open the project in [GNOME Builder](https://flathub.org/apps/org.gnome.Builder) and run it by clicking the play button in the header bar. Note that GNOME Builder doesn't automatically download the sources specified in [go.mod.json](./go.mod.json), so you need to either run `go mod vendor` manually or copy the contents of [go.mod.json](./go.mod.json) into the `.modules[] | select(.name == "multiplex") | .sources` field of [com.pojtinger.felicitas.Sessions.json](./com.pojtinger.felicitas.Sessions.json).
+
+To translate Sessions, you can use [Weblate](https://hosted.weblate.org/engage/sessions/). This is the current translation status:
+
+[![Weblate translation status graphs](https://hosted.weblate.org/widget/sessions/multi-auto.svg)](https://hosted.weblate.org/engage/sessions/)
 
 ## License
 

@@ -28,6 +28,7 @@
     <url type="contact">https://felicitas.pojtinger.com/imprint</url>
     <url type="faq">https://github.com/pojntfx/sessions?tab=readme-ov-file#tutorial</url>
     <url type="vcs-browser">https://github.com/pojntfx/sessions/</url>
+    <url type="translate">https://hosted.weblate.org/projects/sessions/</url>
 
     <launchable type="desktop-id">com.pojtinger.felicitas.Sessions.desktop</launchable>
 
