@@ -1,0 +1,27 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Sessions"
+msgstr "Sessions"
+
+msgid "05:00"
+msgstr "05:00"
+
+msgid "Remove 30s"
+msgstr "Remove 30s"
+
+msgid "Start Timer"
+msgstr "Start Timer"
+
+msgid "Add 30s"
+msgstr "Add 30s"
+
+msgid "About Sessions"
+msgstr "About Sessions"
+
+msgid "Stop"
+msgstr "Stop"
+
+msgid "Session finished"
+msgstr "Session finished"

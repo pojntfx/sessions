@@ -2,14 +2,17 @@
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
+    <name xml:lang="en_US">Sessions</name>
     <name xml:lang="en_GB">Sessions</name>
     <name xml:lang="fr">Sessions</name>
     <name xml:lang="fr_CA">Sessions</name>
     <name xml:lang="de">Sitzungen</name>
     <summary>Focus with timed work intervals</summary>
-    <summary xml:lang="de">Fokussiere mit getakteten Arbeitsintervallen</summary>
+    <summary xml:lang="en_US">Focus with timed work intervals</summary>
+    <summary xml:lang="en_GB">Focus with timed work intervals</summary>
     <summary xml:lang="fr">Se concentrer avec des intervalles de travail chronométrés</summary>
     <summary xml:lang="fr_CA">Se concentrer avec des intervalles de travail chronométrés</summary>
+    <summary xml:lang="de">Fokussiere mit getakteten Arbeitsintervallen</summary>
 
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
@@ -56,36 +59,51 @@
         <p>Sessions is a simple visual timer application designed specifically for the pomodoro
             technique, helping you stay productive by breaking work into focused sessions with
             regular breaks.</p>
-        <p xml:lang="de">Sessions ist eine einfache visuelle Timer-Anwendung, die speziell für die
-            Pomodoro-Technik entwickelt wurde und Ihnen hilft, produktiv zu bleiben, indem sie die
-            Arbeit in fokussierte Sitzungen mit regelmäßigen Pausen unterteilt.</p>
+        <p xml:lang="en_US">Sessions is a simple visual timer application designed specifically for
+            the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
+        <p xml:lang="en_GB">Sessions is a simple visual timer application designed specifically for
+            the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
         <p xml:lang="fr">Sessions est une application de minuteur visuel simple conçue
             spécifiquement pour la technique pomodoro, vous aidant à rester productif en divisant le
             travail en sessions concentrées avec des pauses régulières.</p>
         <p xml:lang="fr_CA">Sessions est une application de minuterie visuelle simple conçue
             spécifiquement pour la technique pomodoro, vous aidant à rester productif en divisant le
             travail en sessions concentrées avec des pauses régulières.</p>
+        <p xml:lang="de">Sessions ist eine einfache visuelle Timer-Anwendung, die speziell für die
+            Pomodoro-Technik entwickelt wurde und Ihnen hilft, produktiv zu bleiben, indem sie die
+            Arbeit in fokussierte Sitzungen mit regelmäßigen Pausen unterteilt.</p>
         <p>It enables you to:</p>
-        <p xml:lang="de">Es ermöglicht Ihnen:</p>
+        <p xml:lang="en_US">It enables you to:</p>
+        <p xml:lang="en_GB">It enables you to:</p>
         <p xml:lang="fr">Il vous permet de :</p>
         <p xml:lang="fr_CA">Elle vous permet de :</p>
+        <p xml:lang="de">Es ermöglicht Ihnen:</p>
         <ul>
             <li>Start focused work sessions with customizable timer durations</li>
-            <li xml:lang="de">Fokussierte Arbeitssitzungen mit anpassbaren Timer-Dauern starten</li>
+            <li xml:lang="en_US">Start focused work sessions with customizable timer durations</li>
+            <li xml:lang="en_GB">Start focused work sessions with customisable timer durations</li>
             <li xml:lang="fr">Démarrer des sessions de travail concentrées avec des durées de
                 minuteur personnalisables</li>
             <li xml:lang="fr_CA">Démarrer des sessions de travail concentrées avec des durées de
                 minuterie personnalisables</li>
-            <li xml:lang="en_GB">Start focused work sessions with customisable timer durations</li>
+            <li xml:lang="de">Fokussierte Arbeitssitzungen mit anpassbaren Timer-Dauern starten</li>
             <li>Track your progress with a clean, distraction-free interface</li>
-            <li xml:lang="de">Ihren Fortschritt mit einer sauberen, ablenkungsfreien
-                Benutzeroberfläche verfolgen</li>
+            <li xml:lang="en_US">Track your progress with a clean, distraction-free interface</li>
+            <li xml:lang="en_GB">Track your progress with a clean, distraction-free interface</li>
             <li xml:lang="fr">Suivre vos progrès avec une interface propre et sans distraction</li>
             <li xml:lang="fr_CA">Suivre vos progrès avec une interface propre et sans distraction</li>
+            <li xml:lang="de">Ihren Fortschritt mit einer sauberen, ablenkungsfreien
+                Benutzeroberfläche verfolgen</li>
             <li>Take regular breaks to maintain productivity</li>
-            <li xml:lang="de">Regelmäßige Pausen einlegen, um die Produktivität aufrechtzuerhalten</li>
+            <li xml:lang="en_US">Take regular breaks to maintain productivity</li>
+            <li xml:lang="en_GB">Take regular breaks to maintain productivity</li>
             <li xml:lang="fr">Prendre des pauses régulières pour maintenir la productivité</li>
             <li xml:lang="fr_CA">Prendre des pauses régulières pour maintenir la productivité</li>
+            <li xml:lang="de">Regelmäßige Pausen einlegen, um die Produktivität aufrechtzuerhalten</li>
         </ul>
     </description>
 
@@ -94,17 +112,21 @@
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-initial.png</image>
             <caption>Setting up a new timer session</caption>
-            <caption xml:lang="de">Einrichten einer neuen Timer-Sitzung</caption>
+            <caption xml:lang="en_US">Setting up a new timer session</caption>
+            <caption xml:lang="en_GB">Setting up a new timer session</caption>
             <caption xml:lang="fr">Configuration d'une nouvelle session de minuteur</caption>
             <caption xml:lang="fr_CA">Configuration d'une nouvelle session de minuterie</caption>
+            <caption xml:lang="de">Einrichten einer neuen Timer-Sitzung</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-running.png</image>
             <caption>Timer running during a work session</caption>
-            <caption xml:lang="de">Timer läuft während einer Arbeitssitzung</caption>
+            <caption xml:lang="en_US">Timer running during a work session</caption>
+            <caption xml:lang="en_GB">Timer running during a work session</caption>
             <caption xml:lang="fr">Minuteur en cours pendant une session de travail</caption>
             <caption xml:lang="fr_CA">Minuterie en cours pendant une session de travail</caption>
+            <caption xml:lang="de">Timer läuft während einer Arbeitssitzung</caption>
         </screenshot>
     </screenshots>
 
@@ -114,9 +136,11 @@
 
             <description>
                 <p>Improve translations</p>
-                <p xml:lang="de">Übersetzungen verbessert</p>
+                <p xml:lang="en_US">Improve translations</p>
+                <p xml:lang="en_GB">Improve translations</p>
                 <p xml:lang="fr">Améliorations des traductions</p>
                 <p xml:lang="fr_CA">Améliorations des traductions</p>
+                <p xml:lang="de">Übersetzungen verbessert</p>
             </description>
         </release>
         <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
@@ -124,9 +148,11 @@
 
             <description>
                 <p>Improve app summary</p>
-                <p xml:lang="de">App-Zusammenfassung verbessert</p>
+                <p xml:lang="en_US">Improve app summary</p>
+                <p xml:lang="en_GB">Improve app summary</p>
                 <p xml:lang="fr">Résumé de l'application amélioré</p>
                 <p xml:lang="fr_CA">Résumé de l'application amélioré</p>
+                <p xml:lang="de">App-Zusammenfassung verbessert</p>
             </description>
         </release>
         <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
@@ -134,9 +160,11 @@
 
             <description>
                 <p>Initial release</p>
-                <p xml:lang="de">Erste Veröffentlichung</p>
+                <p xml:lang="en_US">Initial release</p>
+                <p xml:lang="en_GB">Initial release</p>
                 <p xml:lang="fr">Version initiale</p>
                 <p xml:lang="fr_CA">Version initiale</p>
+                <p xml:lang="de">Erste Veröffentlichung</p>
             </description>
         </release>
     </releases>
