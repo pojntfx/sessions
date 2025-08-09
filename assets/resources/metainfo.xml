@@ -2,10 +2,10 @@
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
-    <summary>Visual timer for the pomodoro technique</summary>
-    <summary xml:lang="de">Visueller Timer für die Pomodoro-Technik</summary>
-    <summary xml:lang="fr">Minuteur visuel pour la technique pomodoro</summary>
-    <summary xml:lang="fr_CA">Minuterie visuelle pour la technique pomodoro</summary>
+    <summary>Focus with timed work intervals</summary>
+    <summary xml:lang="de">Fokussiere mit getakteten Arbeitsintervallen</summary>
+    <summary xml:lang="fr">Se concentrer avec des intervalles de travail chronométrés</summary>
+    <summary xml:lang="fr_CA">Se concentrer avec des intervalles de travail chronométrés</summary>
 
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>

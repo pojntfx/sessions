@@ -2,7 +2,7 @@
 
 # Sessions
 
-Visual timer for the pomodoro technique.
+Focus with timed work intervals.
 
 <br/>
 
@@ -40,7 +40,7 @@ The [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) is a 
 3. **Take a break**: When the timer ends, take a 5-minute break
 4. **Repeat**: After 4 sessions, take a longer 15-30 minute break
 
-🚀 **That's it!** We hope Sessions helps your with your productivity.
+🚀 **That's it!** We hope Sessions helps you with your productivity.
 
 ## Screenshots
 
