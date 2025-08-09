@@ -2,6 +2,11 @@
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
+    <name xml:lang="en">Sessions</name>
+    <name xml:lang="en_UK">Sessions</name>
+    <name xml:lang="fr">Sessions</name>
+    <name xml:lang="fr_CA">Sessions</name>
+    <name xml:lang="de">Sitzungen</name>
     <summary>Focus with timed work intervals</summary>
     <summary xml:lang="de">Fokussiere mit getakteten Arbeitsintervallen</summary>
     <summary xml:lang="fr">Se concentrer avec des intervalles de travail chronométrés</summary>
@@ -102,6 +107,16 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.1</url>
+
+            <description>
+                <p>Improve app summary</p>
+                <p xml:lang="de">App-Zusammenfassung verbessert</p>
+                <p xml:lang="fr">Résumé de l'application amélioré</p>
+                <p xml:lang="fr_CA">Résumé de l'application amélioré</p>
+            </description>
+        </release>
         <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.0</url>
 
