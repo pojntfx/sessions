@@ -2,13 +2,11 @@
 Version=1.0
 Type=Application
 Name=Sessions
-Name[en]=Sessions
 Name[en_GB]=Sessions
 Name[fr]=Sessions
 Name[fr_CA]=Sessions
 Name[de]=Sitzungen
 Comment=Focus with timed work intervals
-Comment[en]=Focus with timed work intervals
 Comment[en_GB]=Focus with timed work intervals
 Comment[fr]=Se concentrer avec des intervalles de travail chronométrés
 Comment[fr_CA]=Se concentrer avec des intervalles de travail chronométrés

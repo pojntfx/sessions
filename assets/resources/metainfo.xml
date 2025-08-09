@@ -2,7 +2,6 @@
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
-    <name xml:lang="en">Sessions</name>
     <name xml:lang="en_GB">Sessions</name>
     <name xml:lang="fr">Sessions</name>
     <name xml:lang="fr_CA">Sessions</name>
