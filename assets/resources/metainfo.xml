@@ -3,7 +3,7 @@
     <id>com.pojtinger.felicitas.Sessions</id>
     <name>Sessions</name>
     <name xml:lang="en">Sessions</name>
-    <name xml:lang="en_UK">Sessions</name>
+    <name xml:lang="en_GB">Sessions</name>
     <name xml:lang="fr">Sessions</name>
     <name xml:lang="fr_CA">Sessions</name>
     <name xml:lang="de">Sitzungen</name>
@@ -77,7 +77,7 @@
                 minuteur personnalisables</li>
             <li xml:lang="fr_CA">Démarrer des sessions de travail concentrées avec des durées de
                 minuterie personnalisables</li>
-            <li xml:lang="en_UK">Start focused work sessions with customisable timer durations</li>
+            <li xml:lang="en_GB">Start focused work sessions with customisable timer durations</li>
             <li>Track your progress with a clean, distraction-free interface</li>
             <li xml:lang="de">Ihren Fortschritt mit einer sauberen, ablenkungsfreien
                 Benutzeroberfläche verfolgen</li>
