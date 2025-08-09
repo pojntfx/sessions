@@ -1,6 +1,9 @@
 # github.com/KarpelesLab/weak v0.1.1
 ## explicit; go 1.18
 github.com/KarpelesLab/weak
+# github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa
+## explicit; go 1.24.4
+github.com/dennwc/flatpak-go-mod
 # github.com/diamondburned/gotk4-adwaita/pkg v0.0.0-20250703085337-e94555b846b6
 ## explicit; go 1.24.0
 github.com/diamondburned/gotk4-adwaita/pkg/adw
@@ -36,9 +39,6 @@ github.com/goccy/go-yaml/parser
 github.com/goccy/go-yaml/printer
 github.com/goccy/go-yaml/scanner
 github.com/goccy/go-yaml/token
-# github.com/pojntfx/flatpak-go-mod v0.0.0-20250808220202-3246d28571eb
-## explicit; go 1.24.4
-github.com/pojntfx/flatpak-go-mod
 # go4.org/unsafe/assume-no-moving-gc v0.0.0-20231121144256-b99613f794b6
 ## explicit; go 1.11
 go4.org/unsafe/assume-no-moving-gc
