@@ -35,6 +35,8 @@
         <binary>sessions</binary>
     </provides>
 
+    <translation type="gettext">default</translation>
+
     <supports>
         <control>pointing</control>
         <control>keyboard</control>
