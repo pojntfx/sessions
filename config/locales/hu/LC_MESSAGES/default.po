@@ -1,32 +1,35 @@
 msgid ""
 msgstr ""
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-08-09 20:38+0000\n"
+"Last-Translator: rdbende <rdbende@proton.me>\n"
+"Language-Team: Hungarian <https://hosted.weblate.org/projects/sessions/"
+"sessions/hu/>\n"
 "Language: hu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 msgid "Remove 30s"
-msgstr ""
+msgstr "30mp levonása"
 
 msgid "Start Timer"
-msgstr ""
+msgstr "Indítás"
 
 msgid "Add 30s"
-msgstr ""
+msgstr "30mp hozzáadása"
 
 msgid "About Sessions"
-msgstr ""
+msgstr "A Sessions névjegye"
 
 msgid "Stop"
-msgstr ""
+msgstr "Állj"
 
 msgid "Session finished"
-msgstr ""
+msgstr "A munkamenet befejeződött"
