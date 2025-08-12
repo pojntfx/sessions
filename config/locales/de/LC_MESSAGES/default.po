@@ -5,6 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
 #: ../../assets/resources/window.blp:7 ../../assets/resources/window.blp:14
+#: ../../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
+#: ../../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr "Sitzungen"
 
@@ -35,3 +37,61 @@ msgstr "Stoppen"
 #: ../../main.go:151
 msgid "Session finished"
 msgstr "Sitzung beendet"
+
+#: ../../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
+#: ../../assets/resources/metainfo.xml.in:5
+msgid "Focus with timed work intervals"
+msgstr "Fokussiere mit getakteten Arbeitsintervallen"
+
+#: ../../assets/resources/metainfo.xml.in:11
+msgid "Felicitas Pojtinger"
+msgstr ""
+
+#: ../../assets/resources/metainfo.xml.in:49
+msgid ""
+"Sessions is a simple visual timer application designed specifically for the "
+"pomodoro technique, helping you stay productive by breaking work into "
+"focused sessions with regular breaks."
+msgstr ""
+"Sessions ist eine einfache visuelle Timer-Anwendung, die speziell für die "
+"Pomodoro-Technik entwickelt wurde und Ihnen hilft, produktiv zu bleiben, "
+"indem sie die Arbeit in fokussierte Sitzungen mit regelmäßigen Pausen "
+"unterteilt."
+
+#: ../../assets/resources/metainfo.xml.in:50
+msgid "It enables you to:"
+msgstr "Es ermöglicht Ihnen:"
+
+#: ../../assets/resources/metainfo.xml.in:52
+msgid "Start focused work sessions with customizable timer durations"
+msgstr "Fokussierte Arbeitssitzungen mit anpassbaren Timer-Dauern starten"
+
+#: ../../assets/resources/metainfo.xml.in:53
+msgid "Track your progress with a clean, distraction-free interface"
+msgstr ""
+"Ihren Fortschritt mit einer sauberen, ablenkungsfreien Benutzeroberfläche "
+"verfolgen"
+
+#: ../../assets/resources/metainfo.xml.in:54
+msgid "Take regular breaks to maintain productivity"
+msgstr "Regelmäßige Pausen einlegen, um die Produktivität aufrechtzuerhalten"
+
+#: ../../assets/resources/metainfo.xml.in:62
+msgid "Setting up a new timer session"
+msgstr "Einrichten einer neuen Timer-Sitzung"
+
+#: ../../assets/resources/metainfo.xml.in:67
+msgid "Timer running during a work session"
+msgstr "Timer läuft während einer Arbeitssitzung"
+
+#: ../../assets/resources/metainfo.xml.in:76
+msgid "Improve translations"
+msgstr "Übersetzungen verbessert"
+
+#: ../../assets/resources/metainfo.xml.in:83
+msgid "Improve app summary"
+msgstr "App-Zusammenfassung verbessert"
+
+#: ../../assets/resources/metainfo.xml.in:90
+msgid "Initial release"
+msgstr "Erste Veröffentlichung"
