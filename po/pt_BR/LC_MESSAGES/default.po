@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-11 13:41+0200\n"
-"PO-Revision-Date: 2025-08-11 21:49+0000\n"
+"PO-Revision-Date: 2025-08-12 22:46+0000\n"
 "Last-Translator: Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "sessions/sessions/pt_BR/>\n"
@@ -51,7 +51,7 @@ msgstr "Sessão finalizada"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Sessões de foco com intervalos cronometrados"
 
 #: ../assets/resources/metainfo.xml.in:49
 msgid ""
@@ -59,43 +59,48 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"O Sessions é um aplicativo visual e simples de temporizador desenvolvido "
+"especialmente para a técnica Pomodoro que ajuda a aumentar a sua "
+"produtividade dividindo o trabalho em sessões focadas com intervalos "
+"regulares."
 
 #: ../assets/resources/metainfo.xml.in:52
 msgid "It enables you to:"
-msgstr ""
+msgstr "Isso permite a você:"
 
 #: ../assets/resources/metainfo.xml.in:54
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
+"Inicie sessões de trabalho focadas e personalize a duração do temporizador"
 
 #: ../assets/resources/metainfo.xml.in:55
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr ""
+msgstr "Acompanhe seu progresso em uma interface limpa, sem distrações"
 
 #: ../assets/resources/metainfo.xml.in:56
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Faça pausas regulares para manter a produtividade"
 
 #: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "Configure uma nova sessão do temporizador"
 
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "O temporizador está contando uma sessão de trabalho"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "Add additional translations"
-msgstr ""
+msgstr "Adicionar traduções"
 
 #: ../assets/resources/metainfo.xml.in:85
 msgid "Improve translations"
-msgstr ""
+msgstr "Melhorar traduções"
 
 #: ../assets/resources/metainfo.xml.in:92
 msgid "Improve app summary"
-msgstr ""
+msgstr "Melhorar a descrição do aplicativo"
 
 #: ../assets/resources/metainfo.xml.in:99
 msgid "Initial release"
-msgstr ""
+msgstr "Lançamento inicial"
