@@ -5,6 +5,9 @@
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": ["org.freedesktop.Sdk.Extension.golang"],
   "command": "sessions",
+  "build-options": {
+    "build-args": ["--filesystem=home"]
+  },
   "finish-args": [
     "--socket=wayland",
     "--socket=fallback-x11",
@@ -20,7 +23,12 @@
         {
           "type": "git",
           "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-          "tag": "v0.18.0"
+          "tag": "v0.18.0",
+          "x-checker-data": {
+            "type": "git",
+            "tag-pattern": "^v([\\d.]+)$",
+            "version-scheme": "semantic"
+          }
         }
       ]
     },
