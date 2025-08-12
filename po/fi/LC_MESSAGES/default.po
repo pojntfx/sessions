@@ -17,35 +17,35 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: ../assets/resources/window.blp:49
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:79
 msgid "Remove 30s"
-msgstr ""
+msgstr "Poista 30 s"
 
 #: ../assets/resources/window.blp:90 ../main.go:105
 msgid "Start Timer"
-msgstr ""
+msgstr "Käynnistä ajastin"
 
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
-msgstr ""
+msgstr "Lisää 30 s"
 
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
-msgstr ""
+msgstr "Tietoja - Sessions"
 
 #: ../main.go:100
 msgid "Stop"
-msgstr ""
+msgstr "Pysäytä"
 
 #: ../main.go:151
 msgid "Session finished"
-msgstr ""
+msgstr "Istunto valmistui"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
