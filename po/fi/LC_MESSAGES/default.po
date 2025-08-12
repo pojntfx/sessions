@@ -84,13 +84,17 @@ msgid "Timer running during a work session"
 msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:78
-msgid "Improve translations"
+msgid "Add additional translations"
 msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:85
-msgid "Improve app summary"
+msgid "Improve translations"
 msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:92
+msgid "Improve app summary"
+msgstr ""
+
+#: ../assets/resources/metainfo.xml.in:99
 msgid "Initial release"
 msgstr ""
