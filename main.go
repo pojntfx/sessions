@@ -72,6 +72,7 @@ func main() {
 	gio.ResourcesRegister(r)
 
 	a := adw.NewApplication(resources.AppID, gio.ApplicationHandlesOpen)
+	a.SetApplicationID(resources.AppID)
 
 	a.ConnectActivate(func() {
 		aboutDialog := adw.NewAboutDialogFromAppdata(resources.ResourceMetainfoPath, resources.AppVersion)
