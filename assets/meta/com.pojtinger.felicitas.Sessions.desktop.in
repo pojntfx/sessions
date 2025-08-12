@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Sessions
+Comment=Focus with timed work intervals
+Exec=sessions
+Icon=com.pojtinger.felicitas.Sessions
+Categories=Office;Utility;

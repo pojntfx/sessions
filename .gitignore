@@ -1,3 +1,6 @@
 *.gresource
 *.ui
 *.mo
+LINGUAS
+metainfo.xml
+*.desktop

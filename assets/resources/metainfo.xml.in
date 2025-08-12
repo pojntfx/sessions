@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+    <id>com.pojtinger.felicitas.Sessions</id>
+    <name translatable="yes">Sessions</name>
+    <summary translatable="yes">Focus with timed work intervals</summary>
+
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>AGPL-3.0-or-later</project_license>
+
+    <developer id="com.pojtinger.felicitas">
+        <name translatable="no">Felicitas Pojtinger</name>
+    </developer>
+
+    <content_rating type="oars-1.1" />
+
+    <url type="bugtracker">https://github.com/pojntfx/sessions/issues</url>
+    <url type="homepage">https://github.com/pojntfx/sessions/</url>
+    <url type="donation">https://github.com/sponsors/pojntfx</url>
+    <url type="help">https://matrix.to/#/#sessions:matrix.org?via=matrix.org</url>
+    <url type="contact">https://felicitas.pojtinger.com/imprint</url>
+    <url type="faq">https://github.com/pojntfx/sessions?tab=readme-ov-file#tutorial</url>
+    <url type="vcs-browser">https://github.com/pojntfx/sessions/</url>
+    <url type="translate">https://hosted.weblate.org/projects/sessions/</url>
+
+    <launchable type="desktop-id">com.pojtinger.felicitas.Sessions.desktop</launchable>
+
+    <provides>
+        <binary>sessions</binary>
+    </provides>
+
+    <translation type="gettext">default</translation>
+
+    <supports>
+        <control>pointing</control>
+        <control>keyboard</control>
+        <control>touch</control>
+    </supports>
+
+    <recommends>
+        <display_length compare="ge">360</display_length>
+    </recommends>
+
+    <branding>
+        <color type="primary" scheme_preference="light">#7bb4ff</color>
+        <color type="primary" scheme_preference="dark">#3584e4</color>
+    </branding>
+
+    <description>
+        <p translatable="yes">Sessions is a simple visual timer application designed specifically for the pomodoro technique, helping you stay productive by breaking work into focused sessions with regular breaks.</p>
+        <p translatable="yes">It enables you to:</p>
+        <ul>
+            <li translatable="yes">Start focused work sessions with customizable timer durations</li>
+            <li translatable="yes">Track your progress with a clean, distraction-free interface</li>
+            <li translatable="yes">Take regular breaks to maintain productivity</li>
+        </ul>
+    </description>
+
+    <screenshots>
+        <screenshot type="default">
+            <image>
+                https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-initial.png</image>
+            <caption translatable="yes">Setting up a new timer session</caption>
+        </screenshot>
+        <screenshot>
+            <image>
+                https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-running.png</image>
+            <caption translatable="yes">Timer running during a work session</caption>
+        </screenshot>
+    </screenshots>
+
+    <releases>
+        <release version="0.1.2" date='2025-08-09T01:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.2</url>
+
+            <description>
+                <p translatable="yes">Improve translations</p>
+            </description>
+        </release>
+        <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.1</url>
+
+            <description>
+                <p translatable="yes">Improve app summary</p>
+            </description>
+        </release>
+        <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.0</url>
+
+            <description>
+                <p translatable="yes">Initial release</p>
+            </description>
+        </release>
+    </releases>
+</component>

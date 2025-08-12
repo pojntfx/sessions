@@ -4,50 +4,50 @@ msgstr ""
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: ../../assets/resources/window.blp:7 ../../assets/resources/window.blp:14
-#: ../../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
-#: ../../assets/resources/metainfo.xml.in:4
+#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:14
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
+#: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr "Sessions"
 
-#: ../../assets/resources/window.blp:49
+#: ../assets/resources/window.blp:49
 msgid "05:00"
 msgstr "05:00"
 
-#: ../../assets/resources/window.blp:79
+#: ../assets/resources/window.blp:79
 msgid "Remove 30s"
 msgstr "Retirer 30s"
 
-#: ../../assets/resources/window.blp:90 ../../main.go:105
+#: ../assets/resources/window.blp:90 ../main.go:105
 msgid "Start Timer"
 msgstr "Démarrer la minuterie"
 
-#: ../../assets/resources/window.blp:101
+#: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Ajouter 30s"
 
-#: ../../assets/resources/window.blp:116
+#: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "À propos de Sessions"
 
-#: ../../main.go:100
+#: ../main.go:100
 msgid "Stop"
 msgstr "Arrêter"
 
-#: ../../main.go:151
+#: ../main.go:151
 msgid "Session finished"
 msgstr "Session terminée"
 
-#: ../../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
-#: ../../assets/resources/metainfo.xml.in:5
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
+#: ../assets/resources/metainfo.xml.in:5
 msgid "Focus with timed work intervals"
 msgstr "Se concentrer avec des intervalles de travail chronométrés"
 
-#: ../../assets/resources/metainfo.xml.in:11
+#: ../assets/resources/metainfo.xml.in:11
 msgid "Felicitas Pojtinger"
 msgstr ""
 
-#: ../../assets/resources/metainfo.xml.in:49
+#: ../assets/resources/metainfo.xml.in:49
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -57,40 +57,40 @@ msgstr ""
 "spécifiquement pour la technique pomodoro, vous aidant à rester productif en "
 "divisant le travail en sessions concentrées avec des pauses régulières."
 
-#: ../../assets/resources/metainfo.xml.in:50
+#: ../assets/resources/metainfo.xml.in:50
 msgid "It enables you to:"
 msgstr "Elle vous permet de :"
 
-#: ../../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:52
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 "Démarrer des sessions de travail concentrées avec des durées de minuterie "
 "personnalisables"
 
-#: ../../assets/resources/metainfo.xml.in:53
+#: ../assets/resources/metainfo.xml.in:53
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Suivre vos progrès avec une interface propre et sans distraction"
 
-#: ../../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:54
 msgid "Take regular breaks to maintain productivity"
 msgstr "Prendre des pauses régulières pour maintenir la productivité"
 
-#: ../../assets/resources/metainfo.xml.in:62
+#: ../assets/resources/metainfo.xml.in:62
 msgid "Setting up a new timer session"
 msgstr "Configuration d'une nouvelle session de minuterie"
 
-#: ../../assets/resources/metainfo.xml.in:67
+#: ../assets/resources/metainfo.xml.in:67
 msgid "Timer running during a work session"
 msgstr "Minuterie en cours pendant une session de travail"
 
-#: ../../assets/resources/metainfo.xml.in:76
+#: ../assets/resources/metainfo.xml.in:76
 msgid "Improve translations"
 msgstr "Améliorations des traductions"
 
-#: ../../assets/resources/metainfo.xml.in:83
+#: ../assets/resources/metainfo.xml.in:83
 msgid "Improve app summary"
 msgstr "Résumé de l'application amélioré"
 
-#: ../../assets/resources/metainfo.xml.in:90
+#: ../assets/resources/metainfo.xml.in:90
 msgid "Initial release"
 msgstr "Version initiale"

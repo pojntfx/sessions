@@ -17,7 +17,7 @@ import (
 	"github.com/diamondburned/gotk4/pkg/glib/v2"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
 	"github.com/pojntfx/sessions/assets/resources"
-	"github.com/pojntfx/sessions/config/locales"
+	po "github.com/pojntfx/sessions/po"
 )
 
 //go:generate sh -c "if [ -z \"$FLATPAK_ID\" ]; then go tool github.com/dennwc/flatpak-go-mod --json .; fi"
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer os.RemoveAll(i18t)
 
-	if err := fs.WalkDir(locales.FS, ".", func(path string, d fs.DirEntry, err error) error {
+	if err := fs.WalkDir(po.FS, ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -42,7 +42,7 @@ func main() {
 			return nil
 		}
 
-		src, err := locales.FS.Open(path)
+		src, err := po.FS.Open(path)
 		if err != nil {
 			return err
 		}
