@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
-    <name translatable="yes">Sessions</name>
-    <summary translatable="yes">Focus with timed work intervals</summary>
+    <name>Sessions</name>
+    <summary>Focus with timed work intervals</summary>
 
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
 
     <developer id="com.pojtinger.felicitas">
-        <name translatable="no">Felicitas Pojtinger</name>
+        <name translate="no">Felicitas Pojtinger</name>
     </developer>
 
     <content_rating type="oars-1.1" />
@@ -46,12 +46,14 @@
     </branding>
 
     <description>
-        <p translatable="yes">Sessions is a simple visual timer application designed specifically for the pomodoro technique, helping you stay productive by breaking work into focused sessions with regular breaks.</p>
-        <p translatable="yes">It enables you to:</p>
+        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
+        <p>It enables you to:</p>
         <ul>
-            <li translatable="yes">Start focused work sessions with customizable timer durations</li>
-            <li translatable="yes">Track your progress with a clean, distraction-free interface</li>
-            <li translatable="yes">Take regular breaks to maintain productivity</li>
+            <li>Start focused work sessions with customizable timer durations</li>
+            <li>Track your progress with a clean, distraction-free interface</li>
+            <li>Take regular breaks to maintain productivity</li>
         </ul>
     </description>
 
@@ -59,12 +61,12 @@
         <screenshot type="default">
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-initial.png</image>
-            <caption translatable="yes">Setting up a new timer session</caption>
+            <caption>Setting up a new timer session</caption>
         </screenshot>
         <screenshot>
             <image>
                 https://raw.githubusercontent.com/pojntfx/sessions/main/assets/meta/screenshot-running.png</image>
-            <caption translatable="yes">Timer running during a work session</caption>
+            <caption>Timer running during a work session</caption>
         </screenshot>
     </screenshots>
 
@@ -73,21 +75,21 @@
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.2</url>
 
             <description>
-                <p translatable="yes">Improve translations</p>
+                <p>Improve translations</p>
             </description>
         </release>
         <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.1</url>
 
             <description>
-                <p translatable="yes">Improve app summary</p>
+                <p>Improve app summary</p>
             </description>
         </release>
         <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.0</url>
 
             <description>
-                <p translatable="yes">Initial release</p>
+                <p>Initial release</p>
             </description>
         </release>
     </releases>

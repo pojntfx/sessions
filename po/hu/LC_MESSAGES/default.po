@@ -51,10 +51,6 @@ msgstr "A munkamenet befejeződött"
 msgid "Focus with timed work intervals"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:11
-msgid "Felicitas Pojtinger"
-msgstr ""
-
 #: ../assets/resources/metainfo.xml.in:49
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
@@ -62,38 +58,38 @@ msgid ""
 "focused sessions with regular breaks."
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:50
+#: ../assets/resources/metainfo.xml.in:52
 msgid "It enables you to:"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:54
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:53
+#: ../assets/resources/metainfo.xml.in:55
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:56
 msgid "Take regular breaks to maintain productivity"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:62
+#: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:67
+#: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:76
+#: ../assets/resources/metainfo.xml.in:78
 msgid "Improve translations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:83
+#: ../assets/resources/metainfo.xml.in:85
 msgid "Improve app summary"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:90
+#: ../assets/resources/metainfo.xml.in:92
 msgid "Initial release"
 msgstr ""
