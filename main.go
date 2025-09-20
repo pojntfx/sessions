@@ -363,6 +363,7 @@ func main() {
 		updateDial()
 
 		a.AddWindow(&w.Window)
+		w.Present()
 	})
 
 	if code := a.Run(os.Args); code > 0 {
