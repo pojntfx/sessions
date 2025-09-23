@@ -4,29 +4,29 @@ msgstr ""
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:14
+#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr "Sitzungen"
 
-#: ../assets/resources/window.blp:49
+#: ../assets/resources/window.blp:48
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:79
+#: ../assets/resources/window.blp:78
 msgid "Remove 30s"
 msgstr "30s entfernen"
 
-#: ../assets/resources/window.blp:90 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:105
 msgid "Start Timer"
 msgstr "Timer starten"
 
-#: ../assets/resources/window.blp:101
+#: ../assets/resources/window.blp:100
 msgid "Add 30s"
 msgstr "30s hinzufügen"
 
-#: ../assets/resources/window.blp:116
+#: ../assets/resources/window.blp:115
 msgid "About Sessions"
 msgstr "Über Sitzungen"
 
@@ -80,18 +80,26 @@ msgstr "Einrichten einer neuen Timer-Sitzung"
 msgid "Timer running during a work session"
 msgstr "Timer läuft während einer Arbeitssitzung"
 
-#: ../assets/resources/metainfo.xml.in:78
+#: ../assets/resources/metainfo.xml.in:79
+msgid "Fix icon not showing in overview on non-GNOME desktops"
+msgstr "Icon erscheint jetzt auch auf anderen Desktops als GNOME in der Übersicht"
+
+#: ../assets/resources/metainfo.xml.in:80
+msgid "Update to latest GNOME runtime"
+msgstr "Aktualisierung auf die neueste GNOME-Laufzeitumgebung"
+
+#: ../assets/resources/metainfo.xml.in:88
 msgid "Add additional translations"
 msgstr "Zusätzliche Übersetzungen hinzugefügt"
 
-#: ../assets/resources/metainfo.xml.in:85
+#: ../assets/resources/metainfo.xml.in:95
 msgid "Improve translations"
 msgstr "Übersetzungen verbessert"
 
-#: ../assets/resources/metainfo.xml.in:92
+#: ../assets/resources/metainfo.xml.in:102
 msgid "Improve app summary"
 msgstr "App-Zusammenfassung verbessert"
 
-#: ../assets/resources/metainfo.xml.in:99
+#: ../assets/resources/metainfo.xml.in:109
 msgid "Initial release"
 msgstr "Erste Veröffentlichung"

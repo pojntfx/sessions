@@ -12,7 +12,7 @@ import (
 
 const (
 	AppID      = "com.pojtinger.felicitas.Sessions"
-	AppVersion = "0.1.2"
+	AppVersion = "0.1.4"
 )
 
 //go:generate sh -c "blueprint-compiler batch-compile . . *.blp && glib-compile-resources *.gresource.xml"
@@ -22,7 +22,7 @@ var ResourceContents []byte
 var (
 	AppPath = path.Join("/com", "pojtinger", "felicitas", "Sessions")
 
-	AppDevelopers = []string{"Felicitas Pojtinger"}
+	AppDevelopers = []string{"Felicitas Pojtinger", "Guido Günther"}
 	AppArtists    = AppDevelopers
 	AppCopyright  = "© 2025 " + strings.Join(AppDevelopers, ", ")
 

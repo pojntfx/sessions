@@ -1,26 +1,26 @@
-#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:14
+#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr ""
 
-#: ../assets/resources/window.blp:49
+#: ../assets/resources/window.blp:48
 msgid "05:00"
 msgstr ""
 
-#: ../assets/resources/window.blp:79
+#: ../assets/resources/window.blp:78
 msgid "Remove 30s"
 msgstr ""
 
-#: ../assets/resources/window.blp:90 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:105
 msgid "Start Timer"
 msgstr ""
 
-#: ../assets/resources/window.blp:101
+#: ../assets/resources/window.blp:100
 msgid "Add 30s"
 msgstr ""
 
-#: ../assets/resources/window.blp:116
+#: ../assets/resources/window.blp:115
 msgid "About Sessions"
 msgstr ""
 
@@ -68,18 +68,26 @@ msgstr ""
 msgid "Timer running during a work session"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:78
+#: ../assets/resources/metainfo.xml.in:79
+msgid "Fix icon not showing in overview on non-GNOME desktops"
+msgstr ""
+
+#: ../assets/resources/metainfo.xml.in:80
+msgid "Update to latest GNOME runtime"
+msgstr ""
+
+#: ../assets/resources/metainfo.xml.in:88
 msgid "Add additional translations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:85
+#: ../assets/resources/metainfo.xml.in:95
 msgid "Improve translations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:92
+#: ../assets/resources/metainfo.xml.in:102
 msgid "Improve app summary"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:99
+#: ../assets/resources/metainfo.xml.in:109
 msgid "Initial release"
 msgstr ""

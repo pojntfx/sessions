@@ -4,29 +4,29 @@ msgstr ""
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:14
+#: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr "Sessions"
 
-#: ../assets/resources/window.blp:49
+#: ../assets/resources/window.blp:48
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:79
+#: ../assets/resources/window.blp:78
 msgid "Remove 30s"
 msgstr "Retirer 30s"
 
-#: ../assets/resources/window.blp:90 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:105
 msgid "Start Timer"
 msgstr "Démarrer le minuteur"
 
-#: ../assets/resources/window.blp:101
+#: ../assets/resources/window.blp:100
 msgid "Add 30s"
 msgstr "Ajouter 30s"
 
-#: ../assets/resources/window.blp:116
+#: ../assets/resources/window.blp:115
 msgid "About Sessions"
 msgstr "À propos de Sessions"
 
@@ -79,18 +79,26 @@ msgstr "Configuration d'une nouvelle session de minuteur"
 msgid "Timer running during a work session"
 msgstr "Minuteur en cours pendant une session de travail"
 
-#: ../assets/resources/metainfo.xml.in:78
+#: ../assets/resources/metainfo.xml.in:79
+msgid "Fix icon not showing in overview on non-GNOME desktops"
+msgstr "L'icône apparaît désormais dans la vue d'ensemble même sur les bureaux non-GNOME"
+
+#: ../assets/resources/metainfo.xml.in:80
+msgid "Update to latest GNOME runtime"
+msgstr "Mise à jour de l'environnement d'exécution GNOME vers la dernière version"
+
+#: ../assets/resources/metainfo.xml.in:88
 msgid "Add additional translations"
 msgstr "Ajout de traductions supplémentaires"
 
-#: ../assets/resources/metainfo.xml.in:85
+#: ../assets/resources/metainfo.xml.in:95
 msgid "Improve translations"
 msgstr "Améliorations des traductions"
 
-#: ../assets/resources/metainfo.xml.in:92
+#: ../assets/resources/metainfo.xml.in:102
 msgid "Improve app summary"
 msgstr "Résumé de l'application amélioré"
 
-#: ../assets/resources/metainfo.xml.in:99
+#: ../assets/resources/metainfo.xml.in:109
 msgid "Initial release"
 msgstr "Version initiale"
