@@ -91,6 +91,19 @@ func main() {
 		)
 
 		var (
+			alarmClockElapsedFile = gtk.NewMediaFileForResource(resources.ResourceAlarmClockElapsedPath)
+		)
+		startAlarmPlayback := func() {
+			alarmClockElapsedFile.Seek(0)
+			alarmClockElapsedFile.Play()
+		}
+
+		stopAlarmPlayback := func() {
+			alarmClockElapsedFile.SetPlaying(false)
+			alarmClockElapsedFile.Seek(0)
+		}
+
+		var (
 			totalSec = 300
 			running  = false
 		)
@@ -148,7 +161,13 @@ func main() {
 					updateButtons()
 					updateDial()
 
+					startAlarmPlayback()
+
 					n := gio.NewNotification(gcore.Local("Session finished"))
+					n.SetPriority(gio.NotificationPriorityUrgent)
+					n.SetDefaultAction("app.stopAlarmPlayback")
+					n.AddButton(gcore.Local("Stop alarm"), "app.stopAlarmPlayback")
+
 					a.SendNotification("session-finished", n)
 
 					return false
@@ -159,6 +178,8 @@ func main() {
 		}
 
 		startTimer := func() {
+			stopAlarmPlayback()
+
 			running = true
 			remain = time.Duration(totalSec) * time.Second
 
@@ -358,6 +379,14 @@ func main() {
 			aboutDialog.Present(&w.Window)
 		})
 		a.AddAction(openAboutAction)
+
+		stopAlarmPlaybackAction := gio.NewSimpleAction("stopAlarmPlayback", nil)
+		stopAlarmPlaybackAction.ConnectActivate(func(parameter *glib.Variant) {
+			stopAlarmPlayback()
+
+			a.Activate()
+		})
+		a.AddAction(stopAlarmPlaybackAction)
 
 		updateButtons()
 		updateDial()

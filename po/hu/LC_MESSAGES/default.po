@@ -26,7 +26,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "30mp levonása"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "Indítás"
 
@@ -38,13 +38,17 @@ msgstr "30mp hozzáadása"
 msgid "About Sessions"
 msgstr "A Sessions névjegye"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "Állj"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "A munkamenet befejeződött"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

@@ -18,7 +18,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "30s entfernen"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "Timer starten"
 
@@ -30,13 +30,17 @@ msgstr "30s hinzufügen"
 msgid "About Sessions"
 msgstr "Über Sitzungen"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "Stoppen"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "Sitzung beendet"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr "Alarm stoppen"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
@@ -82,7 +86,8 @@ msgstr "Timer läuft während einer Arbeitssitzung"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr "Icon erscheint jetzt auch auf anderen Desktops als GNOME in der Übersicht"
+msgstr ""
+"Icon erscheint jetzt auch auf anderen Desktops als GNOME in der Übersicht"
 
 #: ../assets/resources/metainfo.xml.in:80
 msgid "Update to latest GNOME runtime"

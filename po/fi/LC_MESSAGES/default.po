@@ -27,7 +27,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Poista 30 s"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "Käynnistä ajastin"
 
@@ -39,13 +39,17 @@ msgstr "Lisää 30 s"
 msgid "About Sessions"
 msgstr "Tietoja - Sessions"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "Istunto valmistui"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

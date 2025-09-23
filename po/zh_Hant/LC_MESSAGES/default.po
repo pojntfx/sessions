@@ -28,7 +28,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "減30秒"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "定時開始"
 
@@ -40,13 +40,17 @@ msgstr "加30秒"
 msgid "About Sessions"
 msgstr "關於Sessions"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "停"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "會期完"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

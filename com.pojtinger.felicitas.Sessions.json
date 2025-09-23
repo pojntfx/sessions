@@ -12,7 +12,8 @@
     "--socket=wayland",
     "--socket=fallback-x11",
     "--share=ipc",
-    "--device=dri"
+    "--device=dri",
+    "--socket=pulseaudio"
   ],
   "modules": [
     {

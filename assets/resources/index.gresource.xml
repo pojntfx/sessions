@@ -3,5 +3,6 @@
     <gresource prefix="/com/pojtinger/felicitas/Sessions">
         <file>window.ui</file>
         <file>metainfo.xml</file>
+        <file>alarm-clock-elapsed.oga</file>
     </gresource>
 </gresources>

@@ -28,7 +28,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Restar 30s"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "Empezar temporizador"
 
@@ -40,13 +40,17 @@ msgstr "Agregar 30s"
 msgid "About Sessions"
 msgstr "Acerca de Sesiones"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "Detener"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "Sesión terminada"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

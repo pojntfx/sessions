@@ -28,7 +28,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Menos 30s"
 
-#: ../assets/resources/window.blp:89 ../main.go:105
+#: ../assets/resources/window.blp:89 ../main.go:118
 msgid "Start Timer"
 msgstr "Iniciar Timer"
 
@@ -40,13 +40,17 @@ msgstr "Mais 30s"
 msgid "About Sessions"
 msgstr "Sobre o Sessions"
 
-#: ../main.go:100
+#: ../main.go:113
 msgid "Stop"
 msgstr "Encerrar"
 
-#: ../main.go:151
+#: ../main.go:166
 msgid "Session finished"
 msgstr "Sessão finalizada"
+
+#: ../main.go:169
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

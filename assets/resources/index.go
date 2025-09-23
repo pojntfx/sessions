@@ -26,6 +26,7 @@ var (
 	AppArtists    = AppDevelopers
 	AppCopyright  = "© 2025 " + strings.Join(AppDevelopers, ", ")
 
-	ResourceWindowUIPath = path.Join(AppPath, "window.ui")
-	ResourceMetainfoPath = path.Join(AppPath, "metainfo.xml")
+	ResourceWindowUIPath          = path.Join(AppPath, "window.ui")
+	ResourceMetainfoPath          = path.Join(AppPath, "metainfo.xml")
+	ResourceAlarmClockElapsedPath = path.Join(AppPath, "alarm-clock-elapsed.oga")
 )
