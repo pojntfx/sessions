@@ -84,27 +84,31 @@ msgstr "Einrichten einer neuen Timer-Sitzung"
 msgid "Timer running during a work session"
 msgstr "Timer läuft während einer Arbeitssitzung"
 
-#: ../assets/resources/metainfo.xml.in:79
+#: ../assets/resources/metainfo.xml.in:78
+msgid "Play alarm sound when timer finishes"
+msgstr "Alarmton wird abgespielt, wenn der Timer abläuft"
+
+#: ../assets/resources/metainfo.xml.in:86
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 "Icon erscheint jetzt auch auf anderen Desktops als GNOME in der Übersicht"
 
-#: ../assets/resources/metainfo.xml.in:80
+#: ../assets/resources/metainfo.xml.in:87
 msgid "Update to latest GNOME runtime"
 msgstr "Aktualisierung auf die neueste GNOME-Laufzeitumgebung"
 
-#: ../assets/resources/metainfo.xml.in:88
+#: ../assets/resources/metainfo.xml.in:95
 msgid "Add additional translations"
 msgstr "Zusätzliche Übersetzungen hinzugefügt"
 
-#: ../assets/resources/metainfo.xml.in:95
+#: ../assets/resources/metainfo.xml.in:102
 msgid "Improve translations"
 msgstr "Übersetzungen verbessert"
 
-#: ../assets/resources/metainfo.xml.in:102
+#: ../assets/resources/metainfo.xml.in:109
 msgid "Improve app summary"
 msgstr "App-Zusammenfassung verbessert"
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Initial release"
 msgstr "Erste Veröffentlichung"
