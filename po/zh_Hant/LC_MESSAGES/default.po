@@ -89,29 +89,35 @@ msgid "Timer running during a work session"
 msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:78
+msgid ""
+"Timer notification now focuses the existing window instead of opening a new "
+"one"
+msgstr ""
+
+#: ../assets/resources/metainfo.xml.in:85
 msgid "Play alarm sound when timer finishes"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:86
+#: ../assets/resources/metainfo.xml.in:93
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:87
+#: ../assets/resources/metainfo.xml.in:94
 msgid "Update to latest GNOME runtime"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:95
+#: ../assets/resources/metainfo.xml.in:102
 msgid "Add additional translations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:102
+#: ../assets/resources/metainfo.xml.in:109
 msgid "Improve translations"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Improve app summary"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:116
+#: ../assets/resources/metainfo.xml.in:123
 msgid "Initial release"
 msgstr ""

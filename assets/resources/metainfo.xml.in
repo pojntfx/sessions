@@ -71,6 +71,13 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.6" date='2025-09-27T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.6</url>
+
+            <description>
+                <p>Timer notification now focuses the existing window instead of opening a new one</p>
+            </description>
+        </release>
         <release version="0.1.5" date='2025-09-22T19:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.5</url>
 
