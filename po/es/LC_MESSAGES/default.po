@@ -20,35 +20,35 @@ msgstr ""
 msgid "Sessions"
 msgstr "Sesiones"
 
-#: ../assets/resources/window.blp:48
+#: ../assets/resources/window.blp:49
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:78
+#: ../assets/resources/window.blp:79
 msgid "Remove 30s"
 msgstr "Restar 30s"
 
-#: ../assets/resources/window.blp:89 ../main.go:118
+#: ../assets/resources/window.blp:90 ../main.go:125
 msgid "Start Timer"
 msgstr "Empezar temporizador"
 
-#: ../assets/resources/window.blp:100
+#: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Agregar 30s"
 
-#: ../assets/resources/window.blp:115
+#: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "Acerca de Sesiones"
 
-#: ../main.go:113
+#: ../main.go:120
 msgid "Stop"
 msgstr "Detener"
 
-#: ../main.go:166
+#: ../main.go:173
 msgid "Session finished"
 msgstr "Sesión terminada"
 
-#: ../main.go:169
+#: ../main.go:176
 msgid "Stop alarm"
 msgstr ""
 

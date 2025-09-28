@@ -71,9 +71,16 @@ func main() {
 	}
 	gio.ResourcesRegister(r)
 
-	a := adw.NewApplication(resources.AppID, gio.ApplicationHandlesOpen)
+	a := adw.NewApplication(resources.AppID, gio.ApplicationDefaultFlags)
 
+	var w *adw.ApplicationWindow
 	a.ConnectActivate(func() {
+		if w != nil {
+			w.Present()
+
+			return
+		}
+
 		aboutDialog := adw.NewAboutDialogFromAppdata(resources.ResourceMetainfoPath, resources.AppVersion)
 		aboutDialog.SetDevelopers(resources.AppDevelopers)
 		aboutDialog.SetArtists(resources.AppArtists)
@@ -81,8 +88,8 @@ func main() {
 
 		b := gtk.NewBuilderFromResource(resources.ResourceWindowUIPath)
 
+		w = b.GetObject("main_window").Cast().(*adw.ApplicationWindow)
 		var (
-			w      = b.GetObject("main_window").Cast().(*adw.Window)
 			dial   = b.GetObject("dial_area").Cast().(*gtk.DrawingArea)
 			label  = b.GetObject("analog_time_label").Cast().(*gtk.Label)
 			action = b.GetObject("action_button").Cast().(*gtk.Button)
