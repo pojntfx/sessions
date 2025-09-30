@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-11 13:41+0200\n"
-"PO-Revision-Date: 2025-08-12 22:46+0000\n"
+"PO-Revision-Date: 2025-09-30 11:02+0000\n"
 "Last-Translator: Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "sessions/sessions/pt_BR/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -50,7 +50,7 @@ msgstr "Sessão finalizada"
 
 #: ../main.go:176
 msgid "Stop alarm"
-msgstr ""
+msgstr "Parar o alarme"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
@@ -98,18 +98,20 @@ msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
 msgstr ""
+"A notificação do timer agora foca na janela existente em vez de abrir uma "
+"nova"
 
 #: ../assets/resources/metainfo.xml.in:85
 msgid "Play alarm sound when timer finishes"
-msgstr ""
+msgstr "Tocar um som quando o timer encerrar"
 
 #: ../assets/resources/metainfo.xml.in:93
 msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr ""
+msgstr "Corrigir ícone não exibido na visão geral em ambients não GNOME"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid "Update to latest GNOME runtime"
-msgstr ""
+msgstr "Atualizar para o GNOME runtime mais recente"
 
 #: ../assets/resources/metainfo.xml.in:102
 msgid "Add additional translations"
