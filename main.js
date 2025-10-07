@@ -1,10 +1,12 @@
 #!/usr/bin/env -S gjs -m
 
-import Cairo from "cairo";
 import Adw from "gi://Adw?version=1";
 import GLib from "gi://GLib";
 import GObject from "gi://GObject";
+import Gdk from "gi://Gdk?version=4.0";
 import Gio from "gi://Gio";
+import Graphene from "gi://Graphene";
+import Gsk from "gi://Gsk";
 import Gtk from "gi://Gtk?version=4.0";
 import system from "system";
 
@@ -16,7 +18,139 @@ const resource = Gio.Resource.load(
 );
 Gio.resources_register(resource);
 
-const  _ = (text) => GLib.dgettext("default", text)
+const _ = (text) => GLib.dgettext("default", text);
+
+const DialWidget = GObject.registerClass(
+  {
+    GTypeName: "DialWidget",
+  },
+  class DialWidget extends Gtk.Widget {
+    #totalSec = 300;
+    #running = false;
+    #remain = 0;
+
+    constructor(params) {
+      super(params);
+    }
+
+    setTimer(totalSec, running, remain) {
+      this.#totalSec = totalSec;
+      this.#running = running;
+      this.#remain = remain;
+      this.queue_draw();
+    }
+
+    vfunc_snapshot(snapshot) {
+      const w = this.get_width();
+      const h = this.get_height();
+      const cx = w / 2;
+      const cy = h / 2;
+      const r = Math.min(cx, cy) - 15;
+
+      const style = this.get_style_context();
+      const [, accent] = style.lookup_color("accent_bg_color");
+      const [, err] = style.lookup_color("error_bg_color");
+
+      const grayColor = new Gdk.RGBA();
+      grayColor.parse("rgb(179, 179, 179)");
+
+      const fullCircleBuilder = new Gsk.PathBuilder();
+      const centerPoint = new Graphene.Point();
+      centerPoint.init(cx, cy);
+      fullCircleBuilder.add_circle(centerPoint, r);
+      const fullCirclePath = fullCircleBuilder.to_path();
+      const fullCircleStroke = new Gsk.Stroke(10.0);
+      snapshot.append_stroke(fullCirclePath, fullCircleStroke, grayColor);
+
+      if (this.#totalSec > 0) {
+        const progress = this.#totalSec / 3600.0;
+        let angle, lineColor, fillColor;
+
+        if (this.#running && this.#remain > 0) {
+          const ratio = this.#remain / this.#totalSec;
+          angle = -Math.PI / 2 + 2 * Math.PI * progress * ratio;
+          lineColor = err;
+          fillColor = new Gdk.RGBA();
+          fillColor.red = err.red;
+          fillColor.green = err.green;
+          fillColor.blue = err.blue;
+          fillColor.alpha = 0.3;
+        } else {
+          angle = -Math.PI / 2 + 2 * Math.PI * progress;
+          lineColor = accent;
+          fillColor = new Gdk.RGBA();
+          fillColor.red = 0.6;
+          fillColor.green = 0.6;
+          fillColor.blue = 0.6;
+          fillColor.alpha = 0.2;
+        }
+
+        const startX = cx;
+        const startY = cy - r;
+        const endX = cx + r * Math.sin(angle + Math.PI / 2);
+        const endY = cy - r * Math.cos(angle + Math.PI / 2);
+
+        const arcBuilder = new Gsk.PathBuilder();
+        arcBuilder.move_to(cx, cy);
+        arcBuilder.line_to(startX, startY);
+        arcBuilder.svg_arc_to(
+          r,
+          r,
+          0,
+          angle + Math.PI / 2 > Math.PI,
+          true,
+          endX,
+          endY
+        );
+        arcBuilder.line_to(cx, cy);
+        const arcPath = arcBuilder.to_path();
+        snapshot.append_fill(arcPath, Gsk.FillRule.WINDING, fillColor);
+
+        const lineStrokeColor = new Gdk.RGBA();
+        lineStrokeColor.red = lineColor.red;
+        lineStrokeColor.green = lineColor.green;
+        lineStrokeColor.blue = lineColor.blue;
+        lineStrokeColor.alpha = 1.0;
+
+        const arcLineBuilder = new Gsk.PathBuilder();
+        arcLineBuilder.move_to(startX, startY);
+        arcLineBuilder.svg_arc_to(
+          r,
+          r,
+          0,
+          angle + Math.PI / 2 > Math.PI,
+          true,
+          endX,
+          endY
+        );
+        const arcLinePath = arcLineBuilder.to_path();
+        const arcStroke = new Gsk.Stroke(10.0);
+        arcStroke.set_line_cap(Gsk.LineCap.ROUND);
+        snapshot.append_stroke(arcLinePath, arcStroke, lineStrokeColor);
+
+        const dx = cx + r * Math.cos(angle);
+        const dy = cy + r * Math.sin(angle);
+
+        const handleColorRGBA = new Gdk.RGBA();
+        handleColorRGBA.red = lineColor.red;
+        handleColorRGBA.green = lineColor.green;
+        handleColorRGBA.blue = lineColor.blue;
+        handleColorRGBA.alpha = 1.0;
+
+        const handleBuilder = new Gsk.PathBuilder();
+        const handlePoint = new Graphene.Point();
+        handlePoint.init(dx, dy);
+        handleBuilder.add_circle(handlePoint, 8);
+        const handlePath = handleBuilder.to_path();
+        snapshot.append_fill(handlePath, Gsk.FillRule.WINDING, handleColorRGBA);
+      }
+    }
+
+    vfunc_measure(_orientation, _for_size) {
+      return [200, 200, -1, -1];
+    }
+  }
+);
 
 const SessionsMainWindow = GObject.registerClass(
   {
@@ -42,9 +176,11 @@ const SessionsMainWindow = GObject.registerClass(
     constructor(params) {
       super(params);
       this.#setupAlarm();
-      this.#setupDialDrawing();
+      this.#setupDialWidget();
       this.#setupDialGestures();
     }
+
+    #dialWidget = null;
 
     #setupAlarm() {
       this.#alarmMediaFile = Gtk.MediaFile.new_for_resource(
@@ -92,7 +228,10 @@ const SessionsMainWindow = GObject.registerClass(
       this._analog_time_label.set_text(
         `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`
       );
-      this._dial_area.queue_draw();
+
+      if (this.#dialWidget) {
+        this.#dialWidget.setTimer(this.#totalSec, this.#running, this.#remain);
+      }
     }
 
     #createSessionFinishedHandler() {
@@ -176,8 +315,8 @@ const SessionsMainWindow = GObject.registerClass(
         }
       }
 
-      const w = this._dial_area.get_width();
-      const h = this._dial_area.get_height();
+      const w = this.#dialWidget.get_width();
+      const h = this.#dialWidget.get_height();
       const cx = w / 2;
       const cy = h / 2;
       const dx = x - cx;
@@ -206,75 +345,12 @@ const SessionsMainWindow = GObject.registerClass(
       this.updateDial();
     }
 
-    #setupDialDrawing() {
-      this._dial_area.set_draw_func((area, cr, w, h) => {
-        const cx = w / 2;
-        const cy = h / 2;
-        const r = Math.min(cx, cy) - 15;
-
-        const style = area.get_style_context();
-        const [, accent] = style.lookup_color("accent_bg_color");
-        const [, err] = style.lookup_color("error_bg_color");
-
-        cr.setSourceRGB(0.7, 0.7, 0.7);
-        cr.setLineWidth(10);
-        cr.arc(cx, cy, r, 0, 2 * Math.PI);
-        cr.stroke();
-
-        if (this.#totalSec > 0) {
-          const progress = this.#totalSec / 3600.0;
-          const end = -Math.PI / 2 + 2 * Math.PI * progress;
-          let handleAngle,
-            handleColor,
-            angle,
-            lineColor,
-            fillR,
-            fillG,
-            fillB,
-            fillA;
-
-          if (this.#running && this.#remain > 0) {
-            const ratio = this.#remain / this.#totalSec;
-            angle = -Math.PI / 2 + 2 * Math.PI * progress * ratio;
-            lineColor = err;
-            fillR = err.red;
-            fillG = err.green;
-            fillB = err.blue;
-            fillA = 0.3;
-          } else {
-            angle = end;
-            lineColor = accent;
-            fillR = 0.6;
-            fillG = 0.6;
-            fillB = 0.6;
-            fillA = 0.2;
-          }
-
-          cr.setSourceRGBA(fillR, fillG, fillB, fillA);
-          cr.moveTo(cx, cy);
-          cr.arc(cx, cy, r, -Math.PI / 2, angle);
-          cr.lineTo(cx, cy);
-          cr.fill();
-
-          cr.setSourceRGB(lineColor.red, lineColor.green, lineColor.blue);
-          cr.setLineWidth(10);
-          cr.setLineCap(Cairo.LineCap.ROUND);
-          cr.arc(cx, cy, r, -Math.PI / 2, angle);
-          cr.stroke();
-
-          handleAngle = angle;
-          handleColor = lineColor;
-
-          const dx = cx + r * Math.cos(handleAngle);
-          const dy = cy + r * Math.sin(handleAngle);
-          cr.setSourceRGB(handleColor.red, handleColor.green, handleColor.blue);
-          cr.save();
-          cr.translate(dx, dy);
-          cr.arc(0, 0, 8, 0, 2 * Math.PI);
-          cr.fill();
-          cr.restore();
-        }
+    #setupDialWidget() {
+      this.#dialWidget = new DialWidget({
+        hexpand: true,
+        vexpand: true,
       });
+      this._dial_area.append(this.#dialWidget);
     }
 
     #setupDialGestures() {
@@ -305,8 +381,8 @@ const SessionsMainWindow = GObject.registerClass(
         this.#handleDialing(x, y);
       });
 
-      this._dial_area.add_controller(drag);
-      this._dial_area.add_controller(click);
+      this.#dialWidget.add_controller(drag);
+      this.#dialWidget.add_controller(click);
     }
 
     addTime() {
