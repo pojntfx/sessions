@@ -1,33 +1,6 @@
-# github.com/KarpelesLab/weak v0.1.1
-## explicit; go 1.18
-github.com/KarpelesLab/weak
 # github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa
 ## explicit; go 1.24.4
 github.com/dennwc/flatpak-go-mod
-# github.com/diamondburned/gotk4-adwaita/pkg v0.0.0-20250703085337-e94555b846b6
-## explicit; go 1.24.0
-github.com/diamondburned/gotk4-adwaita/pkg/adw
-# github.com/diamondburned/gotk4/pkg v0.3.2-0.20250703063411-16654385f59a
-## explicit; go 1.24.0
-github.com/diamondburned/gotk4/pkg/cairo
-github.com/diamondburned/gotk4/pkg/cairo/swizzle
-github.com/diamondburned/gotk4/pkg/core/closure
-github.com/diamondburned/gotk4/pkg/core/gbox
-github.com/diamondburned/gotk4/pkg/core/gcancel
-github.com/diamondburned/gotk4/pkg/core/gdebug
-github.com/diamondburned/gotk4/pkg/core/gerror
-github.com/diamondburned/gotk4/pkg/core/gextras
-github.com/diamondburned/gotk4/pkg/core/glib
-github.com/diamondburned/gotk4/pkg/core/intern
-github.com/diamondburned/gotk4/pkg/core/slab
-github.com/diamondburned/gotk4/pkg/gdk/v4
-github.com/diamondburned/gotk4/pkg/gdkpixbuf/v2
-github.com/diamondburned/gotk4/pkg/gio/v2
-github.com/diamondburned/gotk4/pkg/glib/v2
-github.com/diamondburned/gotk4/pkg/graphene
-github.com/diamondburned/gotk4/pkg/gsk/v4
-github.com/diamondburned/gotk4/pkg/gtk/v4
-github.com/diamondburned/gotk4/pkg/pango
 # github.com/goccy/go-yaml v1.18.0
 ## explicit; go 1.21.0
 github.com/goccy/go-yaml
@@ -39,15 +12,33 @@ github.com/goccy/go-yaml/parser
 github.com/goccy/go-yaml/printer
 github.com/goccy/go-yaml/scanner
 github.com/goccy/go-yaml/token
-# go4.org/unsafe/assume-no-moving-gc v0.0.0-20231121144256-b99613f794b6
-## explicit; go 1.11
-go4.org/unsafe/assume-no-moving-gc
+# github.com/jwijenbergh/purego v0.0.0-20251017112123-b71757b9ba42
+## explicit; go 1.18
+github.com/jwijenbergh/purego
+github.com/jwijenbergh/purego/internal/cgo
+github.com/jwijenbergh/purego/internal/fakecgo
+github.com/jwijenbergh/purego/internal/strings
+github.com/jwijenbergh/purego/internal/xreflect
+# github.com/jwijenbergh/puregotk v0.0.0-20251017112506-edf23b7ceb5e => ../puregotk
+## explicit; go 1.23.0
+github.com/jwijenbergh/puregotk/internal/core
+github.com/jwijenbergh/puregotk/pkg/core
+github.com/jwijenbergh/puregotk/v4/adw
+github.com/jwijenbergh/puregotk/v4/cairo
+github.com/jwijenbergh/puregotk/v4/gdk
+github.com/jwijenbergh/puregotk/v4/gdkpixbuf
+github.com/jwijenbergh/puregotk/v4/gio
+github.com/jwijenbergh/puregotk/v4/glib
+github.com/jwijenbergh/puregotk/v4/gmodule
+github.com/jwijenbergh/puregotk/v4/gobject
+github.com/jwijenbergh/puregotk/v4/gobject/types
+github.com/jwijenbergh/puregotk/v4/graphene
+github.com/jwijenbergh/puregotk/v4/gsk
+github.com/jwijenbergh/puregotk/v4/gtk
+github.com/jwijenbergh/puregotk/v4/pango
 # golang.org/x/mod v0.27.0
 ## explicit; go 1.23.0
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-## explicit
-golang.org/x/sync/singleflight
