@@ -2,17 +2,180 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
+	"runtime"
 	"time"
+	"unsafe"
 
 	"github.com/jwijenbergh/puregotk/v4/adw"
+	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/gio"
 	"github.com/jwijenbergh/puregotk/v4/glib"
+	"github.com/jwijenbergh/puregotk/v4/gobject"
+	"github.com/jwijenbergh/puregotk/v4/graphene"
+	"github.com/jwijenbergh/puregotk/v4/gsk"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 	"github.com/pojntfx/sessions/assets/resources"
 )
 
 //go:generate sh -c "if [ -z \"$FLATPAK_ID\" ]; then go tool github.com/dennwc/flatpak-go-mod --json .; fi"
+
+const (
+	dataKeyGoInstance = "go_instance"
+)
+
+var (
+	gTypeDialWidget gobject.Type
+)
+
+type dialWidget struct {
+	gtk.Widget
+	totalSec int
+	running  bool
+	remain   time.Duration
+}
+
+func init() {
+	var classInit gobject.ClassInitFunc = func(tc *gobject.TypeClass, u uintptr) {
+		objClass := (*gobject.ObjectClass)(unsafe.Pointer(tc))
+
+		objClass.OverrideConstructed(func(o *gobject.Object) {
+			parentObjClass := (*gobject.ObjectClass)(unsafe.Pointer(tc.PeekParent()))
+			parentObjClass.GetConstructed()(o)
+
+			var parent gtk.Widget
+			o.Cast(&parent)
+
+			w := &dialWidget{
+				Widget:   parent,
+				totalSec: 300,
+				running:  false,
+				remain:   0,
+			}
+
+			var pinner runtime.Pinner
+			pinner.Pin(w)
+
+			var cleanupCallback glib.DestroyNotify = func(data uintptr) {
+				pinner.Unpin()
+			}
+			o.SetDataFull(dataKeyGoInstance, uintptr(unsafe.Pointer(w)), &cleanupCallback)
+		})
+
+		widgetClass := (*gtk.WidgetClass)(unsafe.Pointer(tc))
+
+		widgetClass.OverrideSnapshot(func(widget *gtk.Widget, snapshot *gtk.Snapshot) {
+			dialW := (*dialWidget)(unsafe.Pointer(widget.GetData(dataKeyGoInstance)))
+			if dialW == nil {
+				return
+			}
+
+			w := float64(widget.GetWidth())
+			h := float64(widget.GetHeight())
+			cx := w / 2
+			cy := h / 2
+			r := math.Min(cx, cy) - 15
+
+			styleContext := widget.GetStyleContext()
+			var accent, errColor gdk.RGBA
+			styleContext.LookupColor("accent_bg_color", &accent)
+			styleContext.LookupColor("error_bg_color", &errColor)
+
+			grayColor := gdk.RGBA{
+				Red:   0.7,
+				Green: 0.7,
+				Blue:  0.7,
+				Alpha: 1.0,
+			}
+
+			fullCircleBuilder := gsk.NewPathBuilder()
+			centerPoint := graphene.Point{X: float32(cx), Y: float32(cy)}
+			fullCircleBuilder.AddCircle(&centerPoint, float32(r))
+			fullCirclePath := fullCircleBuilder.ToPath()
+			fullCircleStroke := gsk.NewStroke(10.0)
+			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &grayColor)
+
+			if dialW.totalSec > 0 {
+				progress := float64(dialW.totalSec) / 3600.0
+				end := -math.Pi/2 + 2*math.Pi*progress
+				var angle float64
+				var lineColor gdk.RGBA
+				var fillR, fillG, fillB, fillA float32
+
+				if dialW.running && dialW.remain > 0 {
+					ratio := dialW.remain.Seconds() / float64(dialW.totalSec)
+					angle = -math.Pi/2 + 2*math.Pi*progress*ratio
+					lineColor = errColor
+					fillR, fillG, fillB, fillA = errColor.Red, errColor.Green, errColor.Blue, 0.3
+				} else {
+					angle = end
+					lineColor = accent
+					fillR, fillG, fillB, fillA = 0.6, 0.6, 0.6, 0.2
+				}
+
+				fillColor := gdk.RGBA{
+					Red:   fillR,
+					Green: fillG,
+					Blue:  fillB,
+					Alpha: fillA,
+				}
+
+				startX := float32(cx)
+				startY := float32(cy - r)
+				endX := float32(cx + r*math.Sin(angle+math.Pi/2))
+				endY := float32(cy - r*math.Cos(angle+math.Pi/2))
+
+				arcBuilder := gsk.NewPathBuilder()
+				arcBuilder.MoveTo(float32(cx), float32(cy))
+				arcBuilder.LineTo(startX, startY)
+				arcBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
+				arcBuilder.LineTo(float32(cx), float32(cy))
+				arcPath := arcBuilder.ToPath()
+				snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
+
+				lineStrokeColor := gdk.RGBA{
+					Red:   lineColor.Red,
+					Green: lineColor.Green,
+					Blue:  lineColor.Blue,
+					Alpha: 1.0,
+				}
+
+				arcLineBuilder := gsk.NewPathBuilder()
+				arcLineBuilder.MoveTo(startX, startY)
+				arcLineBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
+				arcLinePath := arcLineBuilder.ToPath()
+				arcStroke := gsk.NewStroke(10.0)
+				arcStroke.SetLineCap(gsk.LineCapRoundValue)
+				snapshot.AppendStroke(arcLinePath, arcStroke, &lineStrokeColor)
+
+				handleX := float32(cx + r*math.Cos(angle))
+				handleY := float32(cy + r*math.Sin(angle))
+
+				handleBuilder := gsk.NewPathBuilder()
+				handlePoint := graphene.Point{X: handleX, Y: handleY}
+				handleBuilder.AddCircle(&handlePoint, 8)
+				handlePath := handleBuilder.ToPath()
+				snapshot.AppendFill(handlePath, gsk.FillRuleWindingValue, &lineColor)
+			}
+		})
+	}
+
+	var instanceInit gobject.InstanceInitFunc = func(ti *gobject.TypeInstance, tc *gobject.TypeClass) {}
+
+	var parentQuery gobject.TypeQuery
+	gobject.NewTypeQuery(gtk.WidgetGLibType(), &parentQuery)
+
+	gTypeDialWidget = gobject.TypeRegisterStaticSimple(
+		parentQuery.Type,
+		"DialWidget",
+		parentQuery.ClassSize,
+		&classInit,
+		parentQuery.InstanceSize+uint(unsafe.Sizeof(dialWidget{}))+uint(unsafe.Sizeof(&dialWidget{})),
+		&instanceInit,
+		0,
+	)
+}
 
 func main() {
 	resource, err := gio.NewResourceFromData(glib.NewBytes(resources.ResourceContents, uint(len(resources.ResourceContents))))
@@ -39,19 +202,28 @@ func main() {
 		b := gtk.NewBuilderFromResource(resources.ResourceWindowUIPath)
 
 		var (
-			win    adw.ApplicationWindow
-			label  gtk.Label
-			action gtk.Button
-			plus   gtk.Button
-			minus  gtk.Button
+			win      adw.ApplicationWindow
+			label    gtk.Label
+			action   gtk.Button
+			plus     gtk.Button
+			minus    gtk.Button
+			dialArea gtk.Box
 		)
 		b.GetObject("main_window").Cast(&win)
 		b.GetObject("analog_time_label").Cast(&label)
 		b.GetObject("action_button").Cast(&action)
 		b.GetObject("plus_button").Cast(&plus)
 		b.GetObject("minus_button").Cast(&minus)
+		b.GetObject("dial_area").Cast(&dialArea)
 
 		w = &win
+
+		dialObj := gobject.NewObject(gTypeDialWidget, "css-name")
+		var dial dialWidget
+		dialObj.Cast(&dial)
+		dial.Widget.SetHexpand(true)
+		dial.Widget.SetVexpand(true)
+		dialArea.Append(&dial.Widget)
 
 		var (
 			alarmClockElapsedFile = gtk.NewMediaFileForResource(resources.ResourceAlarmClockElapsedPath)
@@ -100,7 +272,12 @@ func main() {
 
 			label.SetText(fmt.Sprintf("%02d:%02d", m, s))
 
-			// TODO: Add dialer with GSK
+			dialW := (*dialWidget)(unsafe.Pointer(dialObj.GetData(dataKeyGoInstance)))
+
+			dialW.totalSec = totalSec
+			dialW.running = running
+			dialW.remain = remain
+			dial.Widget.QueueDraw()
 		}
 
 		var (
@@ -185,12 +362,33 @@ func main() {
 				}
 			}
 
-			// TODO: Add dialer with GSK
+			w, h := float64(dial.Widget.GetWidth()), float64(dial.Widget.GetHeight())
+			cx, cy := w/2, h/2
+			dx, dy := x-cx, y-cy
+
+			if math.Sqrt(dx*dx+dy*dy) < 15 {
+				return
+			}
+
+			a := math.Atan2(dy, dx) + math.Pi/2
+			if a < 0 {
+				a += 2 * math.Pi
+			}
+
+			intervals := int((a / (2 * math.Pi)) * 120)
+			if intervals == 0 {
+				intervals = 120
+			}
+
+			totalSec = intervals * 30
+
+			if paused {
+				remain = time.Duration(totalSec) * time.Second
+			}
 
 			updateDial()
+			updateButtons()
 		}
-
-		// TODO: Add dialer with GSK
 
 		drag := gtk.NewGestureDrag()
 		onDragBegin := func(_ gtk.GestureDrag, x float64, y float64) {
@@ -201,7 +399,7 @@ func main() {
 		onDragUpdate := func(drag gtk.GestureDrag, dx float64, dy float64) {
 			if dragging {
 				var x, y float64
-				drag.GetStartPoint(x, y) // TODO: Fix the bindings here (these should be pointers I think)
+				drag.GetStartPoint(x, y)
 				handleDialing(x+dx, y+dy)
 			}
 		}
@@ -224,7 +422,8 @@ func main() {
 		}
 		click.ConnectPressed(&onPress)
 
-		// TODO: Add dialer with GSK
+		dial.Widget.AddController(&drag.EventController)
+		dial.Widget.AddController(&click.Gesture.EventController)
 
 		toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
 		onToggleTimer := func(gio.SimpleAction, uintptr) {
