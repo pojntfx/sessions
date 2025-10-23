@@ -12,6 +12,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.13-dev\n"
 
+#: ../main.go:91
+msgid "Stop"
+msgstr "Állj"
+
+#: ../main.go:96 ../assets/resources/window.blp:90
+msgid "Start Timer"
+msgstr "Indítás"
+
+#: ../main.go:145
+msgid "Session finished"
+msgstr "A munkamenet befejeződött"
+
+#: ../main.go:148
+msgid "Stop alarm"
+msgstr ""
+
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
@@ -26,10 +42,6 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "30mp levonása"
 
-#: ../assets/resources/window.blp:90 ../main.go:125
-msgid "Start Timer"
-msgstr "Indítás"
-
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "30mp hozzáadása"
@@ -37,18 +49,6 @@ msgstr "30mp hozzáadása"
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "A Sessions névjegye"
-
-#: ../main.go:120
-msgid "Stop"
-msgstr "Állj"
-
-#: ../main.go:173
-msgid "Session finished"
-msgstr "A munkamenet befejeződött"
-
-#: ../main.go:176
-msgid "Stop alarm"
-msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

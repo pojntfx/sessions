@@ -14,6 +14,22 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.13-dev\n"
 
+#: ../main.go:91
+msgid "Stop"
+msgstr "停"
+
+#: ../main.go:96 ../assets/resources/window.blp:90
+msgid "Start Timer"
+msgstr "定時開始"
+
+#: ../main.go:145
+msgid "Session finished"
+msgstr "會期完"
+
+#: ../main.go:148
+msgid "Stop alarm"
+msgstr ""
+
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
@@ -28,10 +44,6 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "減30秒"
 
-#: ../assets/resources/window.blp:90 ../main.go:125
-msgid "Start Timer"
-msgstr "定時開始"
-
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "加30秒"
@@ -39,18 +51,6 @@ msgstr "加30秒"
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "關於Sessions"
-
-#: ../main.go:120
-msgid "Stop"
-msgstr "停"
-
-#: ../main.go:173
-msgid "Session finished"
-msgstr "會期完"
-
-#: ../main.go:176
-msgid "Stop alarm"
-msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

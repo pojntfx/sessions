@@ -14,6 +14,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.13\n"
 
+#: ../main.go:91
+msgid "Stop"
+msgstr "Encerrar"
+
+#: ../main.go:96 ../assets/resources/window.blp:90
+msgid "Start Timer"
+msgstr "Iniciar Timer"
+
+#: ../main.go:145
+msgid "Session finished"
+msgstr "Sessão finalizada"
+
+#: ../main.go:148
+msgid "Stop alarm"
+msgstr ""
+
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
@@ -28,10 +44,6 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Menos 30s"
 
-#: ../assets/resources/window.blp:90 ../main.go:125
-msgid "Start Timer"
-msgstr "Iniciar Timer"
-
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Mais 30s"
@@ -39,18 +51,6 @@ msgstr "Mais 30s"
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "Sobre o Sessions"
-
-#: ../main.go:120
-msgid "Stop"
-msgstr "Encerrar"
-
-#: ../main.go:173
-msgid "Session finished"
-msgstr "Sessão finalizada"
-
-#: ../main.go:176
-msgid "Stop alarm"
-msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

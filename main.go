@@ -21,8 +21,18 @@ import (
 
 //go:generate sh -c "if [ -z \"$FLATPAK_ID\" ]; then go tool github.com/dennwc/flatpak-go-mod --json .; fi"
 
+/*
+#cgo pkg-config: glib-2.0
+#include <locale.h>
+#include <glib/gi18n.h>
+*/
+import "C"
+
 const (
 	dataKeyGoInstance = "go_instance"
+
+	gettextPackage = "sessions"
+	localeDir      = "/usr/share/locale"
 )
 
 var (
@@ -30,6 +40,10 @@ var (
 	gTypeSessionsMainWindow  gobject.Type
 	gTypeSessionsApplication gobject.Type
 )
+
+func Gettext(key string) string {
+	return C.GoString(C.dgettext(C.CString(gettextPackage), C.CString(key)))
+}
 
 type dialWidget struct {
 	gtk.Widget
@@ -74,12 +88,12 @@ func (w *sessionsMainWindow) stopAlarmPlayback() {
 func (w *sessionsMainWindow) updateButtons() {
 	if w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
-		w.actionButton.SetLabel("Stop")
+		w.actionButton.SetLabel(Gettext("Stop"))
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
-		w.actionButton.SetLabel("Start Timer")
+		w.actionButton.SetLabel(Gettext("Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
 	}
@@ -128,10 +142,10 @@ func (w *sessionsMainWindow) createSessionFinishedHandler() glib.SourceFunc {
 
 			w.startAlarmPlayback()
 
-			n := gio.NewNotification("Session finished")
+			n := gio.NewNotification(Gettext("Session finished"))
 			n.SetPriority(gio.GNotificationPriorityUrgentValue)
 			n.SetDefaultAction("app.stopAlarmPlayback")
-			n.AddButton("Stop alarm", "app.stopAlarmPlayback")
+			n.AddButton(Gettext("Stop alarm"), "app.stopAlarmPlayback")
 
 			w.app.SendNotification("session-finished", n)
 
@@ -280,6 +294,18 @@ func (w *sessionsMainWindow) removeTime() {
 }
 
 func init() {
+	if C.bindtextdomain(C.CString(gettextPackage), C.CString(localeDir)) == nil {
+		panic("failed to bind text domain")
+	}
+
+	if C.bind_textdomain_codeset(C.CString(gettextPackage), C.CString("UTF-8")) == nil {
+		panic("failed to set text domain codeset")
+	}
+
+	if C.textdomain(C.CString(gettextPackage)) == nil {
+		panic("failed to set text domain")
+	}
+
 	var classInit gobject.ClassInitFunc = func(tc *gobject.TypeClass, u uintptr) {
 		objClass := (*gobject.ObjectClass)(unsafe.Pointer(tc))
 
