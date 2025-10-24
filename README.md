@@ -7,7 +7,7 @@ Focus with timed work intervals.
 <br/>
 
 [![Flatpak CI](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml/badge.svg)](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml)
-![Go Version](https://img.shields.io/badge/go%20version-%3E=1.22-61CFDD.svg)
+![Go Version](https://img.shields.io/badge/go%20version-%3E=1.25-61CFDD.svg)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pojntfx/sessions.svg)](https://pkg.go.dev/github.com/pojntfx/sessions)
 [![Matrix](https://img.shields.io/matrix/sessions:matrix.org)](https://matrix.to/#/#sessions:matrix.org?via=matrix.org)
 [![Weblate translation status](https://hosted.weblate.org/widget/sessions/svg-badge.svg)](https://hosted.weblate.org/engage/sessions/)

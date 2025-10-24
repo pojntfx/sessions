@@ -4,19 +4,19 @@ msgstr ""
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: ../main.go:91
+#: ../main.go:81
 msgid "Stop"
 msgstr "Stop"
 
-#: ../main.go:96 ../assets/resources/window.blp:90
+#: ../main.go:86 ../assets/resources/window.blp:90
 msgid "Start Timer"
 msgstr "Start Timer"
 
-#: ../main.go:145
+#: ../main.go:135
 msgid "Session finished"
 msgstr "Session finished"
 
-#: ../main.go:148
+#: ../main.go:138
 msgid "Stop alarm"
 msgstr "Stop alarm"
 

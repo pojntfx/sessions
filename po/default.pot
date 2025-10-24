@@ -1,16 +1,16 @@
-#: ../main.go:91
+#: ../main.go:81
 msgid "Stop"
 msgstr ""
 
-#: ../main.go:96 ../assets/resources/window.blp:90
+#: ../main.go:86 ../assets/resources/window.blp:90
 msgid "Start Timer"
 msgstr ""
 
-#: ../main.go:145
+#: ../main.go:135
 msgid "Session finished"
 msgstr ""
 
-#: ../main.go:148
+#: ../main.go:138
 msgid "Stop alarm"
 msgstr ""
 
