@@ -1,35 +1,40 @@
 package i18n
 
-/*
-#cgo pkg-config: glib-2.0
-#include <locale.h>
-#include <glib/gi18n.h>
-*/
-import "C"
 import (
 	"errors"
-	"unsafe"
+
+	"github.com/jwijenbergh/purego"
 )
 
+var (
+	bindtextdomain        func(domainname string, dirname string) string
+	bindTextdomainCodeset func(domainname string, codeset string) string
+	textdomain            func(domainname string) string
+	gettext               func(msgid string) string
+)
+
+func init() {
+	libc, err := purego.Dlopen("libc.so.6", purego.RTLD_NOW|purego.RTLD_GLOBAL)
+	if err != nil {
+		panic(err)
+	}
+
+	purego.RegisterLibFunc(&bindtextdomain, libc, "bindtextdomain")
+	purego.RegisterLibFunc(&bindTextdomainCodeset, libc, "bind_textdomain_codeset")
+	purego.RegisterLibFunc(&textdomain, libc, "textdomain")
+	purego.RegisterLibFunc(&gettext, libc, "gettext")
+}
+
 func InitI18n(domain, dir string) error {
-	cDomain := C.CString(domain)
-	defer C.free(unsafe.Pointer(cDomain))
-
-	cDir := C.CString(dir)
-	defer C.free(unsafe.Pointer(cDir))
-
-	if C.bindtextdomain(cDomain, cDir) == nil {
+	if bindtextdomain(domain, dir) == "" {
 		return errors.New("failed to bind text domain")
 	}
 
-	cUTF8 := C.CString("UTF-8")
-	defer C.free(unsafe.Pointer(cUTF8))
-
-	if C.bind_textdomain_codeset(cDomain, cUTF8) == nil {
+	if bindTextdomainCodeset(domain, "UTF-8") == "" {
 		return errors.New("failed to set text domain codeset")
 	}
 
-	if C.textdomain(cDomain) == nil {
+	if textdomain(domain) == "" {
 		return errors.New("failed to set text domain")
 	}
 
@@ -37,8 +42,5 @@ func InitI18n(domain, dir string) error {
 }
 
 func Local(input string) string {
-	cstr := C.CString(input)
-	defer C.free(unsafe.Pointer(cstr))
-
-	return C.GoString(C.gettext(cstr))
+	return gettext(input)
 }
