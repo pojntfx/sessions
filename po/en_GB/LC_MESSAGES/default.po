@@ -34,11 +34,11 @@ msgstr "About Sessions"
 msgid "Stop"
 msgstr "Stop"
 
-#: ../internal/components/main_window.go:117
+#: ../internal/components/main_window.go:111
 msgid "Session finished"
 msgstr "Session finished"
 
-#: ../internal/components/main_window.go:120
+#: ../internal/components/main_window.go:114
 msgid "Stop alarm"
 msgstr "Stop alarm"
 

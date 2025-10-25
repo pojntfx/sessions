@@ -44,11 +44,11 @@ msgstr "Sobre o Sessions"
 msgid "Stop"
 msgstr "Encerrar"
 
-#: ../internal/components/main_window.go:117
+#: ../internal/components/main_window.go:111
 msgid "Session finished"
 msgstr "Sessão finalizada"
 
-#: ../internal/components/main_window.go:120
+#: ../internal/components/main_window.go:114
 msgid "Stop alarm"
 msgstr "Parar o alarme"
 

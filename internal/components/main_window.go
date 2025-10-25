@@ -47,17 +47,17 @@ func NewMainWindow(FirstPropertyNameVar string, varArgs ...interface{}) MainWind
 	return v
 }
 
-func (w *MainWindow) startAlarmPlayback() {
+func (w *MainWindow) StartAlarmPlayback() {
 	w.alarmClockElapsedFile.Seek(0)
 	w.alarmClockElapsedFile.Play()
 }
 
-func (w *MainWindow) stopAlarmPlayback() {
+func (w *MainWindow) StopAlarmPlayback() {
 	w.alarmClockElapsedFile.SetPlaying(false)
 	w.alarmClockElapsedFile.Seek(0)
 }
 
-func (w *MainWindow) updateButtons() {
+func (w *MainWindow) UpdateButtons() {
 	if w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
 		w.actionButton.SetLabel(i18n.Local("Stop"))
@@ -74,7 +74,7 @@ func (w *MainWindow) updateButtons() {
 	w.minusButton.SetSensitive(w.totalSec > 30)
 }
 
-func (w *MainWindow) updateDial() {
+func (w *MainWindow) UpdateDial() {
 	var m, s int
 	if w.running {
 		m, s = int(w.remain.Minutes()), int(w.remain.Seconds())%60
@@ -84,13 +84,7 @@ func (w *MainWindow) updateDial() {
 
 	w.label.SetText(fmt.Sprintf("%02d:%02d", m, s))
 
-	dialW := (*Dial)(unsafe.Pointer(w.dialWidget.GetData(dataKeyGoInstance)))
-	if dialW != nil {
-		dialW.totalSec = w.totalSec
-		dialW.running = w.running
-		dialW.remain = w.remain
-		w.dialWidget.Widget.QueueDraw()
-	}
+	w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
 }
 
 func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
@@ -100,7 +94,7 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 		}
 
 		w.remain -= time.Second
-		w.updateDial()
+		w.UpdateDial()
 
 		if w.remain <= 0 {
 			w.running = false
@@ -109,10 +103,10 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 				w.timer = 0
 			}
 
-			w.updateButtons()
-			w.updateDial()
+			w.UpdateButtons()
+			w.UpdateDial()
 
-			w.startAlarmPlayback()
+			w.StartAlarmPlayback()
 
 			n := gio.NewNotification(i18n.Local("Session finished"))
 			n.SetPriority(gio.GNotificationPriorityUrgentValue)
@@ -128,28 +122,28 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 	}
 }
 
-func (w *MainWindow) startTimer() {
-	w.stopAlarmPlayback()
+func (w *MainWindow) StartTimer() {
+	w.StopAlarmPlayback()
 
 	w.running = true
 	w.remain = time.Duration(w.totalSec) * time.Second
 
-	w.updateButtons()
-	w.updateDial()
+	w.UpdateButtons()
+	w.UpdateDial()
 
 	cb := w.createSessionFinishedHandler()
 	w.timer = glib.TimeoutAdd(1000, &cb, 0)
 }
 
-func (w *MainWindow) stopTimer() {
+func (w *MainWindow) StopTimer() {
 	w.running = false
 	if w.timer > 0 {
 		glib.SourceRemove(w.timer)
 		w.timer = 0
 	}
 
-	w.updateButtons()
-	w.updateDial()
+	w.UpdateButtons()
+	w.UpdateDial()
 }
 
 func (w *MainWindow) resumeTimer() {
@@ -192,8 +186,7 @@ func (w *MainWindow) handleDialing(x, y float64) {
 		w.remain = time.Duration(w.totalSec) * time.Second
 	}
 
-	w.updateDial()
-	w.updateButtons()
+	w.UpdateDial()
 }
 
 func (w *MainWindow) setupDialGestures() {
@@ -206,7 +199,7 @@ func (w *MainWindow) setupDialGestures() {
 	onDragUpdate := func(drag gtk.GestureDrag, dx float64, dy float64) {
 		if w.dragging {
 			var x, y float64
-			drag.GetStartPoint(x, y)
+			drag.GetStartPoint(x, y) // TODO: Use fixed bindings here (we should be passing in pointers or returning those values)
 			w.handleDialing(x+dx, y+dy)
 		}
 	}
@@ -218,7 +211,7 @@ func (w *MainWindow) setupDialGestures() {
 			w.paused = false
 			w.resumeTimer()
 		} else if !w.running && w.totalSec > 0 {
-			w.startTimer()
+			w.StartTimer()
 		}
 	}
 	drag.ConnectDragEnd(&onDragEnd)
@@ -233,35 +226,35 @@ func (w *MainWindow) setupDialGestures() {
 	w.dialWidget.Widget.AddController(&click.Gesture.EventController)
 }
 
-func (w *MainWindow) toggleTimer() {
+func (w *MainWindow) ToggleTimer() {
 	if w.running {
-		w.stopTimer()
+		w.StopTimer()
 	} else if w.totalSec > 0 {
-		w.startTimer()
+		w.StartTimer()
 	}
 }
 
-func (w *MainWindow) addTime() {
+func (w *MainWindow) AddTime() {
 	if w.totalSec < 3600 {
 		w.totalSec += 30
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}
 
-		w.updateDial()
-		w.updateButtons()
+		w.UpdateDial()
+		w.UpdateButtons()
 	}
 }
 
-func (w *MainWindow) removeTime() {
+func (w *MainWindow) RemoveTime() {
 	if w.totalSec > 30 {
 		w.totalSec -= 30
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}
 
-		w.updateDial()
-		w.updateButtons()
+		w.UpdateDial()
+		w.UpdateButtons()
 	}
 }
 

@@ -18,6 +18,7 @@ var (
 
 type Application struct {
 	adw.Application
+
 	window      *MainWindow
 	aboutDialog *adw.AboutDialog
 }
@@ -79,26 +80,26 @@ func init() {
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 			sessionsApp.window.app = &sessionsApp.Application
 
-			sessionsApp.window.updateButtons()
-			sessionsApp.window.updateDial()
+			sessionsApp.window.UpdateButtons()
+			sessionsApp.window.UpdateDial()
 
 			toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
 			onToggleTimer := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.toggleTimer()
+				sessionsApp.window.ToggleTimer()
 			}
 			toggleTimerAction.ConnectActivate(&onToggleTimer)
 			sessionsApp.Application.AddAction(toggleTimerAction)
 
 			addTimeAction := gio.NewSimpleAction("addTime", nil)
 			onAddTime := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.addTime()
+				sessionsApp.window.AddTime()
 			}
 			addTimeAction.ConnectActivate(&onAddTime)
 			sessionsApp.Application.AddAction(addTimeAction)
 
 			removeTimeAction := gio.NewSimpleAction("removeTime", nil)
 			onRemoveTime := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.removeTime()
+				sessionsApp.window.RemoveTime()
 			}
 			removeTimeAction.ConnectActivate(&onRemoveTime)
 			sessionsApp.Application.AddAction(removeTimeAction)
@@ -112,7 +113,7 @@ func init() {
 
 			stopAlarmPlaybackAction := gio.NewSimpleAction("stopAlarmPlayback", nil)
 			onStopAlarmPlaybackAction := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.stopAlarmPlayback()
+				sessionsApp.window.StopAlarmPlayback()
 				sessionsApp.Application.Activate()
 			}
 			stopAlarmPlaybackAction.ConnectActivate(&onStopAlarmPlaybackAction)

@@ -35,6 +35,16 @@ func NewDial(FirstPropertyNameVar string, varArgs ...interface{}) Dial {
 	return v
 }
 
+func (d *Dial) SetTimer(totalSec int, running bool, remain time.Duration) {
+	dialW := (*Dial)(unsafe.Pointer(d.Widget.GetData(dataKeyGoInstance)))
+
+	dialW.totalSec = totalSec
+	dialW.running = running
+	dialW.remain = remain
+
+	d.Widget.QueueDraw()
+}
+
 func init() {
 	var classInit gobject.ClassInitFunc = func(tc *gobject.TypeClass, u uintptr) {
 		objClass := (*gobject.ObjectClass)(unsafe.Pointer(tc))
