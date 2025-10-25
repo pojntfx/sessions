@@ -14,3 +14,5 @@ require (
 	github.com/goccy/go-yaml v1.18.0 // indirect
 	golang.org/x/mod v0.27.0 // indirect
 )
+
+replace github.com/jwijenbergh/puregotk => github.com/pojntfx/puregotk v0.0.0-20251025231904-c77cab625c00

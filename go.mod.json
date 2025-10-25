@@ -13,10 +13,10 @@
   },
   {
     "dest": "vendor/github.com/jwijenbergh/puregotk",
-    "sha256": "da185d44c60970452693f68df88840c18193effa17194c8630fe8f31445ca6a3",
+    "sha256": "e0250ddaa1fcbf9fabf60e1bc132994ca32cd007032d112c684353f30ef6b729",
     "strip-components": 3,
     "type": "archive",
-    "url": "https://proxy.golang.org/github.com/jwijenbergh/puregotk/@v/v0.0.0-20251022075221-eae1610c7d83.zip"
+    "url": "https://proxy.golang.org/github.com/pojntfx/puregotk/@v/v0.0.0-20251025231904-c77cab625c00.zip"
   },
   {
     "dest": "vendor/github.com/dennwc/flatpak-go-mod",

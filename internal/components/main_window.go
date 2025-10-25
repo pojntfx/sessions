@@ -199,7 +199,7 @@ func (w *MainWindow) setupDialGestures() {
 	onDragUpdate := func(drag gtk.GestureDrag, dx float64, dy float64) {
 		if w.dragging {
 			var x, y float64
-			drag.GetStartPoint(x, y) // TODO: Use fixed bindings here (we should be passing in pointers or returning those values)
+			drag.GetStartPoint(&x, &y)
 			w.handleDialing(x+dx, y+dy)
 		}
 	}
