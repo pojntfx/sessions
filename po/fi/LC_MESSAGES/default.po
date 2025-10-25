@@ -13,22 +13,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Translate Toolkit 3.15.6\n"
 
-#: ../main.go:81
-msgid "Stop"
-msgstr "Pysäytä"
-
-#: ../main.go:86 ../assets/resources/window.blp:90
-msgid "Start Timer"
-msgstr "Käynnistä ajastin"
-
-#: ../main.go:135
-msgid "Session finished"
-msgstr "Istunto valmistui"
-
-#: ../main.go:138
-msgid "Stop alarm"
-msgstr ""
-
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
@@ -43,6 +27,10 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Poista 30 s"
 
+#: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
+msgid "Start Timer"
+msgstr "Käynnistä ajastin"
+
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Lisää 30 s"
@@ -50,6 +38,18 @@ msgstr "Lisää 30 s"
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "Tietoja - Sessions"
+
+#: ../internal/components/main_window.go:63
+msgid "Stop"
+msgstr "Pysäytä"
+
+#: ../internal/components/main_window.go:117
+msgid "Session finished"
+msgstr "Istunto valmistui"
+
+#: ../internal/components/main_window.go:120
+msgid "Stop alarm"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

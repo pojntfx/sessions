@@ -4,22 +4,6 @@ msgstr ""
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
-#: ../main.go:81
-msgid "Stop"
-msgstr "Stop"
-
-#: ../main.go:86 ../assets/resources/window.blp:90
-msgid "Start Timer"
-msgstr "Start Timer"
-
-#: ../main.go:135
-msgid "Session finished"
-msgstr "Session finished"
-
-#: ../main.go:138
-msgid "Stop alarm"
-msgstr "Stop alarm"
-
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
@@ -34,6 +18,10 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Remove 30s"
 
+#: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
+msgid "Start Timer"
+msgstr "Start Timer"
+
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Add 30s"
@@ -41,6 +29,18 @@ msgstr "Add 30s"
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "About Sessions"
+
+#: ../internal/components/main_window.go:63
+msgid "Stop"
+msgstr "Stop"
+
+#: ../internal/components/main_window.go:117
+msgid "Session finished"
+msgstr "Session finished"
+
+#: ../internal/components/main_window.go:120
+msgid "Stop alarm"
+msgstr "Stop alarm"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5

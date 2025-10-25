@@ -20,11 +20,11 @@ Gio.resources_register(resource);
 
 const _ = (text) => GLib.dgettext("default", text);
 
-const DialWidget = GObject.registerClass(
+const Dial = GObject.registerClass(
   {
-    GTypeName: "DialWidget",
+    GTypeName: "Dial",
   },
-  class DialWidget extends Gtk.Widget {
+  class Dial extends Gtk.Widget {
     #totalSec = 300;
     #running = false;
     #remain = 0;
@@ -152,9 +152,9 @@ const DialWidget = GObject.registerClass(
   }
 );
 
-const SessionsMainWindow = GObject.registerClass(
+const MainWindow = GObject.registerClass(
   {
-    GTypeName: "SessionsMainWindow",
+    GTypeName: "MainWindow",
     Template: "resource:///com/pojtinger/felicitas/Sessions/window.ui",
     InternalChildren: [
       "dial_area",
@@ -164,7 +164,7 @@ const SessionsMainWindow = GObject.registerClass(
       "minus_button",
     ],
   },
-  class SessionsMainWindow extends Adw.ApplicationWindow {
+  class MainWindow extends Adw.ApplicationWindow {
     #totalSec = 300;
     #running = false;
     #remain = 0;
@@ -346,7 +346,7 @@ const SessionsMainWindow = GObject.registerClass(
     }
 
     #setupDialWidget() {
-      this.#dialWidget = new DialWidget({
+      this.#dialWidget = new Dial({
         hexpand: true,
         vexpand: true,
       });
@@ -419,11 +419,11 @@ const SessionsMainWindow = GObject.registerClass(
   }
 );
 
-const SessionsApplication = GObject.registerClass(
+const Application = GObject.registerClass(
   {
-    GTypeName: "SessionsApplication",
+    GTypeName: "Application",
   },
-  class SessionsApplication extends Adw.Application {
+  class Application extends Adw.Application {
     constructor() {
       super({
         application_id: "com.pojtinger.felicitas.Sessions",
@@ -456,7 +456,7 @@ const SessionsApplication = GObject.registerClass(
     }
 
     #setupWindow() {
-      this.#window = new SessionsMainWindow({
+      this.#window = new MainWindow({
         application: this,
       });
 
@@ -502,4 +502,4 @@ const SessionsApplication = GObject.registerClass(
   }
 );
 
-new SessionsApplication().run([system.programInvocationName, ...ARGV]);
+new Application().run([system.programInvocationName, ...ARGV]);
