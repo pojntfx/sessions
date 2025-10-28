@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/jwijenbergh/purego"
-	"github.com/pojntfx/sessions/internal/libc"
 )
 
 var (
@@ -14,24 +13,27 @@ var (
 	gettext               func(msgid string) string
 )
 
-func init() {
-	libcName, err := libc.GetLibCName()
+func InitI18n(domain, dir string) error {
+	gettextLibNames, err := getGettextLibraryNames()
 	if err != nil {
-		panic(err)
+		return errors.Join(errors.New("could get gettext library names"), err)
 	}
 
-	libc, err := libc.OpenLibrary(libcName)
-	if err != nil {
-		panic(err)
+	var libc uintptr
+	for _, gettextLibName := range gettextLibNames {
+		libc, err = openLibrary(gettextLibName)
+		if err != nil {
+			return errors.Join(errors.New("could not open library"), err)
+		} else {
+			break
+		}
 	}
 
 	purego.RegisterLibFunc(&bindtextdomain, libc, "bindtextdomain")
 	purego.RegisterLibFunc(&bindTextdomainCodeset, libc, "bind_textdomain_codeset")
 	purego.RegisterLibFunc(&textdomain, libc, "textdomain")
 	purego.RegisterLibFunc(&gettext, libc, "gettext")
-}
 
-func InitI18n(domain, dir string) error {
 	if bindtextdomain(domain, dir) == "" {
 		return errors.New("failed to bind text domain")
 	}

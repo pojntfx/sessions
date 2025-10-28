@@ -1,11 +1,14 @@
 // Imported with changes from https://github.com/ebitengine/purego/blob/main/examples/libc/main_unix.go
 
-package libc
+package i18n
 
 import "syscall"
 
-func OpenLibrary(name string) (uintptr, error) {
+func openLibrary(name string) (uintptr, error) {
 	handle, err := syscall.LoadLibrary(name)
+	if err != nil {
+		return 0, err
+	}
 
-	return uintptr(handle), err
+	return uintptr(handle), nil
 }
