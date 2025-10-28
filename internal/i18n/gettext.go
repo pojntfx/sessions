@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/jwijenbergh/purego"
+	"github.com/pojntfx/sessions/internal/libc"
 )
 
 var (
@@ -14,7 +15,12 @@ var (
 )
 
 func init() {
-	libc, err := purego.Dlopen("libc.so.6", purego.RTLD_NOW|purego.RTLD_GLOBAL)
+	libcName, err := libc.GetLibCName()
+	if err != nil {
+		panic(err)
+	}
+
+	libc, err := libc.OpenLibrary(libcName)
 	if err != nil {
 		panic(err)
 	}
