@@ -5,18 +5,18 @@
     "type": "file"
   },
   {
-    "dest": "vendor/github.com/jwijenbergh/purego",
-    "sha256": "aa4903b6c7333843f77e6012d68c89846462f4755fe6201a4069e69547d1000e",
-    "strip-components": 3,
-    "type": "archive",
-    "url": "https://proxy.golang.org/github.com/jwijenbergh/purego/@v/v0.0.0-20251017112123-b71757b9ba42.zip"
-  },
-  {
     "dest": "vendor/github.com/jwijenbergh/puregotk",
     "sha256": "e0250ddaa1fcbf9fabf60e1bc132994ca32cd007032d112c684353f30ef6b729",
     "strip-components": 3,
     "type": "archive",
     "url": "https://proxy.golang.org/github.com/pojntfx/puregotk/@v/v0.0.0-20251025231904-c77cab625c00.zip"
+  },
+  {
+    "dest": "vendor/github.com/pojntfx/go-gettext",
+    "sha256": "d6a318d7d87cd5ef83524ba54a9beb0a266cdbf6a6d948b3d6e8391d103bd153",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/pojntfx/go-gettext/@v/v0.1.0.zip"
   },
   {
     "dest": "vendor/github.com/dennwc/flatpak-go-mod",
@@ -31,6 +31,13 @@
     "strip-components": 3,
     "type": "archive",
     "url": "https://proxy.golang.org/github.com/goccy/go-yaml/@v/v1.18.0.zip"
+  },
+  {
+    "dest": "vendor/github.com/jwijenbergh/purego",
+    "sha256": "aa4903b6c7333843f77e6012d68c89846462f4755fe6201a4069e69547d1000e",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/jwijenbergh/purego/@v/v0.0.0-20251017112123-b71757b9ba42.zip"
   },
   {
     "dest": "vendor/golang.org/x/mod",
