@@ -12,7 +12,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
-	"github.com/pojntfx/go-gettext/pkg/i18n"
+	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
 )
 
@@ -60,12 +60,12 @@ func (w *MainWindow) StopAlarmPlayback() {
 func (w *MainWindow) UpdateButtons() {
 	if w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
-		w.actionButton.SetLabel(i18n.Local("Stop"))
+		w.actionButton.SetLabel(L("Stop"))
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
-		w.actionButton.SetLabel(i18n.Local("Start Timer"))
+		w.actionButton.SetLabel(L("Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
 	}
@@ -108,10 +108,10 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 
 			w.StartAlarmPlayback()
 
-			n := gio.NewNotification(i18n.Local("Session finished"))
+			n := gio.NewNotification(L("Session finished"))
 			n.SetPriority(gio.GNotificationPriorityUrgentValue)
 			n.SetDefaultAction("app.stopAlarmPlayback")
-			n.AddButton(i18n.Local("Stop alarm"), "app.stopAlarmPlayback")
+			n.AddButton(L("Stop alarm"), "app.stopAlarmPlayback")
 
 			w.app.SendNotification("session-finished", n)
 
