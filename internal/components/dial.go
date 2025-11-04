@@ -99,10 +99,13 @@ func init() {
 			}
 
 			fullCircleBuilder := gsk.NewPathBuilder()
+			defer fullCircleBuilder.Unref()
 			centerPoint := graphene.Point{X: float32(cx), Y: float32(cy)}
 			fullCircleBuilder.AddCircle(&centerPoint, float32(r))
 			fullCirclePath := fullCircleBuilder.ToPath()
+			defer fullCirclePath.Unref()
 			fullCircleStroke := gsk.NewStroke(10.0)
+			defer fullCircleStroke.Free()
 			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &grayColor)
 
 			if dialW.totalSec > 0 {
@@ -136,11 +139,13 @@ func init() {
 				endY := float32(cy - r*math.Cos(angle+math.Pi/2))
 
 				arcBuilder := gsk.NewPathBuilder()
+				defer arcBuilder.Unref()
 				arcBuilder.MoveTo(float32(cx), float32(cy))
 				arcBuilder.LineTo(startX, startY)
 				arcBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
 				arcBuilder.LineTo(float32(cx), float32(cy))
 				arcPath := arcBuilder.ToPath()
+				defer arcPath.Unref()
 				snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
 
 				lineStrokeColor := gdk.RGBA{
@@ -151,10 +156,13 @@ func init() {
 				}
 
 				arcLineBuilder := gsk.NewPathBuilder()
+				defer arcLineBuilder.Unref()
 				arcLineBuilder.MoveTo(startX, startY)
 				arcLineBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
 				arcLinePath := arcLineBuilder.ToPath()
+				defer arcLinePath.Unref()
 				arcStroke := gsk.NewStroke(10.0)
+				defer arcStroke.Free()
 				arcStroke.SetLineCap(gsk.LineCapRoundValue)
 				snapshot.AppendStroke(arcLinePath, arcStroke, &lineStrokeColor)
 
@@ -162,9 +170,11 @@ func init() {
 				handleY := float32(cy + r*math.Sin(angle))
 
 				handleBuilder := gsk.NewPathBuilder()
+				defer handleBuilder.Unref()
 				handlePoint := graphene.Point{X: handleX, Y: handleY}
 				handleBuilder.AddCircle(&handlePoint, 8)
 				handlePath := handleBuilder.ToPath()
+				defer handlePath.Unref()
 				snapshot.AppendFill(handlePath, gsk.FillRuleWindingValue, &lineColor)
 			}
 		})
