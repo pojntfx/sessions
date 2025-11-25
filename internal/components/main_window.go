@@ -315,7 +315,8 @@ func init() {
 			dialArea.Append(&dial.Widget)
 
 			w := &MainWindow{
-				ApplicationWindow:     parent,
+				ApplicationWindow: parent,
+
 				dialWidget:            &dial,
 				label:                 &label,
 				actionButton:          &actionButton,

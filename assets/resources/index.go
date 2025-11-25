@@ -23,7 +23,7 @@ var (
 	AppPath = path.Join("/com", "pojtinger", "felicitas", "Sessions")
 
 	AppDevelopers = []string{"Felicitas Pojtinger", "Guido Günther"}
-	AppArtists    = AppDevelopers
+	AppArtists    = []string{"Felicitas Pojtinger"}
 	AppCopyright  = "© 2025 " + strings.Join(AppDevelopers, ", ")
 
 	ResourceWindowUIPath          = path.Join(AppPath, "window.ui")
