@@ -124,4 +124,12 @@
             </description>
         </release>
     </releases>
+    <keywords>
+        <keyword>pomodoro</keyword>
+        <keyword>timer</keyword>
+        <keyword>productivity</keyword>
+        <keyword>focus</keyword>
+        <keyword>work intervals</keyword>
+        <keyword>task management</keyword>
+    </keywords>
 </component>
