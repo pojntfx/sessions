@@ -21,15 +21,15 @@ func init() {
 	if err := i18n.InitI18n(gettextPackage, localeDir); err != nil {
 		panic(err)
 	}
-}
 
-func main() {
 	resource, err := gio.NewResourceFromData(glib.NewBytes(resources.ResourceContents, uint(len(resources.ResourceContents))))
 	if err != nil {
 		panic(err)
 	}
 	gio.ResourcesRegister(resource)
+}
 
+func main() {
 	app := components.NewApplication(
 		"application_id", resources.AppID,
 		"flags", gio.GApplicationDefaultFlagsValue,

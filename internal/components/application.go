@@ -131,7 +131,7 @@ func init() {
 
 	gTypeApplication = gobject.TypeRegisterStaticSimple(
 		appParentQuery.Type,
-		"Application",
+		"SessionsApplication",
 		appParentQuery.ClassSize,
 		&appClassInit,
 		appParentQuery.InstanceSize+uint(unsafe.Sizeof(Application{}))+uint(unsafe.Sizeof(&Application{}))+uint(unsafe.Sizeof(&adw.ApplicationWindow{}))+uint(unsafe.Sizeof(&Dial{})),

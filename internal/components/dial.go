@@ -187,7 +187,7 @@ func init() {
 
 	gTypeDial = gobject.TypeRegisterStaticSimple(
 		parentQuery.Type,
-		"Dial",
+		"SessionsDial",
 		parentQuery.ClassSize,
 		&classInit,
 		parentQuery.InstanceSize+uint(unsafe.Sizeof(Dial{}))+uint(unsafe.Sizeof(&Dial{})),
