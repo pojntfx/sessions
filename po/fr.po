@@ -5,49 +5,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:7
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
+#: ../.flatpak-builder/build/sessions-1/assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:4
 msgid "Sessions"
 msgstr "Sessions"
 
 #: ../assets/resources/window.blp:49
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:49
 msgid "05:00"
 msgstr "05:00"
 
 #: ../assets/resources/window.blp:79
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:79
 msgid "Remove 30s"
 msgstr "Retirer 30s"
 
 #: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
+#: ../.flatpak-builder/build/sessions-1/internal/components/main_window.go:68
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:90
 msgid "Start Timer"
 msgstr "Démarrer le minuteur"
 
 #: ../assets/resources/window.blp:101
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:101
 msgid "Add 30s"
 msgstr "Ajouter 30s"
 
 #: ../assets/resources/window.blp:116
+#: ../.flatpak-builder/build/sessions-1/assets/resources/window.blp:116
 msgid "About Sessions"
 msgstr "À propos de Sessions"
 
 #: ../internal/components/main_window.go:63
+#: ../.flatpak-builder/build/sessions-1/internal/components/main_window.go:63
 msgid "Stop"
 msgstr "Arrêter"
 
 #: ../internal/components/main_window.go:111
+#: ../.flatpak-builder/build/sessions-1/internal/components/main_window.go:111
 msgid "Session finished"
 msgstr "Session terminée"
 
 #: ../internal/components/main_window.go:114
+#: ../.flatpak-builder/build/sessions-1/internal/components/main_window.go:114
 msgid "Stop alarm"
 msgstr "Arrêter l'alarme"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
+#: ../.flatpak-builder/build/sessions-1/assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:5
 msgid "Focus with timed work intervals"
 msgstr "Se concentrer avec des intervalles de travail chronométrés"
 
 #: ../assets/resources/metainfo.xml.in:49
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:49
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -58,32 +74,39 @@ msgstr ""
 "travail en sessions concentrées avec des pauses régulières."
 
 #: ../assets/resources/metainfo.xml.in:52
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:52
 msgid "It enables you to:"
 msgstr "Il vous permet de :"
 
 #: ../assets/resources/metainfo.xml.in:54
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:54
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 "Démarrer des sessions de travail concentrées avec des durées de minuteur "
 "personnalisables"
 
 #: ../assets/resources/metainfo.xml.in:55
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:55
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Suivre vos progrès avec une interface propre et sans distraction"
 
 #: ../assets/resources/metainfo.xml.in:56
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:56
 msgid "Take regular breaks to maintain productivity"
 msgstr "Prendre des pauses régulières pour maintenir la productivité"
 
 #: ../assets/resources/metainfo.xml.in:64
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
 msgstr "Configuration d'une nouvelle session de minuteur"
 
 #: ../assets/resources/metainfo.xml.in:69
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Minuteur en cours pendant une session de travail"
 
 #: ../assets/resources/metainfo.xml.in:78
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:78
 #, fuzzy
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
@@ -91,32 +114,39 @@ msgid ""
 msgstr "La notification du minuteur focus maintenant la fenêtre existante"
 
 #: ../assets/resources/metainfo.xml.in:85
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:85
 msgid "Play alarm sound when timer finishes"
 msgstr "Son d'alarme à la fin du minuteur"
 
 #: ../assets/resources/metainfo.xml.in:93
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:93
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 "L'icône apparaît désormais dans la vue d'ensemble même sur les bureaux non-"
 "GNOME"
 
 #: ../assets/resources/metainfo.xml.in:94
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:94
 msgid "Update to latest GNOME runtime"
 msgstr ""
 "Mise à jour de l'environnement d'exécution GNOME vers la dernière version"
 
 #: ../assets/resources/metainfo.xml.in:102
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:102
 msgid "Add additional translations"
 msgstr "Ajout de traductions supplémentaires"
 
 #: ../assets/resources/metainfo.xml.in:109
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:109
 msgid "Improve translations"
 msgstr "Améliorations des traductions"
 
 #: ../assets/resources/metainfo.xml.in:116
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:116
 msgid "Improve app summary"
 msgstr "Résumé de l'application amélioré"
 
 #: ../assets/resources/metainfo.xml.in:123
+#: ../.flatpak-builder/build/sessions-1/assets/resources/metainfo.xml.in:123
 msgid "Initial release"
 msgstr "Version initiale"
