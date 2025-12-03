@@ -19,7 +19,7 @@ github.com/jwijenbergh/purego/internal/cgo
 github.com/jwijenbergh/purego/internal/fakecgo
 github.com/jwijenbergh/purego/internal/strings
 github.com/jwijenbergh/purego/internal/xreflect
-# github.com/jwijenbergh/puregotk v0.0.0-20251022075221-eae1610c7d83 => github.com/pojntfx/puregotk v0.0.0-20251025231904-c77cab625c00
+# github.com/jwijenbergh/puregotk v0.0.0-20251201161753-28ec1479c381
 ## explicit; go 1.23.0
 github.com/jwijenbergh/puregotk/internal/core
 github.com/jwijenbergh/puregotk/pkg/core
@@ -36,7 +36,7 @@ github.com/jwijenbergh/puregotk/v4/graphene
 github.com/jwijenbergh/puregotk/v4/gsk
 github.com/jwijenbergh/puregotk/v4/gtk
 github.com/jwijenbergh/puregotk/v4/pango
-# github.com/pojntfx/go-gettext v0.1.2
+# github.com/pojntfx/go-gettext v0.2.0
 ## explicit; go 1.25.0
 github.com/pojntfx/go-gettext/pkg/i18n
 # golang.org/x/mod v0.27.0
@@ -45,4 +45,3 @@ golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# github.com/jwijenbergh/puregotk => github.com/pojntfx/puregotk v0.0.0-20251025231904-c77cab625c00

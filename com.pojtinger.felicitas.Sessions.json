@@ -17,24 +17,6 @@
   ],
   "modules": [
     {
-      "name": "blueprint-compiler",
-      "buildsystem": "meson",
-      "cleanup": ["*"],
-      "sources": [
-        {
-          "type": "git",
-          "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-          "tag": "v0.18.0",
-          "x-checker-data": {
-            "type": "git",
-            "tag-pattern": "^v([\\d.]+)$",
-            "version-scheme": "semantic"
-          },
-          "commit": "07c9c9df9cd1b6b4454ecba21ee58211e9144a4b"
-        }
-      ]
-    },
-    {
       "name": "sessions",
       "buildsystem": "simple",
       "build-commands": [
