@@ -57,6 +57,7 @@ Click on an image to see a larger version.
 
 ## Acknowledgements
 
+- [Mirabelle Salles](https://github.com/oiimrosabel) contributed the icon.
 - [jwijenbergh/puregotk](https://github.com/jwijenbergh/puregotk) provides the GTK4 and `libadwaita` bindings for Go.
 
 ## Contributing
