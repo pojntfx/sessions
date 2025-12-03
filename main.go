@@ -14,11 +14,14 @@ import (
 
 const (
 	gettextPackage = "sessions"
-	localeDir      = "/usr/share/locale"
+)
+
+var (
+	LocaleDir = "/usr/share/locale"
 )
 
 func init() {
-	if err := i18n.InitI18n(gettextPackage, localeDir); err != nil {
+	if err := i18n.InitI18n(gettextPackage, LocaleDir); err != nil {
 		panic(err)
 	}
 
