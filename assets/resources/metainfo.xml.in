@@ -80,6 +80,13 @@
     </keywords>
 
     <releases>
+        <release version="0.1.7" date='2025-12-02T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.7</url>
+
+            <description>
+                <p>Add new icon and improve translations</p>
+            </description>
+        </release>
         <release version="0.1.6" date='2025-09-27T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.6</url>
 
