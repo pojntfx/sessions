@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-02 09:51+0200\n"
-"PO-Revision-Date: 2025-12-03 06:53+0000\n"
+"PO-Revision-Date: 2025-12-04 14:00+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sessions/"
 "sessions/et/>\n"
@@ -95,31 +95,31 @@ msgstr "Taimeri vaade töösessiooni ajal"
 
 #: ../assets/resources/metainfo.xml.in:74
 msgid "pomodoro"
-msgstr ""
+msgstr "pomodoro"
 
 #: ../assets/resources/metainfo.xml.in:75
 msgid "timer"
-msgstr ""
+msgstr "taimer"
 
 #: ../assets/resources/metainfo.xml.in:76
 msgid "productivity"
-msgstr ""
+msgstr "tõhusus"
 
 #: ../assets/resources/metainfo.xml.in:77
 msgid "focus"
-msgstr ""
+msgstr "fookus"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "work intervals"
-msgstr ""
+msgstr "töölõigud"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "task management"
-msgstr ""
+msgstr "ülesannete haldus"
 
 #: ../assets/resources/metainfo.xml.in:87
 msgid "Add new icon and improve translations"
-msgstr ""
+msgstr "Lisandusid uued ikoonid ja täienesid tõlked"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid ""

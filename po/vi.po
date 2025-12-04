@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2025-11-23 14:51+0000\n"
+"PO-Revision-Date: 2025-12-04 14:00+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
 "sessions/vi/>\n"
@@ -94,31 +94,31 @@ msgstr "Hẹn giờ chạy trong phiên làm việc"
 
 #: ../assets/resources/metainfo.xml.in:74
 msgid "pomodoro"
-msgstr ""
+msgstr "pomodoro"
 
 #: ../assets/resources/metainfo.xml.in:75
 msgid "timer"
-msgstr ""
+msgstr "hẹn giờ"
 
 #: ../assets/resources/metainfo.xml.in:76
 msgid "productivity"
-msgstr ""
+msgstr "năng suất"
 
 #: ../assets/resources/metainfo.xml.in:77
 msgid "focus"
-msgstr ""
+msgstr "tập trung"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "work intervals"
-msgstr ""
+msgstr "khoảng thời gian làm việc"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "task management"
-msgstr ""
+msgstr "quản lý công việc"
 
 #: ../assets/resources/metainfo.xml.in:87
 msgid "Add new icon and improve translations"
-msgstr ""
+msgstr "Thêm biểu tượng mới và cải thiện bản dịch"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid ""
