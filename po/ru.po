@@ -3,59 +3,60 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-10 17:46+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-12-10 17:04+0000\n"
+"Last-Translator: Silverrat <s1lve12r47@proton.me>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/sessions/"
+"sessions/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Translate Toolkit 3.17.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: ../assets/resources/window.blp:49
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:79
 msgid "Remove 30s"
-msgstr ""
+msgstr "Отнять 30с"
 
 #: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
 msgid "Start Timer"
-msgstr ""
+msgstr "Запустить Таймер"
 
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
-msgstr ""
+msgstr "Добавить 30с"
 
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
-msgstr ""
+msgstr "Про Sessions"
 
 #: ../internal/components/main_window.go:63
 msgid "Stop"
-msgstr ""
+msgstr "Остановить"
 
 #: ../internal/components/main_window.go:111
 msgid "Session finished"
-msgstr ""
+msgstr "Сессия закончена"
 
 #: ../internal/components/main_window.go:114
 msgid "Stop alarm"
-msgstr ""
+msgstr "Остановить таймер"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Сфокусируйтесь поделив работу на интервалы"
 
 #: ../assets/resources/metainfo.xml.in:49
 msgid ""
@@ -63,22 +64,26 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"Sessions это простой визуальный таймер, сделанный специально для техники "
+"помодоро, помогающий вам оставаться продуктивными разделяя работу на сессии "
+"с регулярными перерывами."
 
 #: ../assets/resources/metainfo.xml.in:52
 msgid "It enables you to:"
-msgstr ""
+msgstr "Он позволит вам:"
 
 #: ../assets/resources/metainfo.xml.in:54
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
+"Оставатся сфокусированными при помощи таймера с настраиваемыми периодами"
 
 #: ../assets/resources/metainfo.xml.in:55
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr ""
+msgstr "Отслеживать свой прогресс в чистом от отвлекающих элементов интерфейсе"
 
 #: ../assets/resources/metainfo.xml.in:56
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Брать регулярные перерывы для поддержки продуктивности"
 
 #: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
@@ -90,23 +95,23 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:74
 msgid "pomodoro"
-msgstr ""
+msgstr "помодоро"
 
 #: ../assets/resources/metainfo.xml.in:75
 msgid "timer"
-msgstr ""
+msgstr "таймер"
 
 #: ../assets/resources/metainfo.xml.in:76
 msgid "productivity"
-msgstr ""
+msgstr "продуктивность"
 
 #: ../assets/resources/metainfo.xml.in:77
 msgid "focus"
-msgstr ""
+msgstr "фокус"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "work intervals"
-msgstr ""
+msgstr "рабочие интервалы"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "task management"
@@ -114,17 +119,19 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:87
 msgid "Add new icon and improve translations"
-msgstr ""
+msgstr "Добавить новую иконку и улучшить переводы"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
 msgstr ""
+"Уведомление таймера теперь сфокусирует на существующем окне вместо открытия "
+"нового"
 
 #: ../assets/resources/metainfo.xml.in:101
 msgid "Play alarm sound when timer finishes"
-msgstr ""
+msgstr "Проиграть звук когда таймер закончится"
 
 #: ../assets/resources/metainfo.xml.in:109
 msgid "Fix icon not showing in overview on non-GNOME desktops"
@@ -132,15 +139,15 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:110
 msgid "Update to latest GNOME runtime"
-msgstr ""
+msgstr "Обновить до найновейшей среды GNOME"
 
 #: ../assets/resources/metainfo.xml.in:118
 msgid "Add additional translations"
-msgstr ""
+msgstr "Добавить дополнительные переводы"
 
 #: ../assets/resources/metainfo.xml.in:125
 msgid "Improve translations"
-msgstr ""
+msgstr "Улучшить переводы"
 
 #: ../assets/resources/metainfo.xml.in:132
 msgid "Improve app summary"
@@ -148,4 +155,4 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:139
 msgid "Initial release"
-msgstr ""
+msgstr "Начальный релиз"
