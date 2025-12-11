@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2025-12-04 14:00+0000\n"
+"PO-Revision-Date: 2025-12-11 18:00+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
 "sessions/vi/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
-msgstr "Phiên"
+msgstr "Sessions"
 
 #: ../assets/resources/window.blp:49
 msgid "05:00"
@@ -30,7 +30,7 @@ msgstr "Xóa 30 giây"
 
 #: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
 msgid "Start Timer"
-msgstr "Bắt Đầu Hẹn Giờ"
+msgstr "Bắt đầu hẹn giờ"
 
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
@@ -63,7 +63,7 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
-"Phiên là một ứng dụng hẹn giờ trực quan đơn giản được thiết kế dành riêng "
+"Sessions là một ứng dụng hẹn giờ trực quan đơn giản được thiết kế dành riêng "
 "cho kỹ thuật pomodoro, giúp bạn làm việc hiệu quả bằng cách chia công việc "
 "thành các phiên tập trung với thời gian nghỉ giải lao thường xuyên."
 
