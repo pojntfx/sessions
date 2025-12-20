@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-02 09:51+0200\n"
-"PO-Revision-Date: 2025-12-04 14:00+0000\n"
+"PO-Revision-Date: 2025-12-21 12:00+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sessions/"
 "sessions/et/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -122,6 +122,8 @@ msgid ""
 "Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
 "translations"
 msgstr ""
+"Lisandusid eesti, hindi, Brasiili portugali, ukraina, vene ja vietnami "
+"keelte tõlked"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
