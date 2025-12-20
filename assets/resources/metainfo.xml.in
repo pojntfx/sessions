@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
-    <name>Sessions</name>
-    <summary>Focus with timed work intervals</summary>
-
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
+    <name>Sessions</name>
+    <summary>Focus with timed work intervals</summary>
+    <description>
+        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
+        <p>It enables you to:</p>
+        <ul>
+            <li>Start focused work sessions with customizable timer durations</li>
+            <li>Track your progress with a clean, distraction-free interface</li>
+            <li>Take regular breaks to maintain productivity</li>
+        </ul>
+    </description>
+
 
     <developer id="com.pojtinger.felicitas">
         <name translate="no">Felicitas Pojtinger</name>
@@ -44,18 +55,6 @@
         <color type="primary" scheme_preference="light">#7bb4ff</color>
         <color type="primary" scheme_preference="dark">#3584e4</color>
     </branding>
-
-    <description>
-        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
-            technique, helping you stay productive by breaking work into focused sessions with
-            regular breaks.</p>
-        <p>It enables you to:</p>
-        <ul>
-            <li>Start focused work sessions with customizable timer durations</li>
-            <li>Track your progress with a clean, distraction-free interface</li>
-            <li>Take regular breaks to maintain productivity</li>
-        </ul>
-    </description>
 
     <screenshots>
         <screenshot type="default">
