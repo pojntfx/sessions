@@ -28,7 +28,7 @@
         <binary>sessions</binary>
     </provides>
 
-    <translation type="gettext">default</translation>
+    <translation type="gettext">sessions</translation>
 
     <supports>
         <control>pointing</control>
