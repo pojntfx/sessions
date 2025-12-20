@@ -70,15 +70,6 @@
         </screenshot>
     </screenshots>
 
-    <keywords>
-        <keyword>pomodoro</keyword>
-        <keyword>timer</keyword>
-        <keyword>productivity</keyword>
-        <keyword>focus</keyword>
-        <keyword>work intervals</keyword>
-        <keyword>task management</keyword>
-    </keywords>
-
     <releases>
         <release version="0.1.8" date='2025-12-20T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.8</url>
