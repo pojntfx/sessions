@@ -106,10 +106,18 @@ msgid "task management"
 msgstr "task management"
 
 #: ../assets/resources/metainfo.xml.in:87
+msgid ""
+"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
+"translations"
+msgstr ""
+"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
+"translations"
+
+#: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
 msgstr "Add new icon and improve translations"
 
-#: ../assets/resources/metainfo.xml.in:94
+#: ../assets/resources/metainfo.xml.in:101
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
@@ -117,30 +125,30 @@ msgstr ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
 
-#: ../assets/resources/metainfo.xml.in:101
+#: ../assets/resources/metainfo.xml.in:108
 msgid "Play alarm sound when timer finishes"
 msgstr "Play alarm sound when timer finishes"
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr "Fix icon not showing in overview on non-GNOME desktops"
 
-#: ../assets/resources/metainfo.xml.in:110
+#: ../assets/resources/metainfo.xml.in:117
 msgid "Update to latest GNOME runtime"
 msgstr "Update to latest GNOME runtime"
 
-#: ../assets/resources/metainfo.xml.in:118
+#: ../assets/resources/metainfo.xml.in:125
 msgid "Add additional translations"
 msgstr "Add additional translations"
 
-#: ../assets/resources/metainfo.xml.in:125
+#: ../assets/resources/metainfo.xml.in:132
 msgid "Improve translations"
 msgstr "Improve translations"
 
-#: ../assets/resources/metainfo.xml.in:132
+#: ../assets/resources/metainfo.xml.in:139
 msgid "Improve app summary"
 msgstr "Improve app summary"
 
-#: ../assets/resources/metainfo.xml.in:139
+#: ../assets/resources/metainfo.xml.in:146
 msgid "Initial release"
 msgstr "Initial release"

@@ -108,10 +108,18 @@ msgid "task management"
 msgstr "gestion des tâches"
 
 #: ../assets/resources/metainfo.xml.in:87
+msgid ""
+"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
+"translations"
+msgstr ""
+"Ajout des traductions ukrainienne, russe, hindi, estonienne, vietnamienne et "
+"portugaise (Brésil)"
+
+#: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
 msgstr "Nouvelle icône et améliorations des traductions"
 
-#: ../assets/resources/metainfo.xml.in:94
+#: ../assets/resources/metainfo.xml.in:101
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
@@ -119,33 +127,33 @@ msgstr ""
 "La notification de la minuterie met désormais la fenêtre existante au "
 "premier plan au lieu d'en ouvrir une nouvelle"
 
-#: ../assets/resources/metainfo.xml.in:101
+#: ../assets/resources/metainfo.xml.in:108
 msgid "Play alarm sound when timer finishes"
 msgstr "Son d'alarme à la fin du minuteur"
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 "L'icône apparaît désormais dans la vue d'ensemble même sur les bureaux non-"
 "GNOME"
 
-#: ../assets/resources/metainfo.xml.in:110
+#: ../assets/resources/metainfo.xml.in:117
 msgid "Update to latest GNOME runtime"
 msgstr ""
 "Mise à jour de l'environnement d'exécution GNOME vers la dernière version"
 
-#: ../assets/resources/metainfo.xml.in:118
+#: ../assets/resources/metainfo.xml.in:125
 msgid "Add additional translations"
 msgstr "Ajout de traductions supplémentaires"
 
-#: ../assets/resources/metainfo.xml.in:125
+#: ../assets/resources/metainfo.xml.in:132
 msgid "Improve translations"
 msgstr "Améliorations des traductions"
 
-#: ../assets/resources/metainfo.xml.in:132
+#: ../assets/resources/metainfo.xml.in:139
 msgid "Improve app summary"
 msgstr "Résumé de l'application amélioré"
 
-#: ../assets/resources/metainfo.xml.in:139
+#: ../assets/resources/metainfo.xml.in:146
 msgid "Initial release"
 msgstr "Version initiale"

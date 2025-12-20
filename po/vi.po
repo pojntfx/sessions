@@ -117,42 +117,48 @@ msgid "task management"
 msgstr "quản lý công việc"
 
 #: ../assets/resources/metainfo.xml.in:87
+msgid ""
+"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
+"translations"
+msgstr ""
+
+#: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
 msgstr "Thêm biểu tượng mới và cải thiện bản dịch"
 
-#: ../assets/resources/metainfo.xml.in:94
+#: ../assets/resources/metainfo.xml.in:101
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
 msgstr ""
 "Thông báo hẹn giờ hiện tập trung vào cửa sổ hiện có thay vì mở cửa sổ mới"
 
-#: ../assets/resources/metainfo.xml.in:101
+#: ../assets/resources/metainfo.xml.in:108
 msgid "Play alarm sound when timer finishes"
 msgstr "Phát âm thanh báo thức khi hẹn giờ kết thúc"
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 "Sửa biểu tượng không hiển thị ở chế độ tổng quan trên màn hình không phải "
 "Gnome"
 
-#: ../assets/resources/metainfo.xml.in:110
+#: ../assets/resources/metainfo.xml.in:117
 msgid "Update to latest GNOME runtime"
 msgstr "Cập nhật thời gian chạy Gnome mới nhất"
 
-#: ../assets/resources/metainfo.xml.in:118
+#: ../assets/resources/metainfo.xml.in:125
 msgid "Add additional translations"
 msgstr "Thêm bản dịch bổ sung"
 
-#: ../assets/resources/metainfo.xml.in:125
+#: ../assets/resources/metainfo.xml.in:132
 msgid "Improve translations"
 msgstr "Cải thiện bản dịch"
 
-#: ../assets/resources/metainfo.xml.in:132
+#: ../assets/resources/metainfo.xml.in:139
 msgid "Improve app summary"
 msgstr "Cải thiện tóm tắt ứng dụng"
 
-#: ../assets/resources/metainfo.xml.in:139
+#: ../assets/resources/metainfo.xml.in:146
 msgid "Initial release"
 msgstr "Bản phát hành đầu tiên"

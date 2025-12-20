@@ -109,10 +109,18 @@ msgid "task management"
 msgstr "Aufgabenverwaltung"
 
 #: ../assets/resources/metainfo.xml.in:87
+msgid ""
+"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
+"translations"
+msgstr ""
+"Ukrainische, russische, Hindi, estnische, vietnamesische und portugiesische "
+"(Brasilien) Übersetzungen hinzugefügt"
+
+#: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
 msgstr "Neues Icon hinzugefügt und Übersetzungen verbessert"
 
-#: ../assets/resources/metainfo.xml.in:94
+#: ../assets/resources/metainfo.xml.in:101
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
@@ -120,31 +128,31 @@ msgstr ""
 "Timer-Benachrichtigung fokussiert nun bestehendes Fenster statt neues zu "
 "öffnen"
 
-#: ../assets/resources/metainfo.xml.in:101
+#: ../assets/resources/metainfo.xml.in:108
 msgid "Play alarm sound when timer finishes"
 msgstr "Alarmton wird abgespielt, wenn der Timer abläuft"
 
-#: ../assets/resources/metainfo.xml.in:109
+#: ../assets/resources/metainfo.xml.in:116
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
 "Icon erscheint jetzt auch auf anderen Desktops als GNOME in der Übersicht"
 
-#: ../assets/resources/metainfo.xml.in:110
+#: ../assets/resources/metainfo.xml.in:117
 msgid "Update to latest GNOME runtime"
 msgstr "Aktualisierung auf die neueste GNOME-Laufzeitumgebung"
 
-#: ../assets/resources/metainfo.xml.in:118
+#: ../assets/resources/metainfo.xml.in:125
 msgid "Add additional translations"
 msgstr "Zusätzliche Übersetzungen hinzugefügt"
 
-#: ../assets/resources/metainfo.xml.in:125
+#: ../assets/resources/metainfo.xml.in:132
 msgid "Improve translations"
 msgstr "Übersetzungen verbessert"
 
-#: ../assets/resources/metainfo.xml.in:132
+#: ../assets/resources/metainfo.xml.in:139
 msgid "Improve app summary"
 msgstr "App-Zusammenfassung verbessert"
 
-#: ../assets/resources/metainfo.xml.in:139
+#: ../assets/resources/metainfo.xml.in:146
 msgid "Initial release"
 msgstr "Erste Veröffentlichung"
