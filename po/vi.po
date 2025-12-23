@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2025-12-11 18:00+0000\n"
+"PO-Revision-Date: 2025-12-24 09:00+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
 "sessions/vi/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -121,6 +121,8 @@ msgid ""
 "Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
 "translations"
 msgstr ""
+"Thêm bản dịch tiếng Ukraina, tiếng Nga, tiếng Hindi, tiếng Estonia, tiếng "
+"Việt và tiếng Bồ Đào Nha (Brazil)"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
