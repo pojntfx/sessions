@@ -2,23 +2,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2025-12-24 09:00+0000\n"
-"Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
-"Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
-"sessions/vi/>\n"
-"Language: vi\n"
+"POT-Creation-Date: 2025-12-20 12:39+0200\n"
+"PO-Revision-Date: 2025-12-21 12:00+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/sessions/"
+"sessions/tr/>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.15.1\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:4
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "Oturumlar"
 
 #: ../assets/resources/window.blp:49
 msgid "05:00"
@@ -26,36 +26,36 @@ msgstr "05:00"
 
 #: ../assets/resources/window.blp:79
 msgid "Remove 30s"
-msgstr "Xóa 30 giây"
+msgstr "30 saniye azalt"
 
 #: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
 msgid "Start Timer"
-msgstr "Bắt đầu hẹn giờ"
+msgstr "Zamanlayıcıyı Başlat"
 
 #: ../assets/resources/window.blp:101
 msgid "Add 30s"
-msgstr "Thêm 30 giây"
+msgstr "30 saniye artır"
 
 #: ../assets/resources/window.blp:116
 msgid "About Sessions"
-msgstr "Phiên"
+msgstr "Oturumlar Hakkında"
 
 #: ../internal/components/main_window.go:63
 msgid "Stop"
-msgstr "Dừng"
+msgstr "Durdur"
 
 #: ../internal/components/main_window.go:111
 msgid "Session finished"
-msgstr "Phiên kết thúc"
+msgstr "Oturum tamamlandı"
 
 #: ../internal/components/main_window.go:114
 msgid "Stop alarm"
-msgstr "Dừng báo thức"
+msgstr "Alarmı durdur"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:5
 msgid "Focus with timed work intervals"
-msgstr "Tập trung với khoảng thời gian làm việc được tính giờ"
+msgstr "Zamanlanmış çalışma aralıklarıyla odaklan"
 
 #: ../assets/resources/metainfo.xml.in:49
 msgid ""
@@ -63,34 +63,30 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
-"Sessions là một ứng dụng hẹn giờ trực quan đơn giản được thiết kế dành riêng "
-"cho kỹ thuật pomodoro, giúp bạn làm việc hiệu quả bằng cách chia công việc "
-"thành các phiên tập trung với thời gian nghỉ giải lao thường xuyên."
 
 #: ../assets/resources/metainfo.xml.in:52
 msgid "It enables you to:"
-msgstr "Nó cho phép bạn:"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:54
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
-"Bắt đầu các phiên làm việc tập trung với thời lượng hẹn giờ có thể tùy chỉnh"
 
 #: ../assets/resources/metainfo.xml.in:55
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr "Theo dõi tiến trình của bạn với giao diện rõ ràng, không bị phân tâm"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:56
 msgid "Take regular breaks to maintain productivity"
-msgstr "Nghỉ giải lao thường xuyên để duy trì năng suất"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
-msgstr "Thiết lập phiên hẹn giờ mới"
+msgstr "Yeni zamanlayıcı oturumu ayarlanıyor"
 
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
-msgstr "Hẹn giờ chạy trong phiên làm việc"
+msgstr "Zamanlayıcı çalışma oturumu sırasında çalışıyor"
 
 #: ../assets/resources/metainfo.xml.in:74
 msgid "pomodoro"
@@ -98,69 +94,64 @@ msgstr "pomodoro"
 
 #: ../assets/resources/metainfo.xml.in:75
 msgid "timer"
-msgstr "hẹn giờ"
+msgstr "zamanlayıcı"
 
 #: ../assets/resources/metainfo.xml.in:76
 msgid "productivity"
-msgstr "năng suất"
+msgstr "üretkenlik"
 
 #: ../assets/resources/metainfo.xml.in:77
 msgid "focus"
-msgstr "tập trung"
+msgstr "odaklan"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "work intervals"
-msgstr "khoảng thời gian làm việc"
+msgstr "çalışma aralıkları"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "task management"
-msgstr "quản lý công việc"
+msgstr "görev yönetimi"
 
 #: ../assets/resources/metainfo.xml.in:87
 msgid ""
 "Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
 "translations"
 msgstr ""
-"Thêm bản dịch tiếng Ukraina, tiếng Nga, tiếng Hindi, tiếng Estonia, tiếng "
-"Việt và tiếng Bồ Đào Nha (Brazil)"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
-msgstr "Thêm biểu tượng mới và cải thiện bản dịch"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:101
 msgid ""
 "Timer notification now focuses the existing window instead of opening a new "
 "one"
 msgstr ""
-"Thông báo hẹn giờ hiện tập trung vào cửa sổ hiện có thay vì mở cửa sổ mới"
 
 #: ../assets/resources/metainfo.xml.in:108
 msgid "Play alarm sound when timer finishes"
-msgstr "Phát âm thanh báo thức khi hẹn giờ kết thúc"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:116
 msgid "Fix icon not showing in overview on non-GNOME desktops"
 msgstr ""
-"Sửa biểu tượng không hiển thị ở chế độ tổng quan trên màn hình không phải "
-"Gnome"
 
 #: ../assets/resources/metainfo.xml.in:117
 msgid "Update to latest GNOME runtime"
-msgstr "Cập nhật thời gian chạy Gnome mới nhất"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:125
 msgid "Add additional translations"
-msgstr "Thêm bản dịch bổ sung"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:132
 msgid "Improve translations"
-msgstr "Cải thiện bản dịch"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:139
 msgid "Improve app summary"
-msgstr "Cải thiện tóm tắt ứng dụng"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:146
 msgid "Initial release"
-msgstr "Bản phát hành đầu tiên"
+msgstr ""
