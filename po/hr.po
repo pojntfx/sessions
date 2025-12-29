@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-05 23:10+0200\n"
-"PO-Revision-Date: 2025-11-06 22:51+0000\n"
+"PO-Revision-Date: 2025-12-29 11:00+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/sessions/"
 "sessions/hr/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -94,37 +94,39 @@ msgstr "Timer odbrojava tijekom radne sesije"
 
 #: ../assets/resources/metainfo.xml.in:74
 msgid "pomodoro"
-msgstr ""
+msgstr "pomodoro"
 
 #: ../assets/resources/metainfo.xml.in:75
 msgid "timer"
-msgstr ""
+msgstr "timer"
 
 #: ../assets/resources/metainfo.xml.in:76
 msgid "productivity"
-msgstr ""
+msgstr "produktivnost"
 
 #: ../assets/resources/metainfo.xml.in:77
 msgid "focus"
-msgstr ""
+msgstr "fokus"
 
 #: ../assets/resources/metainfo.xml.in:78
 msgid "work intervals"
-msgstr ""
+msgstr "radni intervali"
 
 #: ../assets/resources/metainfo.xml.in:79
 msgid "task management"
-msgstr ""
+msgstr "upravljanje zadacima"
 
 #: ../assets/resources/metainfo.xml.in:87
 msgid ""
 "Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
 "translations"
 msgstr ""
+"Dodani prijevodi: ukrajinski, ruski, hindski, estonski, vijetnamski i "
+"portugalski (Brazil) jezik"
 
 #: ../assets/resources/metainfo.xml.in:94
 msgid "Add new icon and improve translations"
-msgstr ""
+msgstr "Dodane su nove ikone i poboljšani prijevodi"
 
 #: ../assets/resources/metainfo.xml.in:101
 msgid ""
