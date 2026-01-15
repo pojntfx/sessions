@@ -12,7 +12,7 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:53
 msgid "Remaining time"
-msgstr ""
+msgstr "Remaining time"
 
 #: ../assets/resources/window.blp:57
 msgid "05:00"
