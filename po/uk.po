@@ -21,23 +21,27 @@ msgstr ""
 msgid "Sessions"
 msgstr "Sessions"
 
-#: ../assets/resources/window.blp:49
+#: ../assets/resources/window.blp:51
+msgid "Remaining time"
+msgstr ""
+
+#: ../assets/resources/window.blp:55
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:79
+#: ../assets/resources/window.blp:86
 msgid "Remove 30s"
 msgstr "Відняти 30с"
 
-#: ../assets/resources/window.blp:90 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:97 ../internal/components/main_window.go:68
 msgid "Start Timer"
 msgstr "Запустити Таймер"
 
-#: ../assets/resources/window.blp:101
+#: ../assets/resources/window.blp:108
 msgid "Add 30s"
 msgstr "Додати 30с"
 
-#: ../assets/resources/window.blp:116
+#: ../assets/resources/window.blp:123
 msgid "About Sessions"
 msgstr "О Sessions"
 

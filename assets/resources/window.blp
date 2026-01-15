@@ -41,24 +41,31 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
           }
 
           [overlay]
-          Box {
+          ListBox {
             halign: center;
             valign: center;
+            selection-mode: none;
 
-            Label analog_time_label {
-              label: _("05:00");
-              margin-top: 12;
-              margin-bottom: 12;
-              margin-start: 12;
-              margin-end: 12;
+            ListBoxRow timer_row {
+              accessibility {
+                label: _("Remaining time");
+              }
 
-              styles [
-                "title-1",
-              ]
+              Label analog_time_label {
+                label: _("05:00");
+                margin-top: 12;
+                margin-bottom: 12;
+                margin-start: 12;
+                margin-end: 12;
+
+                styles [
+                  "title-1",
+                ]
+              }
             }
 
             styles [
-              "card",
+              "boxed-list",
             ]
           }
         }
