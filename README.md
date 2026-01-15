@@ -81,6 +81,6 @@ To translate Sessions, you can use [Weblate](https://hosted.weblate.org/engage/s
 
 ## License
 
-Sessions (c) 2025 Felicitas Pojtinger and contributors
+Sessions (c) 2026 Felicitas Pojtinger and contributors
 
 SPDX-License-Identifier: AGPL-3.0
