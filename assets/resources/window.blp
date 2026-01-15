@@ -47,6 +47,8 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
             selection-mode: none;
 
             ListBoxRow timer_row {
+              activatable: false;
+
               accessibility {
                 label: _("Remaining time");
               }
