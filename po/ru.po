@@ -29,19 +29,19 @@ msgstr ""
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:88
+#: ../assets/resources/window.blp:89
 msgid "Remove 30s"
 msgstr "Отнять 30с"
 
-#: ../assets/resources/window.blp:99 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:68
 msgid "Start Timer"
 msgstr "Запустить Таймер"
 
-#: ../assets/resources/window.blp:110
+#: ../assets/resources/window.blp:111
 msgid "Add 30s"
 msgstr "Добавить 30с"
 
-#: ../assets/resources/window.blp:125
+#: ../assets/resources/window.blp:126
 msgid "About Sessions"
 msgstr "Про Sessions"
 
@@ -109,3 +109,7 @@ msgstr "Настройка новой сессии таймера"
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Таймер работает во время рабочей сессии"
+
+#, fuzzy
+#~ msgid "Stop playback"
+#~ msgstr "Остановить таймер"

@@ -1,0 +1,4 @@
+.boxed-list--opaque {
+  /* Explictly set the background color since the default one is slightly transparent */
+  background-color: var(--headerbar-bg-color);
+}

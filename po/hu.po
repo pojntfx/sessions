@@ -26,19 +26,19 @@ msgstr ""
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:88
+#: ../assets/resources/window.blp:89
 msgid "Remove 30s"
 msgstr "30mp levonása"
 
-#: ../assets/resources/window.blp:99 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:68
 msgid "Start Timer"
 msgstr "Indítás"
 
-#: ../assets/resources/window.blp:110
+#: ../assets/resources/window.blp:111
 msgid "Add 30s"
 msgstr "30mp hozzáadása"
 
-#: ../assets/resources/window.blp:125
+#: ../assets/resources/window.blp:126
 msgid "About Sessions"
 msgstr "A Sessions névjegye"
 

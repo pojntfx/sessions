@@ -4,5 +4,6 @@
         <file>window.ui</file>
         <file>metainfo.xml</file>
         <file>alarm-clock-elapsed.oga</file>
+        <file>style.css</file>
     </gresource>
 </gresources>
