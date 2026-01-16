@@ -6,7 +6,7 @@ msgstr ""
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
-#: ../assets/resources/metainfo.xml.in:4
+#: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -47,11 +47,15 @@ msgid "Stop alarm"
 msgstr "Stop alarm"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
-#: ../assets/resources/metainfo.xml.in:5
+#: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
 msgstr "Focus with timed work intervals"
 
-#: ../assets/resources/metainfo.xml.in:49
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
+msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
+msgstr "pomodoro;timer;productivity;focus;work intervals;task management;"
+
+#: ../assets/resources/metainfo.xml.in:10
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -61,19 +65,19 @@ msgstr ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 
-#: ../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
 msgstr "It enables you to:"
 
-#: ../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr "Start focused work sessions with customizable timer durations"
 
-#: ../assets/resources/metainfo.xml.in:55
+#: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Track your progress with a clean, distraction-free interface"
 
-#: ../assets/resources/metainfo.xml.in:56
+#: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
 msgstr "Take regular breaks to maintain productivity"
 
@@ -84,75 +88,3 @@ msgstr "Setting up a new timer session"
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Timer running during a work session"
-
-#: ../assets/resources/metainfo.xml.in:74
-msgid "pomodoro"
-msgstr "pomodoro"
-
-#: ../assets/resources/metainfo.xml.in:75
-msgid "timer"
-msgstr "timer"
-
-#: ../assets/resources/metainfo.xml.in:76
-msgid "productivity"
-msgstr "productivity"
-
-#: ../assets/resources/metainfo.xml.in:77
-msgid "focus"
-msgstr "focus"
-
-#: ../assets/resources/metainfo.xml.in:78
-msgid "work intervals"
-msgstr "work intervals"
-
-#: ../assets/resources/metainfo.xml.in:79
-msgid "task management"
-msgstr "task management"
-
-#: ../assets/resources/metainfo.xml.in:87
-msgid ""
-"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
-"translations"
-msgstr ""
-"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
-"translations"
-
-#: ../assets/resources/metainfo.xml.in:94
-msgid "Add new icon and improve translations"
-msgstr "Add new icon and improve translations"
-
-#: ../assets/resources/metainfo.xml.in:101
-msgid ""
-"Timer notification now focuses the existing window instead of opening a new "
-"one"
-msgstr ""
-"Timer notification now focuses the existing window instead of opening a new "
-"one"
-
-#: ../assets/resources/metainfo.xml.in:108
-msgid "Play alarm sound when timer finishes"
-msgstr "Play alarm sound when timer finishes"
-
-#: ../assets/resources/metainfo.xml.in:116
-msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr "Fix icon not showing in overview on non-GNOME desktops"
-
-#: ../assets/resources/metainfo.xml.in:117
-msgid "Update to latest GNOME runtime"
-msgstr "Update to latest GNOME runtime"
-
-#: ../assets/resources/metainfo.xml.in:125
-msgid "Add additional translations"
-msgstr "Add additional translations"
-
-#: ../assets/resources/metainfo.xml.in:132
-msgid "Improve translations"
-msgstr "Improve translations"
-
-#: ../assets/resources/metainfo.xml.in:139
-msgid "Improve app summary"
-msgstr "Improve app summary"
-
-#: ../assets/resources/metainfo.xml.in:146
-msgid "Initial release"
-msgstr "Initial release"

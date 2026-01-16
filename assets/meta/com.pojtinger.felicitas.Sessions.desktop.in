@@ -6,7 +6,7 @@ Comment=Focus with timed work intervals
 Exec=sessions
 Icon=com.pojtinger.felicitas.Sessions
 Categories=Office;Utility;
-# Extra keywords that can be used to search for Session
+# Extra keywords that can be used to search for Sessions
 # TRANSLATORS: Search terms to find this application.
 #              Do NOT translate or localize the semicolons!
 #              The list MUST also end with a semicolon!

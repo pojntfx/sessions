@@ -17,7 +17,7 @@ msgstr ""
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
-#: ../assets/resources/metainfo.xml.in:4
+#: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -58,11 +58,15 @@ msgid "Stop alarm"
 msgstr "Остановить таймер"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
-#: ../assets/resources/metainfo.xml.in:5
+#: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
 msgstr "Сфокусируйтесь поделив работу на интервалы"
 
-#: ../assets/resources/metainfo.xml.in:49
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
+msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
+msgstr "помодоро;таймер;продуктивность;фокус;рабочие интервалы;управление задачами;"
+
+#: ../assets/resources/metainfo.xml.in:10
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -72,20 +76,20 @@ msgstr ""
 "помодоро, помогающий вам оставаться продуктивными разделяя работу на сессии "
 "с регулярными перерывами."
 
-#: ../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
 msgstr "Он позволит вам:"
 
-#: ../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 "Оставатся сфокусированными при помощи таймера с настраиваемыми периодами"
 
-#: ../assets/resources/metainfo.xml.in:55
+#: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Отслеживать свой прогресс в чистом от отвлекающих элементов интерфейсе"
 
-#: ../assets/resources/metainfo.xml.in:56
+#: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
 msgstr "Брать регулярные перерывы для поддержки продуктивности"
 
@@ -96,75 +100,3 @@ msgstr "Настройка новой сессии таймера"
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Таймер работает во время рабочей сессии"
-
-#: ../assets/resources/metainfo.xml.in:74
-msgid "pomodoro"
-msgstr "помодоро"
-
-#: ../assets/resources/metainfo.xml.in:75
-msgid "timer"
-msgstr "таймер"
-
-#: ../assets/resources/metainfo.xml.in:76
-msgid "productivity"
-msgstr "продуктивность"
-
-#: ../assets/resources/metainfo.xml.in:77
-msgid "focus"
-msgstr "фокус"
-
-#: ../assets/resources/metainfo.xml.in:78
-msgid "work intervals"
-msgstr "рабочие интервалы"
-
-#: ../assets/resources/metainfo.xml.in:79
-msgid "task management"
-msgstr "управление задачами"
-
-#: ../assets/resources/metainfo.xml.in:87
-msgid ""
-"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
-"translations"
-msgstr ""
-
-#: ../assets/resources/metainfo.xml.in:94
-msgid "Add new icon and improve translations"
-msgstr "Добавить новую иконку и улучшить переводы"
-
-#: ../assets/resources/metainfo.xml.in:101
-msgid ""
-"Timer notification now focuses the existing window instead of opening a new "
-"one"
-msgstr ""
-"Уведомление таймера теперь сфокусирует на существующем окне вместо открытия "
-"нового"
-
-#: ../assets/resources/metainfo.xml.in:108
-msgid "Play alarm sound when timer finishes"
-msgstr "Проиграть звук когда таймер закончится"
-
-#: ../assets/resources/metainfo.xml.in:116
-msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr ""
-"Исправить отсутствие иконки Sessions в рабочем столе который не является "
-"GNOME"
-
-#: ../assets/resources/metainfo.xml.in:117
-msgid "Update to latest GNOME runtime"
-msgstr "Обновить до найновейшей среды GNOME"
-
-#: ../assets/resources/metainfo.xml.in:125
-msgid "Add additional translations"
-msgstr "Добавить дополнительные переводы"
-
-#: ../assets/resources/metainfo.xml.in:132
-msgid "Improve translations"
-msgstr "Улучшить переводы"
-
-#: ../assets/resources/metainfo.xml.in:139
-msgid "Improve app summary"
-msgstr "Улучшить описание приложения"
-
-#: ../assets/resources/metainfo.xml.in:146
-msgid "Initial release"
-msgstr "Начальный релиз"

@@ -16,7 +16,7 @@ msgstr ""
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
-#: ../assets/resources/metainfo.xml.in:4
+#: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
 msgstr "Sessioonid"
 
@@ -57,11 +57,15 @@ msgid "Stop alarm"
 msgstr "Peata äratus"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
-#: ../assets/resources/metainfo.xml.in:5
+#: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
 msgstr "Korralda oma töö ajastatud töölõikude kaupa"
 
-#: ../assets/resources/metainfo.xml.in:49
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
+msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
+msgstr "pomodoro;taimer;tõhusus;fookus;töölõigud;ülesannete haldus;"
+
+#: ../assets/resources/metainfo.xml.in:10
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -71,21 +75,21 @@ msgstr ""
 "pomodoro-töökorraldust, mis aitab sul tegutseda tulemuslikult nii, et töö on "
 "jagatud vaheldumisi töösessioonideks ja puhkuseks."
 
-#: ../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
 msgstr "Selle rakendusega saad sa:"
 
-#: ../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 "Alustada töösessioone, mille taimeri tööaega võid sättida vastavalt oma "
 "vajadusele"
 
-#: ../assets/resources/metainfo.xml.in:55
+#: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Jälgida aja kulgu lihtsast ja müravabast kasutajaliidesest"
 
-#: ../assets/resources/metainfo.xml.in:56
+#: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
 msgstr "Jätkusuutliku toimekuse tagamiseks teha regulaarseid puhkepause"
 
@@ -96,77 +100,3 @@ msgstr "Uue taimerisessiooni seadistamine"
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Taimeri vaade töösessiooni ajal"
-
-#: ../assets/resources/metainfo.xml.in:74
-msgid "pomodoro"
-msgstr "pomodoro"
-
-#: ../assets/resources/metainfo.xml.in:75
-msgid "timer"
-msgstr "taimer"
-
-#: ../assets/resources/metainfo.xml.in:76
-msgid "productivity"
-msgstr "tõhusus"
-
-#: ../assets/resources/metainfo.xml.in:77
-msgid "focus"
-msgstr "fookus"
-
-#: ../assets/resources/metainfo.xml.in:78
-msgid "work intervals"
-msgstr "töölõigud"
-
-#: ../assets/resources/metainfo.xml.in:79
-msgid "task management"
-msgstr "ülesannete haldus"
-
-#: ../assets/resources/metainfo.xml.in:87
-msgid ""
-"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
-"translations"
-msgstr ""
-"Lisandusid eesti, hindi, Brasiili portugali, ukraina, vene ja vietnami "
-"keelte tõlked"
-
-#: ../assets/resources/metainfo.xml.in:94
-msgid "Add new icon and improve translations"
-msgstr "Lisandusid uued ikoonid ja täienesid tõlked"
-
-#: ../assets/resources/metainfo.xml.in:101
-msgid ""
-"Timer notification now focuses the existing window instead of opening a new "
-"one"
-msgstr ""
-"Taimeri teavitused panevad nüüd fookuse olemasolevale aknale ega ava uut "
-"akent"
-
-#: ../assets/resources/metainfo.xml.in:108
-msgid "Play alarm sound when timer finishes"
-msgstr "Nüüd anname taimeri töö lõppemisest märku helilise märguandega"
-
-#: ../assets/resources/metainfo.xml.in:116
-msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr ""
-"Veaparandus, kus GNOME'iga mitteseotud töölauakeskkonnas polnud rakenduse "
-"ikooni näha rakenduste vaates"
-
-#: ../assets/resources/metainfo.xml.in:117
-msgid "Update to latest GNOME runtime"
-msgstr "Kasutusel on GNOME'i uusim käitusteek"
-
-#: ../assets/resources/metainfo.xml.in:125
-msgid "Add additional translations"
-msgstr "Lisandusid täiendavad tõlked"
-
-#: ../assets/resources/metainfo.xml.in:132
-msgid "Improve translations"
-msgstr "Tõlgete parandused"
-
-#: ../assets/resources/metainfo.xml.in:139
-msgid "Improve app summary"
-msgstr "Parem rakenduse sisukokkuvõte metainfos"
-
-#: ../assets/resources/metainfo.xml.in:146
-msgid "Initial release"
-msgstr "Esmane versioon"

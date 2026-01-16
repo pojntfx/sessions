@@ -3,6 +3,7 @@
     <id>com.pojtinger.felicitas.Sessions</id>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
+
     <name>Sessions</name>
     <summary>Focus with timed work intervals</summary>
     <description>
@@ -73,7 +74,8 @@
         <release version="0.1.8" date='2025-12-20T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.8</url>
             <description translate="no">
-                <p>Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) translations</p>
+                <p>Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil)
+                    translations</p>
             </description>
         </release>
         <release version="0.1.7" date='2025-12-02T00:00:00Z00:00'>

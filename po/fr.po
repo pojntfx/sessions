@@ -6,7 +6,7 @@ msgstr ""
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
-#: ../assets/resources/metainfo.xml.in:4
+#: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -47,11 +47,15 @@ msgid "Stop alarm"
 msgstr "Arrêter l'alarme"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
-#: ../assets/resources/metainfo.xml.in:5
+#: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
 msgstr "Se concentrer avec des intervalles de travail chronométrés"
 
-#: ../assets/resources/metainfo.xml.in:49
+#: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
+msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
+msgstr "pomodoro;minuteur;productivité;concentration;intervalles de travail;gestion des tâches;"
+
+#: ../assets/resources/metainfo.xml.in:10
 msgid ""
 "Sessions is a simple visual timer application designed specifically for the "
 "pomodoro technique, helping you stay productive by breaking work into "
@@ -61,21 +65,21 @@ msgstr ""
 "pour la technique pomodoro, vous aidant à rester productif en divisant le "
 "travail en sessions concentrées avec des pauses régulières."
 
-#: ../assets/resources/metainfo.xml.in:52
+#: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
 msgstr "Il vous permet de :"
 
-#: ../assets/resources/metainfo.xml.in:54
+#: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
 "Démarrer des sessions de travail concentrées avec des durées de minuteur "
 "personnalisables"
 
-#: ../assets/resources/metainfo.xml.in:55
+#: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr "Suivre vos progrès avec une interface propre et sans distraction"
 
-#: ../assets/resources/metainfo.xml.in:56
+#: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
 msgstr "Prendre des pauses régulières pour maintenir la productivité"
 
@@ -86,78 +90,3 @@ msgstr "Configuration d'une nouvelle session de minuteur"
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
 msgstr "Minuteur en cours pendant une session de travail"
-
-#: ../assets/resources/metainfo.xml.in:74
-msgid "pomodoro"
-msgstr "pomodoro"
-
-#: ../assets/resources/metainfo.xml.in:75
-msgid "timer"
-msgstr "minuteur"
-
-#: ../assets/resources/metainfo.xml.in:76
-msgid "productivity"
-msgstr "productivité"
-
-#: ../assets/resources/metainfo.xml.in:77
-msgid "focus"
-msgstr "concentration"
-
-#: ../assets/resources/metainfo.xml.in:78
-msgid "work intervals"
-msgstr "intervalles de travail"
-
-#: ../assets/resources/metainfo.xml.in:79
-msgid "task management"
-msgstr "gestion des tâches"
-
-#: ../assets/resources/metainfo.xml.in:87
-msgid ""
-"Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) "
-"translations"
-msgstr ""
-"Ajout des traductions ukrainienne, russe, hindi, estonienne, vietnamienne et "
-"portugaise (Brésil)"
-
-#: ../assets/resources/metainfo.xml.in:94
-msgid "Add new icon and improve translations"
-msgstr "Nouvelle icône et améliorations des traductions"
-
-#: ../assets/resources/metainfo.xml.in:101
-msgid ""
-"Timer notification now focuses the existing window instead of opening a new "
-"one"
-msgstr ""
-"La notification du minuteur met désormais la fenêtre existante au premier "
-"plan au lieu d'en ouvrir une nouvelle"
-
-#: ../assets/resources/metainfo.xml.in:108
-msgid "Play alarm sound when timer finishes"
-msgstr "Son d'alarme à la fin du minuteur"
-
-#: ../assets/resources/metainfo.xml.in:116
-msgid "Fix icon not showing in overview on non-GNOME desktops"
-msgstr ""
-"L'icône apparaît désormais dans la vue d'ensemble même sur les bureaux non-"
-"GNOME"
-
-#: ../assets/resources/metainfo.xml.in:117
-msgid "Update to latest GNOME runtime"
-msgstr ""
-"Mise à jour de l'environnement d'exécution GNOME vers la dernière version"
-
-#: ../assets/resources/metainfo.xml.in:125
-msgid "Add additional translations"
-msgstr "Ajout de traductions supplémentaires"
-
-#: ../assets/resources/metainfo.xml.in:132
-msgid "Improve translations"
-msgstr "Améliorations des traductions"
-
-#: ../assets/resources/metainfo.xml.in:139
-msgid "Improve app summary"
-msgstr "Résumé de l'application amélioré"
-
-#: ../assets/resources/metainfo.xml.in:146
-msgid "Initial release"
-msgstr "Version initiale"
