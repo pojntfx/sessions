@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
     <id>com.pojtinger.felicitas.Sessions</id>
-    <name>Sessions</name>
-    <summary>Focus with timed work intervals</summary>
-
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>AGPL-3.0-or-later</project_license>
+    <name>Sessions</name>
+    <summary>Focus with timed work intervals</summary>
+    <description>
+        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
+            technique, helping you stay productive by breaking work into focused sessions with
+            regular breaks.</p>
+        <p>It enables you to:</p>
+        <ul>
+            <li>Start focused work sessions with customizable timer durations</li>
+            <li>Track your progress with a clean, distraction-free interface</li>
+            <li>Take regular breaks to maintain productivity</li>
+        </ul>
+    </description>
+
 
     <developer id="com.pojtinger.felicitas">
         <name translate="no">Felicitas Pojtinger</name>
@@ -28,7 +39,7 @@
         <binary>sessions</binary>
     </provides>
 
-    <translation type="gettext">default</translation>
+    <translation type="gettext">sessions</translation>
 
     <supports>
         <control>pointing</control>
@@ -45,18 +56,6 @@
         <color type="primary" scheme_preference="dark">#3584e4</color>
     </branding>
 
-    <description>
-        <p>Sessions is a simple visual timer application designed specifically for the pomodoro
-            technique, helping you stay productive by breaking work into focused sessions with
-            regular breaks.</p>
-        <p>It enables you to:</p>
-        <ul>
-            <li>Start focused work sessions with customizable timer durations</li>
-            <li>Track your progress with a clean, distraction-free interface</li>
-            <li>Take regular breaks to maintain productivity</li>
-        </ul>
-    </description>
-
     <screenshots>
         <screenshot type="default">
             <image>
@@ -70,48 +69,34 @@
         </screenshot>
     </screenshots>
 
-    <keywords>
-        <keyword>pomodoro</keyword>
-        <keyword>timer</keyword>
-        <keyword>productivity</keyword>
-        <keyword>focus</keyword>
-        <keyword>work intervals</keyword>
-        <keyword>task management</keyword>
-    </keywords>
-
     <releases>
         <release version="0.1.8" date='2025-12-20T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.8</url>
-
-            <description>
+            <description translate="no">
                 <p>Add Ukrainian, Russian, Hindi, Estonian, Vietnamese, and Portuguese (Brazil) translations</p>
             </description>
         </release>
         <release version="0.1.7" date='2025-12-02T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.7</url>
-
-            <description>
+            <description translate="no">
                 <p>Add new icon and improve translations</p>
             </description>
         </release>
         <release version="0.1.6" date='2025-09-27T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.6</url>
-
-            <description>
+            <description translate="no">
                 <p>Timer notification now focuses the existing window instead of opening a new one</p>
             </description>
         </release>
         <release version="0.1.5" date='2025-09-22T19:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.5</url>
-
-            <description>
+            <description translate="no">
                 <p>Play alarm sound when timer finishes</p>
             </description>
         </release>
         <release version="0.1.4" date='2025-09-22T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.4</url>
-
-            <description>
+            <description translate="no">
                 <ul>
                     <li>Fix icon not showing in overview on non-GNOME desktops</li>
                     <li>Update to latest GNOME runtime</li>
@@ -120,29 +105,25 @@
         </release>
         <release version="0.1.3" date='2025-08-12T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.3</url>
-
-            <description>
+            <description translate="no">
                 <p>Add additional translations</p>
             </description>
         </release>
         <release version="0.1.2" date='2025-08-09T01:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.2</url>
-
-            <description>
+            <description translate="no">
                 <p>Improve translations</p>
             </description>
         </release>
         <release version="0.1.1" date='2025-08-09T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.1</url>
-
-            <description>
+            <description translate="no">
                 <p>Improve app summary</p>
             </description>
         </release>
         <release version="0.1.0" date='2025-08-08T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.0</url>
-
-            <description>
+            <description translate="no">
                 <p>Initial release</p>
             </description>
         </release>
