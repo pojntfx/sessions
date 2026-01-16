@@ -34,6 +34,11 @@ msgstr "30s hinzufügen"
 msgid "About Sessions"
 msgstr "Über Sitzungen"
 
+#. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
+#: ../internal/components/application.go:76
+msgid "translator-credits"
+msgstr "Felicitas Pojtinger <felicitas@pojtinger.com>"
+
 #: ../internal/components/main_window.go:63
 msgid "Stop"
 msgstr "Stoppen"
@@ -51,6 +56,9 @@ msgstr "Alarm stoppen"
 msgid "Focus with timed work intervals"
 msgstr "Fokussiere mit getakteten Arbeitsintervallen"
 
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr "pomodoro;Timer;Produktivität;Fokus;Arbeitsintervalle;Aufgabenverwaltung;"

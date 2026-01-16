@@ -44,6 +44,11 @@ msgstr "Lisa 30 sek"
 msgid "About Sessions"
 msgstr "Rakenduse teave: Sessioonid"
 
+#. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
+#: ../internal/components/application.go:76
+msgid "translator-credits"
+msgstr "Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>"
+
 #: ../internal/components/main_window.go:63
 msgid "Stop"
 msgstr "Lõpeta"
@@ -61,6 +66,9 @@ msgstr "Peata äratus"
 msgid "Focus with timed work intervals"
 msgstr "Korralda oma töö ajastatud töölõikude kaupa"
 
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr "pomodoro;taimer;tõhusus;fookus;töölõigud;ülesannete haldus;"

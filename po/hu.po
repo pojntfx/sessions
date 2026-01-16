@@ -42,6 +42,11 @@ msgstr "30mp hozzáadása"
 msgid "About Sessions"
 msgstr "A Sessions névjegye"
 
+#. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
+#: ../internal/components/application.go:76
+msgid "translator-credits"
+msgstr "rdbende <rdbende@proton.me>"
+
 #: ../internal/components/main_window.go:63
 msgid "Stop"
 msgstr "Állj"
@@ -59,6 +64,9 @@ msgstr ""
 msgid "Focus with timed work intervals"
 msgstr ""
 
+#. TRANSLATORS: Search terms to find this application.
+#. Do NOT translate or localize the semicolons!
+#. The list MUST also end with a semicolon!
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""

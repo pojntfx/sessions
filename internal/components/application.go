@@ -9,6 +9,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
 	"github.com/jwijenbergh/puregotk/v4/gtk"
+	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
 )
 
@@ -71,6 +72,8 @@ func init() {
 			sessionsApp.aboutDialog.SetDevelopers(resources.AppDevelopers)
 			sessionsApp.aboutDialog.SetArtists(resources.AppArtists)
 			sessionsApp.aboutDialog.SetCopyright(resources.AppCopyright)
+			// TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
+			sessionsApp.aboutDialog.SetTranslatorCredits(L("translator-credits"))
 
 			var app gtk.Application
 			a.Cast(&app)
