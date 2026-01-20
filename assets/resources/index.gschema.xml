@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist gettext-domain="sessions">
+    <schema id="com.pojtinger.felicitas.Sessions" path="/com/pojtinger/felicitas/Sessions/">
+        <key name='last-position' type='x'>
+            <default>300</default>
+            <summary>Last timer position</summary>
+            <description>The last manually set timer position that will be restored when the app
+                starts</description>
+        </key>
+    </schema>
+</schemalist>

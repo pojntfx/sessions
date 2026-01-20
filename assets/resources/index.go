@@ -19,6 +19,12 @@ const (
 //go:embed index.gresource
 var ResourceContents []byte
 
+//go:generate glib-compile-schemas .
+
+const (
+	SchemaLastPositionKey = "last-position"
+)
+
 var (
 	AppPath = path.Join("/com", "pojtinger", "felicitas", "Sessions")
 

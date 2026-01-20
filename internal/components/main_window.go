@@ -35,6 +35,7 @@ type MainWindow struct {
 	minusButton           *gtk.Button
 	alarmClockElapsedFile *gtk.MediaFile
 	app                   *adw.Application
+	settings              *gio.Settings
 	totalSec              int
 	running               bool
 	remain                time.Duration
@@ -50,6 +51,17 @@ func NewMainWindow(FirstPropertyNameVar string, varArgs ...interface{}) MainWind
 	obj.Cast(&v)
 
 	return v
+}
+
+func (w *MainWindow) LoadLastPosition() {
+	lastPosition := w.settings.GetInt64(resources.SchemaLastPositionKey)
+	if lastPosition >= minDialValue && lastPosition <= maxDialValue {
+		w.totalSec = int(lastPosition)
+	}
+}
+
+func (w *MainWindow) SaveLastPosition() {
+	w.settings.SetInt64(resources.SchemaLastPositionKey, int64(w.totalSec))
 }
 
 func (w *MainWindow) StartAlarmPlayback() {

@@ -16,7 +16,7 @@ msgstr ""
 msgid "Remove 30s"
 msgstr ""
 
-#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:85
 msgid "Start Timer"
 msgstr ""
 
@@ -29,19 +29,19 @@ msgid "About Sessions"
 msgstr ""
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
-#: ../internal/components/application.go:76
+#: ../internal/components/application.go:80
 msgid "translator-credits"
 msgstr ""
 
-#: ../internal/components/main_window.go:63
+#: ../internal/components/main_window.go:80
 msgid "Stop"
 msgstr ""
 
-#: ../internal/components/main_window.go:111
+#: ../internal/components/main_window.go:128
 msgid "Session finished"
 msgstr ""
 
-#: ../internal/components/main_window.go:114
+#: ../internal/components/main_window.go:131
 msgid "Stop alarm"
 msgstr ""
 
@@ -86,4 +86,14 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
+msgstr ""
+
+#: ../assets/resources/index.gschema.xml:6
+msgid "Last timer position"
+msgstr ""
+
+#: ../assets/resources/index.gschema.xml:7
+msgid ""
+"The last manually set timer position that will be restored when the app "
+"starts"
 msgstr ""

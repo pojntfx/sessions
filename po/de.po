@@ -22,7 +22,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "30s entfernen"
 
-#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:85
 msgid "Start Timer"
 msgstr "Timer starten"
 
@@ -35,19 +35,19 @@ msgid "About Sessions"
 msgstr "Über Sitzungen"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
-#: ../internal/components/application.go:76
+#: ../internal/components/application.go:80
 msgid "translator-credits"
 msgstr "Felicitas Pojtinger <felicitas@pojtinger.com>"
 
-#: ../internal/components/main_window.go:63
+#: ../internal/components/main_window.go:80
 msgid "Stop"
 msgstr "Stoppen"
 
-#: ../internal/components/main_window.go:111
+#: ../internal/components/main_window.go:128
 msgid "Session finished"
 msgstr "Sitzung beendet"
 
-#: ../internal/components/main_window.go:114
+#: ../internal/components/main_window.go:131
 msgid "Stop alarm"
 msgstr "Alarm stoppen"
 
@@ -100,10 +100,14 @@ msgstr "Einrichten einer neuen Timer-Sitzung"
 msgid "Timer running during a work session"
 msgstr "Timer läuft während einer Arbeitssitzung"
 
-#, fuzzy
-#~ msgid "Stop playback"
-#~ msgstr "Alarm stoppen"
+#: ../assets/resources/index.gschema.xml:6
+msgid "Last timer position"
+msgstr "Letzte Timer-Position"
 
-#, fuzzy
-#~ msgid "Remaining playback time"
-#~ msgstr "Verbleibende Zeit"
+#: ../assets/resources/index.gschema.xml:7
+msgid ""
+"The last manually set timer position that will be restored when the app "
+"starts"
+msgstr ""
+"Die letzte Timer-Position die manuell eingestellt wurde und bei einem App-"
+"Neustart wiederhergestellt wird"

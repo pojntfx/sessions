@@ -18,6 +18,7 @@ const (
 
 var (
 	LocaleDir = "/usr/share/locale"
+	SchemaDir = ""
 )
 
 func init() {
@@ -30,10 +31,15 @@ func init() {
 		panic(err)
 	}
 	gio.ResourcesRegister(resource)
+
+	if SchemaDir != "" {
+		os.Setenv("GSETTINGS_SCHEMA_DIR", SchemaDir)
+	}
 }
 
 func main() {
 	app := components.NewApplication(
+		gio.NewSettings(resources.AppID),
 		"application_id", resources.AppID,
 		"flags", gio.GApplicationDefaultFlagsValue,
 	)

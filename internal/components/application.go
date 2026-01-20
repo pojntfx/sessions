@@ -22,13 +22,17 @@ type Application struct {
 
 	window      *MainWindow
 	aboutDialog *adw.AboutDialog
+	settings    *gio.Settings
 }
 
-func NewApplication(FirstPropertyNameVar string, varArgs ...interface{}) Application {
+func NewApplication(settings *gio.Settings, FirstPropertyNameVar string, varArgs ...interface{}) Application {
 	obj := gobject.NewObject(gTypeApplication, FirstPropertyNameVar, varArgs...)
 
 	var v Application
 	obj.Cast(&v)
+
+	app := (*Application)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
+	app.settings = settings
 
 	return v
 }
@@ -82,6 +86,8 @@ func init() {
 
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 			sessionsApp.window.app = &sessionsApp.Application
+			sessionsApp.window.settings = sessionsApp.settings
+			sessionsApp.window.LoadLastPosition()
 
 			sessionsApp.window.UpdateButtons()
 			sessionsApp.window.UpdateDial()

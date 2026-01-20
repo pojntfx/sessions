@@ -32,7 +32,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Eemalda 30 sek"
 
-#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:68
+#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:85
 msgid "Start Timer"
 msgstr "Käivita taimer"
 
@@ -45,19 +45,19 @@ msgid "About Sessions"
 msgstr "Rakenduse teave: Sessioonid"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
-#: ../internal/components/application.go:76
+#: ../internal/components/application.go:80
 msgid "translator-credits"
 msgstr "Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>"
 
-#: ../internal/components/main_window.go:63
+#: ../internal/components/main_window.go:80
 msgid "Stop"
 msgstr "Lõpeta"
 
-#: ../internal/components/main_window.go:111
+#: ../internal/components/main_window.go:128
 msgid "Session finished"
 msgstr "Sessioon on lõppenud"
 
-#: ../internal/components/main_window.go:114
+#: ../internal/components/main_window.go:131
 msgid "Stop alarm"
 msgstr "Peata äratus"
 
@@ -109,6 +109,12 @@ msgstr "Uue taimerisessiooni seadistamine"
 msgid "Timer running during a work session"
 msgstr "Taimeri vaade töösessiooni ajal"
 
-#, fuzzy
-#~ msgid "Stop playback"
-#~ msgstr "Peata äratus"
+#: ../assets/resources/index.gschema.xml:6
+msgid "Last timer position"
+msgstr ""
+
+#: ../assets/resources/index.gschema.xml:7
+msgid ""
+"The last manually set timer position that will be restored when the app "
+"starts"
+msgstr ""

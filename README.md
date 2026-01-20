@@ -70,7 +70,7 @@ To build and start a development version of Sessions locally, run the following:
 $ git clone https://github.com/pojntfx/sessions.git
 $ cd sessions
 $ go generate ./...
-$ go run .
+$ go run -ldflags="-X 'main.LocaleDir=${PWD}/po' -X 'main.SchemaDir=${PWD}/assets/resources'" .
 ```
 
 You can also open the project in [GNOME Builder](https://flathub.org/apps/org.gnome.Builder) and run it by clicking the play button in the header bar. Note that GNOME Builder doesn't automatically download the sources specified in [go.mod.json](./go.mod.json), so you need to either run `go mod vendor` manually or copy the contents of [go.mod.json](./go.mod.json) into the `.modules[] | select(.name == "multiplex") | .sources` field of [com.pojtinger.felicitas.Sessions.json](./com.pojtinger.felicitas.Sessions.json).
