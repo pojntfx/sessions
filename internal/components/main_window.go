@@ -20,6 +20,11 @@ var (
 	gTypeMainWindow gobject.Type
 )
 
+const (
+	minDialValue = 30
+	maxDialValue = 3600
+)
+
 type MainWindow struct {
 	adw.ApplicationWindow
 
@@ -70,8 +75,8 @@ func (w *MainWindow) UpdateButtons() {
 		w.actionButton.AddCssClass("suggested-action")
 	}
 
-	w.plusButton.SetSensitive(w.totalSec < 3600)
-	w.minusButton.SetSensitive(w.totalSec > 30)
+	w.plusButton.SetSensitive(w.totalSec < maxDialValue)
+	w.minusButton.SetSensitive(w.totalSec > minDialValue)
 }
 
 func (w *MainWindow) UpdateDial() {
@@ -180,13 +185,14 @@ func (w *MainWindow) handleDialing(x, y float64) {
 		intervals = 120
 	}
 
-	w.totalSec = intervals * 30
+	w.totalSec = intervals * minDialValue
 
 	if w.paused {
 		w.remain = time.Duration(w.totalSec) * time.Second
 	}
 
 	w.UpdateDial()
+	w.SaveLastPosition()
 }
 
 func (w *MainWindow) setupDialGestures() {
@@ -235,26 +241,28 @@ func (w *MainWindow) ToggleTimer() {
 }
 
 func (w *MainWindow) AddTime() {
-	if w.totalSec < 3600 {
-		w.totalSec += 30
+	if w.totalSec < maxDialValue {
+		w.totalSec += minDialValue
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}
 
 		w.UpdateDial()
 		w.UpdateButtons()
+		w.SaveLastPosition()
 	}
 }
 
 func (w *MainWindow) RemoveTime() {
-	if w.totalSec > 30 {
-		w.totalSec -= 30
+	if w.totalSec > minDialValue {
+		w.totalSec -= minDialValue
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}
 
 		w.UpdateDial()
 		w.UpdateButtons()
+		w.SaveLastPosition()
 	}
 }
 

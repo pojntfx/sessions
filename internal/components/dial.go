@@ -109,7 +109,7 @@ func init() {
 			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &grayColor)
 
 			if dialW.totalSec > 0 {
-				progress := float64(dialW.totalSec) / 3600.0
+				progress := float64(dialW.totalSec) / maxDialValue
 				end := -math.Pi/2 + 2*math.Pi*progress
 				var angle float64
 				var lineColor gdk.RGBA
