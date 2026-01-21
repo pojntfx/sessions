@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"os"
 
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -31,15 +32,28 @@ func init() {
 		panic(err)
 	}
 	gio.ResourcesRegister(resource)
-
-	if SchemaDir != "" {
-		os.Setenv("GSETTINGS_SCHEMA_DIR", SchemaDir)
-	}
 }
 
 func main() {
+	var settings gio.Settings
+	if SchemaDir == "" {
+		settings = *gio.NewSettings(resources.AppID)
+	} else {
+		source, err := gio.NewSettingsSchemaSourceFromDirectory(SchemaDir, gio.SettingsSchemaSourceGetDefault(), true)
+		if err != nil {
+			panic(err)
+		}
+
+		schema := source.Lookup(resources.AppID, false)
+		if schema == nil {
+			panic(errors.New("could not find schema"))
+		}
+
+		settings = *gio.NewSettingsFull(schema, nil, schema.GetPath())
+	}
+
 	app := components.NewApplication(
-		gio.NewSettings(resources.AppID),
+		&settings,
 		"application_id", resources.AppID,
 		"flags", gio.GApplicationDefaultFlagsValue,
 	)
