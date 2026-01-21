@@ -7,7 +7,9 @@
 
   <name xml:lang="en">Sessions</name>
   <shortdesc xml:lang="en">Focus with timed work intervals</shortdesc>
-  <description xml:lang="en">Sessions is a simple visual timer application designed specifically for the pomodoro technique, helping you stay productive by breaking work into focused sessions with regular breaks.</description>
+  <description xml:lang="en">Sessions is a simple visual timer application designed specifically for
+    the pomodoro technique, helping you stay productive by breaking work into focused sessions with
+    regular breaks.</description>
 
   <homepage rdf:resource="https://github.com/pojntfx/sessions/" />
   <download-page rdf:resource="https://flathub.org/apps/com.pojtinger.felicitas.Sessions" />
