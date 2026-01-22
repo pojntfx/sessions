@@ -16,6 +16,7 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
       [end]
       MenuButton menu_button {
         icon-name: "open-menu-symbolic";
+        tooltip-text: _("Main Menu");
         primary: true;
         menu-model: main_menu;
       }
@@ -50,7 +51,7 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
               activatable: false;
 
               accessibility {
-                label: _("Remaining time");
+                label: _("Remaining Time");
               }
 
               Label analog_time_label {

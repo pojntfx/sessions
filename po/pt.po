@@ -20,27 +20,31 @@ msgstr ""
 msgid "Sessions"
 msgstr "Sessions"
 
-#: ../assets/resources/window.blp:53
-msgid "Remaining time"
+#: ../assets/resources/window.blp:19
+msgid "Main Menu"
 msgstr ""
 
-#: ../assets/resources/window.blp:57
+#: ../assets/resources/window.blp:54
+msgid "Remaining Time"
+msgstr ""
+
+#: ../assets/resources/window.blp:58
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:89
+#: ../assets/resources/window.blp:90
 msgid "Remove 30s"
 msgstr "Menos 30s"
 
-#: ../assets/resources/window.blp:100 ../internal/components/main_window.go:85
+#: ../assets/resources/window.blp:101 ../internal/components/main_window.go:85
 msgid "Start Timer"
 msgstr "Iniciar Timer"
 
-#: ../assets/resources/window.blp:111
+#: ../assets/resources/window.blp:112
 msgid "Add 30s"
 msgstr "Mais 30s"
 
-#: ../assets/resources/window.blp:126
+#: ../assets/resources/window.blp:127
 msgid "About Sessions"
 msgstr "Sobre o Sessions"
 
@@ -54,11 +58,12 @@ msgid "Stop"
 msgstr "Encerrar"
 
 #: ../internal/components/main_window.go:128
-msgid "Session finished"
+#, fuzzy
+msgid "Session Finished"
 msgstr "Sessão finalizada"
 
 #: ../internal/components/main_window.go:131
-msgid "Stop alarm"
+msgid "Stop Alarm"
 msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
