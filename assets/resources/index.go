@@ -33,6 +33,7 @@ var (
 	AppCopyright  = "© 2026 " + strings.Join(AppDevelopers, ", ")
 
 	ResourceWindowUIPath          = path.Join(AppPath, "window.ui")
+	ResourceShortcutsDialogUIPath = path.Join(AppPath, "shortcuts-dialog.ui")
 	ResourceMetainfoPath          = path.Join(AppPath, "metainfo.xml")
 	ResourceAlarmClockElapsedPath = path.Join(AppPath, "alarm-clock-elapsed.oga")
 )

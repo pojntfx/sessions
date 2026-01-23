@@ -124,6 +124,11 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
 menu main_menu {
   section {
     item {
+      label: _("Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
       label: _("About Sessions");
       action: "app.openAbout";
     }

@@ -2,6 +2,7 @@
 <gresources>
     <gresource prefix="/com/pojtinger/felicitas/Sessions">
         <file>window.ui</file>
+        <file>shortcuts-dialog.ui</file>
         <file>metainfo.xml</file>
         <file>alarm-clock-elapsed.oga</file>
         <file>style.css</file>

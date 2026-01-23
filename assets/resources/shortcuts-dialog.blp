@@ -1,0 +1,47 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: _("General");
+
+    Adw.ShortcutsItem {
+      title: _("Open menu");
+      accelerator: "F10";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Show keyboard shortcuts");
+      action-name: "app.shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Close window");
+      action-name: "app.closeWindow";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      action-name: "app.quit";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Timer");
+
+    Adw.ShortcutsItem {
+      title: _("Start or stop timer");
+      action-name: "app.toggleTimer";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Add 30 seconds");
+      action-name: "app.addTime";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Remove 30 seconds");
+      action-name: "app.removeTime";
+    }
+  }
+}
