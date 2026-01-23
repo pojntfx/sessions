@@ -101,6 +101,22 @@ func init() {
 			styleContext.LookupColor("accent_bg_color", &accent)
 			styleContext.LookupColor("error_bg_color", &errColor)
 
+			highContrast := dialW.app.GetStyleManager().GetHighContrast()
+
+			var borderColor gdk.RGBA
+			if highContrast {
+				styleContext.LookupColor("window_fg_color", &borderColor)
+				borderColor.Alpha = 0.5
+			}
+
+			strokeBorder := func(path *gsk.Path) {
+				if highContrast {
+					stroke := gsk.NewStroke(1.0)
+					defer stroke.Free()
+					snapshot.AppendStroke(path, stroke, &borderColor)
+				}
+			}
+
 			grayColor := gdk.RGBA{
 				Red:   0.7,
 				Green: 0.7,
@@ -117,6 +133,22 @@ func init() {
 			fullCircleStroke := gsk.NewStroke(10.0)
 			defer fullCircleStroke.Free()
 			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &grayColor)
+
+			if highContrast {
+				outerBorderBuilder := gsk.NewPathBuilder()
+				defer outerBorderBuilder.Unref()
+				outerBorderBuilder.AddCircle(&centerPoint, float32(r)+5)
+				outerBorderPath := outerBorderBuilder.ToPath()
+				defer outerBorderPath.Unref()
+				strokeBorder(outerBorderPath)
+
+				innerBorderBuilder := gsk.NewPathBuilder()
+				defer innerBorderBuilder.Unref()
+				innerBorderBuilder.AddCircle(&centerPoint, float32(r)-5)
+				innerBorderPath := innerBorderBuilder.ToPath()
+				defer innerBorderPath.Unref()
+				strokeBorder(innerBorderPath)
+			}
 
 			if dialW.totalSec > 0 {
 				progress := float64(dialW.totalSec) / maxDialValue
@@ -157,6 +189,7 @@ func init() {
 				arcPath := arcBuilder.ToPath()
 				defer arcPath.Unref()
 				snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
+				strokeBorder(arcPath)
 
 				lineStrokeColor := gdk.RGBA{
 					Red:   lineColor.Red,
@@ -176,6 +209,32 @@ func init() {
 				arcStroke.SetLineCap(gsk.LineCapRoundValue)
 				snapshot.AppendStroke(arcLinePath, arcStroke, &lineStrokeColor)
 
+				if highContrast {
+					startCapBuilder := gsk.NewPathBuilder()
+					defer startCapBuilder.Unref()
+					startCapBuilder.MoveTo(float32(cx), float32(cy-(r+5)))
+					startCapBuilder.SvgArcTo(5, 5, 0, false, false, float32(cx), float32(cy-(r-5)))
+					startCapPath := startCapBuilder.ToPath()
+					defer startCapPath.Unref()
+					strokeBorder(startCapPath)
+
+					outerArcBuilder := gsk.NewPathBuilder()
+					defer outerArcBuilder.Unref()
+					outerArcBuilder.MoveTo(float32(cx), float32(cy-(r+5)))
+					outerArcBuilder.SvgArcTo(float32(r)+5, float32(r)+5, 0, angle+math.Pi/2 > math.Pi, true, float32(cx+(r+5)*math.Sin(angle+math.Pi/2)), float32(cy-(r+5)*math.Cos(angle+math.Pi/2)))
+					outerArcPath := outerArcBuilder.ToPath()
+					defer outerArcPath.Unref()
+					strokeBorder(outerArcPath)
+
+					innerArcBuilder := gsk.NewPathBuilder()
+					defer innerArcBuilder.Unref()
+					innerArcBuilder.MoveTo(float32(cx), float32(cy-(r-5)))
+					innerArcBuilder.SvgArcTo(float32(r)-5, float32(r)-5, 0, angle+math.Pi/2 > math.Pi, true, float32(cx+(r-5)*math.Sin(angle+math.Pi/2)), float32(cy-(r-5)*math.Cos(angle+math.Pi/2)))
+					innerArcPath := innerArcBuilder.ToPath()
+					defer innerArcPath.Unref()
+					strokeBorder(innerArcPath)
+				}
+
 				handleX := float32(cx + r*math.Cos(angle))
 				handleY := float32(cy + r*math.Sin(angle))
 
@@ -186,6 +245,7 @@ func init() {
 				handlePath := handleBuilder.ToPath()
 				defer handlePath.Unref()
 				snapshot.AppendFill(handlePath, gsk.FillRuleWindingValue, &lineColor)
+				strokeBorder(handlePath)
 			}
 		})
 	}
