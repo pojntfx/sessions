@@ -29,6 +29,7 @@ type MainWindow struct {
 	adw.ApplicationWindow
 
 	dialWidget            *Dial
+	dialArea              gtk.Box
 	label                 *gtk.Label
 	actionButton          *gtk.Button
 	plusButton            *gtk.Button
@@ -44,11 +45,21 @@ type MainWindow struct {
 	paused                bool
 }
 
-func NewMainWindow(FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
+func NewMainWindow(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
 	obj := gobject.NewObject(gTypeMainWindow, FirstPropertyNameVar, varArgs...)
 
 	var v MainWindow
 	obj.Cast(&v)
+
+	window := (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
+	window.app = app
+
+	dial := NewDial(app, "css-name")
+	dial.Widget.SetHexpand(true)
+	dial.Widget.SetVexpand(true)
+	window.dialArea.Append(&dial.Widget)
+	window.dialWidget = &dial
+	window.setupDialGestures()
 
 	return v
 }
@@ -328,16 +339,10 @@ func init() {
 				"dial_area",
 			).Cast(&dialArea)
 
-			dial := NewDial("css-name")
-
-			dial.Widget.SetHexpand(true)
-			dial.Widget.SetVexpand(true)
-			dialArea.Append(&dial.Widget)
-
 			w := &MainWindow{
 				ApplicationWindow: parent,
 
-				dialWidget:            &dial,
+				dialArea:              dialArea,
 				label:                 &label,
 				actionButton:          &actionButton,
 				plusButton:            &plusButton,
@@ -358,8 +363,6 @@ func init() {
 				pinner.Unpin()
 			}
 			o.SetDataFull(dataKeyGoInstance, uintptr(unsafe.Pointer(w)), &cleanupCallback)
-
-			w.setupDialGestures()
 		})
 	}
 

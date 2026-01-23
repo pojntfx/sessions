@@ -6,6 +6,7 @@ import (
 	"time"
 	"unsafe"
 
+	"github.com/jwijenbergh/puregotk/v4/adw"
 	"github.com/jwijenbergh/puregotk/v4/gdk"
 	"github.com/jwijenbergh/puregotk/v4/glib"
 	"github.com/jwijenbergh/puregotk/v4/gobject"
@@ -21,16 +22,25 @@ var (
 type Dial struct {
 	gtk.Widget
 
+	app      *adw.Application
 	totalSec int
 	running  bool
 	remain   time.Duration
 }
 
-func NewDial(FirstPropertyNameVar string, varArgs ...interface{}) Dial {
+func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) Dial {
 	obj := gobject.NewObject(gTypeDial, FirstPropertyNameVar, varArgs...)
 
 	var v Dial
 	obj.Cast(&v)
+
+	dial := (*Dial)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
+	dial.app = app
+
+	var styleChangedCallback func(gobject.Object, uintptr) = func(_ gobject.Object, _ uintptr) {
+		v.Widget.QueueDraw()
+	}
+	app.GetStyleManager().ConnectNotify(&styleChangedCallback)
 
 	return v
 }

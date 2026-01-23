@@ -82,10 +82,9 @@ func init() {
 			var app gtk.Application
 			a.Cast(&app)
 
-			obj := NewMainWindow("application", app)
+			obj := NewMainWindow(&sessionsApp.Application, "application", app)
 
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
-			sessionsApp.window.app = &sessionsApp.Application
 			sessionsApp.window.settings = sessionsApp.settings
 			sessionsApp.window.LoadLastPosition()
 

@@ -36,7 +36,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Menos 30s"
 
-#: ../assets/resources/window.blp:101 ../internal/components/main_window.go:85
+#: ../assets/resources/window.blp:101 ../internal/components/main_window.go:96
 msgid "Start Timer"
 msgstr "Iniciar Timer"
 
@@ -53,16 +53,16 @@ msgstr "Sobre o Sessions"
 msgid "translator-credits"
 msgstr "ssantos <ssantos@web.de>"
 
-#: ../internal/components/main_window.go:80
+#: ../internal/components/main_window.go:91
 msgid "Stop"
 msgstr "Encerrar"
 
-#: ../internal/components/main_window.go:128
+#: ../internal/components/main_window.go:139
 #, fuzzy
 msgid "Session Finished"
 msgstr "Sessão finalizada"
 
-#: ../internal/components/main_window.go:131
+#: ../internal/components/main_window.go:142
 msgid "Stop Alarm"
 msgstr ""
 
