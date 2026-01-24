@@ -37,16 +37,56 @@ msgid "Remove 30s"
 msgstr "減30秒"
 
 #: ../assets/resources/window.blp:101 ../internal/components/main_window.go:96
-msgid "Start Timer"
-msgstr "定時開始"
+msgid "_Start Timer"
+msgstr "_定時開始"
 
-#: ../assets/resources/window.blp:112
+#: ../assets/resources/window.blp:113
 msgid "Add 30s"
 msgstr "加30秒"
 
-#: ../assets/resources/window.blp:127
-msgid "About Sessions"
-msgstr "關於Sessions"
+#: ../assets/resources/window.blp:128
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: ../assets/resources/window.blp:133
+msgid "_About Sessions"
+msgstr "_關於Sessions"
+
+#: ../assets/resources/shortcuts-dialog.blp:6
+msgid "General"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:9
+msgid "Open menu"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:14
+msgid "Show keyboard shortcuts"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:19
+msgid "Close window"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:24
+msgid "Quit"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:30
+msgid "Timer"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:33
+msgid "Start or stop timer"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:38
+msgid "Add 30 seconds"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:43
+msgid "Remove 30 seconds"
+msgstr ""
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
@@ -54,11 +94,10 @@ msgid "translator-credits"
 msgstr "Philip <philipyu3.14@gmail.com>"
 
 #: ../internal/components/main_window.go:91
-msgid "Stop"
-msgstr "停"
+msgid "_Stop"
+msgstr "_停"
 
 #: ../internal/components/main_window.go:139
-#, fuzzy
 msgid "Session Finished"
 msgstr "會期完"
 

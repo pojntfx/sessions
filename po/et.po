@@ -25,7 +25,6 @@ msgid "Main Menu"
 msgstr ""
 
 #: ../assets/resources/window.blp:54
-#, fuzzy
 msgid "Remaining Time"
 msgstr "Aega lõpuni"
 
@@ -38,16 +37,56 @@ msgid "Remove 30s"
 msgstr "Eemalda 30 sek"
 
 #: ../assets/resources/window.blp:101 ../internal/components/main_window.go:96
-msgid "Start Timer"
-msgstr "Käivita taimer"
+msgid "_Start Timer"
+msgstr "_Käivita taimer"
 
-#: ../assets/resources/window.blp:112
+#: ../assets/resources/window.blp:113
 msgid "Add 30s"
 msgstr "Lisa 30 sek"
 
-#: ../assets/resources/window.blp:127
-msgid "About Sessions"
-msgstr "Rakenduse teave: Sessioonid"
+#: ../assets/resources/window.blp:128
+msgid "_Keyboard Shortcuts"
+msgstr "_Kiirklahvid"
+
+#: ../assets/resources/window.blp:133
+msgid "_About Sessions"
+msgstr "_Rakenduse teave"
+
+#: ../assets/resources/shortcuts-dialog.blp:6
+msgid "General"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:9
+msgid "Open menu"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:14
+msgid "Show keyboard shortcuts"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:19
+msgid "Close window"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:24
+msgid "Quit"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:30
+msgid "Timer"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:33
+msgid "Start or stop timer"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:38
+msgid "Add 30 seconds"
+msgstr ""
+
+#: ../assets/resources/shortcuts-dialog.blp:43
+msgid "Remove 30 seconds"
+msgstr ""
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
@@ -55,16 +94,14 @@ msgid "translator-credits"
 msgstr "Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>"
 
 #: ../internal/components/main_window.go:91
-msgid "Stop"
-msgstr "Lõpeta"
+msgid "_Stop"
+msgstr "_Lõpeta"
 
 #: ../internal/components/main_window.go:139
-#, fuzzy
 msgid "Session Finished"
 msgstr "Sessioon on lõppenud"
 
 #: ../internal/components/main_window.go:142
-#, fuzzy
 msgid "Stop Alarm"
 msgstr "Peata äratus"
 

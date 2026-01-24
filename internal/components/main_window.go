@@ -88,12 +88,12 @@ func (w *MainWindow) StopAlarmPlayback() {
 func (w *MainWindow) UpdateButtons() {
 	if w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
-		w.actionButton.SetLabel(L("Stop"))
+		w.actionButton.SetLabel(L("_Stop"))
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
-		w.actionButton.SetLabel(L("Start Timer"))
+		w.actionButton.SetLabel(L("_Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
 	}

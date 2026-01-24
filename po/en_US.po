@@ -27,16 +27,56 @@ msgid "Remove 30s"
 msgstr "Remove 30s"
 
 #: ../assets/resources/window.blp:101 ../internal/components/main_window.go:96
-msgid "Start Timer"
-msgstr "Start Timer"
+msgid "_Start Timer"
+msgstr "_Start Timer"
 
-#: ../assets/resources/window.blp:112
+#: ../assets/resources/window.blp:113
 msgid "Add 30s"
 msgstr "Add 30s"
 
-#: ../assets/resources/window.blp:127
-msgid "About Sessions"
-msgstr "About Sessions"
+#: ../assets/resources/window.blp:128
+msgid "_Keyboard Shortcuts"
+msgstr "_Keyboard Shortcuts"
+
+#: ../assets/resources/window.blp:133
+msgid "_About Sessions"
+msgstr "_About Sessions"
+
+#: ../assets/resources/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "General"
+
+#: ../assets/resources/shortcuts-dialog.blp:9
+msgid "Open menu"
+msgstr "Open menu"
+
+#: ../assets/resources/shortcuts-dialog.blp:14
+msgid "Show keyboard shortcuts"
+msgstr "Show keyboard shortcuts"
+
+#: ../assets/resources/shortcuts-dialog.blp:19
+msgid "Close window"
+msgstr "Close window"
+
+#: ../assets/resources/shortcuts-dialog.blp:24
+msgid "Quit"
+msgstr "Quit"
+
+#: ../assets/resources/shortcuts-dialog.blp:30
+msgid "Timer"
+msgstr "Timer"
+
+#: ../assets/resources/shortcuts-dialog.blp:33
+msgid "Start or stop timer"
+msgstr "Start or stop timer"
+
+#: ../assets/resources/shortcuts-dialog.blp:38
+msgid "Add 30 seconds"
+msgstr "Add 30 seconds"
+
+#: ../assets/resources/shortcuts-dialog.blp:43
+msgid "Remove 30 seconds"
+msgstr "Remove 30 seconds"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
@@ -44,8 +84,8 @@ msgid "translator-credits"
 msgstr "Felicitas Pojtinger <felicitas@pojtinger.com>"
 
 #: ../internal/components/main_window.go:91
-msgid "Stop"
-msgstr "Stop"
+msgid "_Stop"
+msgstr "_Stop"
 
 #: ../internal/components/main_window.go:139
 msgid "Session Finished"
