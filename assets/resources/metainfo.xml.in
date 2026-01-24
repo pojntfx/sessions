@@ -71,6 +71,12 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.10" date='2026-01-24T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.10</url>
+            <description translate="no">
+                <p>Add keyboard shortcuts, mnemonics, and improve high-contrast support</p>
+            </description>
+        </release>
         <release version="0.1.9" date='2026-01-21T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.9</url>
             <description translate="no">
