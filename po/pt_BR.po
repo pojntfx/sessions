@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-11 13:41+0200\n"
-"PO-Revision-Date: 2026-01-21 12:01+0000\n"
+"PO-Revision-Date: 2026-01-27 05:18+0000\n"
 "Last-Translator: Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "sessions/sessions/pt_BR/>\n"
@@ -22,7 +22,7 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu Principal"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
@@ -46,7 +46,7 @@ msgstr "Mais 30s"
 
 #: ../assets/resources/window.blp:128
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Atalhos do Teclado"
 
 #: ../assets/resources/window.blp:133
 msgid "_About Sessions"
@@ -54,23 +54,23 @@ msgstr "_Sobre o Sessions"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Abrir o menu"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Mostra os atalhos do teclado"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Fechar janela"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Fechar o programa"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
@@ -78,15 +78,15 @@ msgstr "Timer"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Iniciar ou parar o timer"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Mais 30 segundos"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Menos 30 segundos"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
