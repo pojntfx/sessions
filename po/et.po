@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-02 09:51+0200\n"
-"PO-Revision-Date: 2026-01-21 12:01+0000\n"
+"PO-Revision-Date: 2026-01-25 13:16+0000\n"
 "Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/sessions/"
 "sessions/et/>\n"
@@ -22,7 +22,7 @@ msgstr "Sessioonid"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Põhimenüü"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
@@ -54,39 +54,39 @@ msgstr "_Rakenduse teave"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Üldist"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Ava menüü"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Näita kiirklahve"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Sulge aken"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Välju"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Taimer"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Käivita või peata taimer"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Lisa 30 sekundit"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Eemalda 30 sekundit"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
