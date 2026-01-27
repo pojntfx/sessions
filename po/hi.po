@@ -31,23 +31,23 @@ msgstr ""
 msgid "05:00"
 msgstr ""
 
-#: ../assets/resources/window.blp:90
+#: ../assets/resources/window.blp:91
 msgid "Remove 30s"
 msgstr ""
 
-#: ../assets/resources/window.blp:101 ../internal/components/main_window.go:96
+#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:96
 msgid "_Start Timer"
 msgstr ""
 
-#: ../assets/resources/window.blp:113
+#: ../assets/resources/window.blp:114
 msgid "Add 30s"
 msgstr ""
 
-#: ../assets/resources/window.blp:128
+#: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: ../assets/resources/window.blp:133
+#: ../assets/resources/window.blp:134
 msgid "_About Sessions"
 msgstr ""
 
