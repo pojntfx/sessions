@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-10 17:46+0200\n"
-"PO-Revision-Date: 2026-01-16 05:29+0000\n"
-"Last-Translator: avv-dev <vildan.abdullin@gmail.com>\n"
+"PO-Revision-Date: 2026-01-30 11:00+0300\n"
+"Last-Translator: Vladimir Kosolapov\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/sessions/"
 "sessions/ru/>\n"
 "Language: ru\n"
@@ -23,7 +23,7 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Главное меню"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
@@ -39,7 +39,7 @@ msgstr "Отнять 30с"
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:96
 msgid "_Start Timer"
-msgstr "_Запустить Таймер"
+msgstr "_Запустить таймер"
 
 #: ../assets/resources/window.blp:114
 msgid "Add 30s"
@@ -47,47 +47,47 @@ msgstr "Добавить 30с"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Комбинации клавиш"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr "_Про Sessions"
+msgstr "_О приложении"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Общие"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Открыть меню"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Показать комбинации клавиш"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Закрыть окно"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Выход"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Таймер"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Запустить/остановить таймер"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Добавить 30 секунд"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Отнять 30 секунд"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
@@ -109,7 +109,7 @@ msgstr "Остановить будильник"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr "Сфокусируйтесь поделив работу на интервалы"
+msgstr "Сфокусируйтесь, поделив работу на интервалы"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -117,7 +117,7 @@ msgstr "Сфокусируйтесь поделив работу на интер
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
-"помодоро;таймер;продуктивность;фокус;рабочие интервалы;управление задачами;"
+"Помодоро;таймер;продуктивность;фокус;рабочие интервалы;управление задачами;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -125,26 +125,26 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
-"Sessions это простой визуальный таймер, сделанный специально для техники "
-"помодоро, помогающий вам оставаться продуктивными разделяя работу на сессии "
+"Sessions — это простой визуальный таймер, созданный специально для техники "
+"Помодоро, помогающий оставаться продуктивным, разделяя работу на сессии "
 "с регулярными перерывами."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr "Он позволит вам:"
+msgstr "Приложение помогает:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
-"Оставатся сфокусированными при помощи таймера с настраиваемыми периодами"
+"Оставаться сфокусированным при помощи таймера с настраиваемыми периодами"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr "Отслеживать свой прогресс в чистом от отвлекающих элементов интерфейсе"
+msgstr "Отслеживать прогресс в чистом от отвлекающих элементов интерфейсе"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr "Брать регулярные перерывы для поддержки продуктивности"
+msgstr "Совершать регулярные перерывы для поддержания продуктивности"
 
 #: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
@@ -156,10 +156,12 @@ msgstr "Таймер работает во время рабочей сесси�
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Последняя позиция таймера"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"Последняя установленная вручную позиция таймера, восстанавливаемая при "
+"запуске"
