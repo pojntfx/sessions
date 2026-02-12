@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2025-12-24 09:00+0000\n"
+"PO-Revision-Date: 2026-02-13 05:09+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
 "sessions/vi/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -22,11 +22,11 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu chính"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Thời gian còn lại"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
@@ -46,7 +46,7 @@ msgstr "Thêm 30 giây"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Phím tắt bàn phím"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
@@ -54,39 +54,39 @@ msgstr "_Giới thiệu Sessions"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Tổng quan"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Mở menu"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Hiển thị phím tắt"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Đóng cửa sổ"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Thoát"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Hẹn giờ"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Bắt đầu hoặc dừng hẹn giờ"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Thêm 30 giây"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Xóa 30 giây"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:80
@@ -156,10 +156,12 @@ msgstr "Hẹn giờ chạy trong phiên làm việc"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Vị trí hẹn giờ cuối cùng"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"Vị trí hẹn giờ được đặt thủ công cuối cùng sẽ được khôi phục khi ứng dụng "
+"khởi động"
