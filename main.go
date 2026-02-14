@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"log/slog"
 	"os"
 
 	"github.com/jwijenbergh/puregotk/v4/gio"
@@ -23,7 +24,7 @@ var (
 )
 
 func init() {
-	if err := i18n.InitI18n(gettextPackage, LocaleDir); err != nil {
+	if err := i18n.InitI18n(gettextPackage, LocaleDir, slog.Default()); err != nil {
 		panic(err)
 	}
 

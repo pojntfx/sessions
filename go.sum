@@ -8,5 +8,9 @@ github.com/jwijenbergh/puregotk v0.0.0-20251201161753-28ec1479c381 h1:Cy6in3ph8e
 github.com/jwijenbergh/puregotk v0.0.0-20251201161753-28ec1479c381/go.mod h1:mZu8qSvCSqtVL+xoiebZuicnJijwrLfGRs6/eTVgFlc=
 github.com/pojntfx/go-gettext v0.2.0 h1:Nw3Hyy0Fef3pOuvYYPZESmbOT+IdnYjqx9/ywFo46GU=
 github.com/pojntfx/go-gettext v0.2.0/go.mod h1:eGt2r0JKvlPZjiz+GqEDtg92//F30LEV/IB0h42bk40=
+github.com/pojntfx/go-gettext v0.2.1-0.20260214053728-6de8cbcfdd86 h1:feX7+7z4/sSQlBgd9+I5x5zfFGcwIrvckkeDzWe6DsA=
+github.com/pojntfx/go-gettext v0.2.1-0.20260214053728-6de8cbcfdd86/go.mod h1:eGt2r0JKvlPZjiz+GqEDtg92//F30LEV/IB0h42bk40=
+github.com/pojntfx/go-gettext v0.3.0 h1:f+0O046uP84PNusW3ou3/1qSF4Q7NIjL84pqQy+VXqw=
+github.com/pojntfx/go-gettext v0.3.0/go.mod h1:eGt2r0JKvlPZjiz+GqEDtg92//F30LEV/IB0h42bk40=
 golang.org/x/mod v0.27.0 h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ=
 golang.org/x/mod v0.27.0/go.mod h1:rWI627Fq0DEoudcK+MBkNkCe0EetEaDSwJJkCcjpazc=
