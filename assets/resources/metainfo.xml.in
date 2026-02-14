@@ -71,6 +71,13 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.11" date='2026-02-13T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.11</url>
+            <description translate="no">
+                <p>Prevent digital display from changing in width while turning the dial, and fix
+                    the app not starting on some unusual system locales</p>
+            </description>
+        </release>
         <release version="0.1.10" date='2026-01-24T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.10</url>
             <description translate="no">
