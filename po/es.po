@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-13 00:46+0200\n"
-"PO-Revision-Date: 2025-08-13 23:01+0000\n"
-"Last-Translator: Isaias Carrillo <icarrillo1304@gmail.com>\n"
+"PO-Revision-Date: 2026-02-16 09:09+0000\n"
+"Last-Translator: Charlie Richardson <charlie.richardson10@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/sessions/"
 "sessions/es/>\n"
 "Language: es\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -22,11 +22,11 @@ msgstr "Sesiones"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "menú principal"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Tiempo restante"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
@@ -46,7 +46,7 @@ msgstr "Agregar 30s"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Accesos directos"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
@@ -54,11 +54,11 @@ msgstr "_Acerca de Sesiones"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "general"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "abrir menú"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
