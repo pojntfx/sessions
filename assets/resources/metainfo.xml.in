@@ -71,6 +71,13 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.12" date='2026-02-17T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.12</url>
+            <description translate="no">
+                <p>Add support for the app to keep running in the background while a session is in
+                    progress</p>
+            </description>
+        </release>
         <release version="0.1.11" date='2026-02-13T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.11</url>
             <description translate="no">
