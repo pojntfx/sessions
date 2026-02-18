@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-11 13:41+0200\n"
-"PO-Revision-Date: 2026-01-27 05:18+0000\n"
+"PO-Revision-Date: 2026-02-19 06:25+0000\n"
 "Last-Translator: Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "sessions/sessions/pt_BR/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -96,12 +96,12 @@ msgstr "Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>"
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:89
 msgid "Running the timer in the background"
-msgstr ""
+msgstr "Executando o timer em segundo plano"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:105
 msgid "Timer running"
-msgstr ""
+msgstr "Executando o timer"
 
 #: ../internal/components/main_window.go:151
 msgid "_Stop"
@@ -135,9 +135,9 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
-"O Sessions é um aplicativo visual e simples de temporizador desenvolvido "
-"especialmente para a técnica Pomodoro que ajuda a aumentar a sua "
-"produtividade dividindo o trabalho em sessões focadas com intervalos "
+"O Sessions é um aplicativo visual e simples de timer / temporizador "
+"desenvolvido especialmente para a técnica Pomodoro que ajuda a aumentar a "
+"sua produtividade dividindo o trabalho em sessões focadas com intervalos "
 "regulares."
 
 #: ../assets/resources/metainfo.xml.in:13
@@ -146,8 +146,7 @@ msgstr "Isso permite a você:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
-msgstr ""
-"Inicie sessões de trabalho focadas e personalize a duração do temporizador"
+msgstr "Inicie sessões de trabalho focadas e personalize a duração do timer"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
@@ -159,20 +158,20 @@ msgstr "Faça pausas regulares para manter a produtividade"
 
 #: ../assets/resources/metainfo.xml.in:64
 msgid "Setting up a new timer session"
-msgstr "Configure uma nova sessão do temporizador"
+msgstr "Configure uma nova sessão do timer"
 
 #: ../assets/resources/metainfo.xml.in:69
 msgid "Timer running during a work session"
-msgstr "O temporizador está contando uma sessão de trabalho"
+msgstr "O timer está contando uma sessão de trabalho"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr "Última posição do temporizador"
+msgstr "Última posição do timer"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
-"Definição manual mais recente em que o temporizador será iniciado quando "
-"aplicativo abrir"
+"Definição manual mais recente em que o timer será iniciado quando aplicativo "
+"abrir"
