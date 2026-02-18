@@ -36,7 +36,7 @@ msgstr "05:00"
 msgid "Remove 30s"
 msgstr "Eemalda 30 sek"
 
-#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:96
+#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:147
 msgid "_Start Timer"
 msgstr "_Käivita taimer"
 
@@ -93,15 +93,25 @@ msgstr "Eemalda 30 sekundit"
 msgid "translator-credits"
 msgstr "Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>"
 
-#: ../internal/components/main_window.go:91
+#. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
+#: ../internal/components/main_window.go:86
+msgid "Running the timer in the background"
+msgstr ""
+
+#. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
+#: ../internal/components/main_window.go:100
+msgid "Timer running"
+msgstr ""
+
+#: ../internal/components/main_window.go:142
 msgid "_Stop"
 msgstr "_Lõpeta"
 
-#: ../internal/components/main_window.go:139
+#: ../internal/components/main_window.go:190
 msgid "Session Finished"
 msgstr "Sessioon on lõppenud"
 
-#: ../internal/components/main_window.go:142
+#: ../internal/components/main_window.go:193
 msgid "Stop Alarm"
 msgstr "Peata äratus"
 
