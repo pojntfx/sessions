@@ -12,6 +12,9 @@ github.com/goccy/go-yaml/parser
 github.com/goccy/go-yaml/printer
 github.com/goccy/go-yaml/scanner
 github.com/goccy/go-yaml/token
+# github.com/godbus/dbus/v5 v5.1.0
+## explicit; go 1.12
+github.com/godbus/dbus/v5
 # github.com/jwijenbergh/purego v0.0.0-20251017112123-b71757b9ba42
 ## explicit; go 1.18
 github.com/jwijenbergh/purego
@@ -39,9 +42,17 @@ github.com/jwijenbergh/puregotk/v4/pango
 # github.com/pojntfx/go-gettext v0.3.0
 ## explicit; go 1.25.0
 github.com/pojntfx/go-gettext/pkg/i18n
+# github.com/rymdport/portal v0.4.2 => github.com/pojntfx/portal v0.0.0-20260218065639-826360f12c68
+## explicit; go 1.19
+github.com/rymdport/portal
+github.com/rymdport/portal/background
+github.com/rymdport/portal/internal/apis
+github.com/rymdport/portal/internal/convert
+github.com/rymdport/portal/internal/request
 # golang.org/x/mod v0.27.0
 ## explicit; go 1.23.0
 golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
+# github.com/rymdport/portal => github.com/pojntfx/portal v0.0.0-20260218065639-826360f12c68

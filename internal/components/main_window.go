@@ -14,6 +14,7 @@ import (
 	"github.com/jwijenbergh/puregotk/v4/gtk"
 	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
+	"github.com/rymdport/portal/background"
 )
 
 var (
@@ -43,6 +44,7 @@ type MainWindow struct {
 	timer                 uint
 	dragging              bool
 	paused                bool
+	held                  bool
 }
 
 func NewMainWindow(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
@@ -75,9 +77,58 @@ func (w *MainWindow) SaveLastPosition() {
 	w.settings.SetInt64(resources.SchemaLastPositionKey, int64(w.totalSec))
 }
 
+func (w *MainWindow) holdApp() {
+	if !w.held {
+		w.held = true
+
+		res, err := background.RequestBackground("", &background.RequestOptions{
+			// TRANSLATORS: Reason given when requesting permission to run in the background from the system.
+			Reason: L("Running the timer in the background"),
+		})
+		if err != nil {
+			panic(err)
+		}
+
+		if !res.Background { // Permission to run the background was denied
+			w.held = false
+
+			return
+		}
+
+		if err := background.SetStatus(background.StatusOptions{
+			// TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
+			Message: L("Timer running"),
+		},
+		); err != nil {
+			panic(err)
+		}
+
+		w.app.Hold()
+		w.SetHideOnClose(true)
+	}
+}
+
+func (w *MainWindow) releaseApp() {
+	if w.held {
+		w.held = false
+
+		if err := background.SetStatus(background.StatusOptions{
+			Message: "",
+		},
+		); err != nil {
+			panic(err)
+		}
+
+		w.SetHideOnClose(false)
+		w.app.Release()
+	}
+}
+
 func (w *MainWindow) StartAlarmPlayback() {
 	w.alarmClockElapsedFile.Seek(0)
 	w.alarmClockElapsedFile.Play()
+
+	w.releaseApp()
 }
 
 func (w *MainWindow) StopAlarmPlayback() {
@@ -161,6 +212,8 @@ func (w *MainWindow) StartTimer() {
 
 	cb := w.createSessionFinishedHandler()
 	w.timer = glib.TimeoutAdd(1000, &cb, 0)
+
+	w.holdApp()
 }
 
 func (w *MainWindow) StopTimer() {
@@ -172,6 +225,10 @@ func (w *MainWindow) StopTimer() {
 
 	w.UpdateButtons()
 	w.UpdateDial()
+
+	w.StopAlarmPlayback()
+
+	w.releaseApp()
 }
 
 func (w *MainWindow) resumeTimer() {
