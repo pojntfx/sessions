@@ -1,6 +1,7 @@
 package components
 
 import (
+	"log/slog"
 	"runtime"
 	"unsafe"
 
@@ -23,9 +24,10 @@ type Application struct {
 	window      *MainWindow
 	aboutDialog *adw.AboutDialog
 	settings    *gio.Settings
+	log         *slog.Logger
 }
 
-func NewApplication(settings *gio.Settings, FirstPropertyNameVar string, varArgs ...interface{}) Application {
+func NewApplication(settings *gio.Settings, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) Application {
 	obj := gobject.NewObject(gTypeApplication, FirstPropertyNameVar, varArgs...)
 
 	var v Application
@@ -33,6 +35,7 @@ func NewApplication(settings *gio.Settings, FirstPropertyNameVar string, varArgs
 
 	app := (*Application)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 	app.settings = settings
+	app.log = log
 
 	return v
 }
@@ -82,7 +85,7 @@ func init() {
 			var app gtk.Application
 			a.Cast(&app)
 
-			obj := NewMainWindow(&sessionsApp.Application, "application", app)
+			obj := NewMainWindow(&sessionsApp.Application, sessionsApp.log, "application", app)
 
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 			sessionsApp.window.settings = sessionsApp.settings

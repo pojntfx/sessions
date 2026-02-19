@@ -55,6 +55,7 @@ func main() {
 
 	app := components.NewApplication(
 		&settings,
+		slog.Default(),
 		"application_id", resources.AppID,
 		"flags", gio.GApplicationDefaultFlagsValue,
 	)

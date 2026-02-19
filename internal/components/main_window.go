@@ -2,6 +2,7 @@ package components
 
 import (
 	"fmt"
+	"log/slog"
 	"math"
 	"runtime"
 	"time"
@@ -38,6 +39,7 @@ type MainWindow struct {
 	alarmClockElapsedFile *gtk.MediaFile
 	app                   *adw.Application
 	settings              *gio.Settings
+	log                   *slog.Logger
 	totalSec              int
 	running               bool
 	remain                time.Duration
@@ -47,7 +49,7 @@ type MainWindow struct {
 	held                  bool
 }
 
-func NewMainWindow(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
+func NewMainWindow(app *adw.Application, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
 	obj := gobject.NewObject(gTypeMainWindow, FirstPropertyNameVar, varArgs...)
 
 	var v MainWindow
@@ -55,6 +57,7 @@ func NewMainWindow(app *adw.Application, FirstPropertyNameVar string, varArgs ..
 
 	window := (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 	window.app = app
+	window.log = log
 
 	dial := NewDial(app, "css-name")
 	dial.Widget.SetHexpand(true)
@@ -86,7 +89,9 @@ func (w *MainWindow) holdApp() {
 			Reason: L("Running the timer in the background"),
 		})
 		if err != nil {
-			panic(err)
+			w.log.Error("Could not request permission to run in background via background portal", "err", err)
+
+			return
 		}
 
 		if !res.Background { // Permission to run the background was denied
@@ -100,7 +105,9 @@ func (w *MainWindow) holdApp() {
 			Message: L("Timer running"),
 		},
 		); err != nil {
-			panic(err)
+			w.log.Error("Could not set app status via background portal", "err", err)
+
+			return
 		}
 
 		w.app.Hold()
@@ -116,7 +123,9 @@ func (w *MainWindow) releaseApp() {
 			Message: "",
 		},
 		); err != nil {
-			panic(err)
+			w.log.Error("Could not clear app status via background portal", "err", err)
+
+			return
 		}
 
 		w.SetHideOnClose(false)
