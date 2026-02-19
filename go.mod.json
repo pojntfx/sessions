@@ -20,10 +20,10 @@
   },
   {
     "dest": "vendor/github.com/rymdport/portal",
-    "sha256": "83d97b7e2d243f7da36bf016753ee8f5083b63f5212f22b23a3d1ecee1b9f13a",
+    "sha256": "39008d56bb0eaf58785f5df10a773945fc454f21864baf25cf0c0665a66c5532",
     "strip-components": 3,
     "type": "archive",
-    "url": "https://proxy.golang.org/github.com/pojntfx/portal/@v/v0.0.0-20260218065639-826360f12c68.zip"
+    "url": "https://proxy.golang.org/github.com/rymdport/portal/@v/v0.4.3-0.20260218173435-15da1e91be7c.zip"
   },
   {
     "dest": "vendor/github.com/dennwc/flatpak-go-mod",
