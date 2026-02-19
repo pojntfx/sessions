@@ -86,7 +86,7 @@ func (w *MainWindow) holdApp() {
 
 		res, err := background.RequestBackground("", &background.RequestOptions{
 			// TRANSLATORS: Reason given when requesting permission to run in the background from the system.
-			Reason: L("Running the timer in the background"),
+			Reason: L("Running the Timer in the Background"),
 		})
 		if err != nil {
 			w.log.Error("Could not request permission to run in background via background portal", "err", err)
@@ -102,7 +102,7 @@ func (w *MainWindow) holdApp() {
 
 		if err := background.SetStatus(background.StatusOptions{
 			// TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
-			Message: L("Timer running"),
+			Message: L("Timer Running"),
 		},
 		); err != nil {
 			w.log.Error("Could not set app status via background portal", "err", err)

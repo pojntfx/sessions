@@ -42,7 +42,7 @@ github.com/jwijenbergh/puregotk/v4/pango
 # github.com/pojntfx/go-gettext v0.3.0
 ## explicit; go 1.25.0
 github.com/pojntfx/go-gettext/pkg/i18n
-# github.com/rymdport/portal v0.4.2 => github.com/pojntfx/portal v0.0.0-20260218065639-826360f12c68
+# github.com/rymdport/portal v0.4.3-0.20260218173435-15da1e91be7c
 ## explicit; go 1.19
 github.com/rymdport/portal
 github.com/rymdport/portal/background
@@ -55,4 +55,3 @@ golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
-# github.com/rymdport/portal => github.com/pojntfx/portal v0.0.0-20260218065639-826360f12c68

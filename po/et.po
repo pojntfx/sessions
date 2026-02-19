@@ -95,12 +95,12 @@ msgstr "Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:89
-msgid "Running the timer in the background"
+msgid "Running the Timer in the Background"
 msgstr "Taimeri käivitamine taustal"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:105
-msgid "Timer running"
+msgid "Timer Running"
 msgstr "Taimer töötab"
 
 #: ../internal/components/main_window.go:151
