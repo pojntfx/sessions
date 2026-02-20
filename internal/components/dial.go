@@ -260,7 +260,7 @@ func init() {
 		"SessionsDial",
 		parentQuery.ClassSize,
 		&classInit,
-		parentQuery.InstanceSize+uint(unsafe.Sizeof(Dial{}))+uint(unsafe.Sizeof(&Dial{})),
+		parentQuery.InstanceSize,
 		&instanceInit,
 		0,
 	)

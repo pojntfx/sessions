@@ -6,10 +6,10 @@
   },
   {
     "dest": "vendor/github.com/jwijenbergh/puregotk",
-    "sha256": "2f386c11285dba4ba7bd57f22ba1ac16e93d0fb5a7cc6c4aaae5f6d957867af4",
+    "sha256": "d93f0d9ef34fe264866d0c0410d0a615d9a63752487be2c32ad365af662bbb36",
     "strip-components": 3,
     "type": "archive",
-    "url": "https://proxy.golang.org/github.com/jwijenbergh/puregotk/@v/v0.0.0-20251201161753-28ec1479c381.zip"
+    "url": "https://proxy.golang.org/github.com/pojntfx/puregotk/@v/v0.0.0-20260220051800-f8a38f1e0894.zip"
   },
   {
     "dest": "vendor/github.com/pojntfx/go-gettext",
@@ -48,10 +48,10 @@
   },
   {
     "dest": "vendor/github.com/jwijenbergh/purego",
-    "sha256": "aa4903b6c7333843f77e6012d68c89846462f4755fe6201a4069e69547d1000e",
+    "sha256": "fd395b72e7fb11c40f5a5ae7f45f6bde2d37e355a93221ba1c4c0aeaea26f97d",
     "strip-components": 3,
     "type": "archive",
-    "url": "https://proxy.golang.org/github.com/jwijenbergh/purego/@v/v0.0.0-20251017112123-b71757b9ba42.zip"
+    "url": "https://proxy.golang.org/github.com/pojntfx/purego/@v/v0.0.0-20260128031338-5429b1e47a6d.zip"
   },
   {
     "dest": "vendor/golang.org/x/mod",

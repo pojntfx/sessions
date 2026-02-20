@@ -43,7 +43,7 @@ type MainWindow struct {
 	totalSec              int
 	running               bool
 	remain                time.Duration
-	timer                 uint
+	timer                 uint32
 	dragging              bool
 	paused                bool
 	held                  bool
@@ -312,7 +312,7 @@ func (w *MainWindow) setupDialGestures() {
 	drag.ConnectDragEnd(&onDragEnd)
 
 	click := gtk.NewGestureClick()
-	onPress := func(_ gtk.GestureClick, _ int, x float64, y float64) {
+	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
 		w.handleDialing(x, y)
 	}
 	click.ConnectPressed(&onPress)
@@ -442,7 +442,7 @@ func init() {
 		"SessionsMainWindow",
 		windowParentQuery.ClassSize,
 		&windowClassInit,
-		windowParentQuery.InstanceSize+uint(unsafe.Sizeof(MainWindow{}))+uint(unsafe.Sizeof(&MainWindow{})),
+		windowParentQuery.InstanceSize,
 		&windowInstanceInit,
 		0,
 	)
