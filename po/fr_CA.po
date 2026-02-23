@@ -156,12 +156,10 @@ msgid "Timer running during a work session"
 msgstr "Minuterie en cours pendant une session de travail"
 
 #: ../assets/resources/index.gschema.xml:6
-#: ../builddir/files/share/glib-2.0/schemas/com.pojtinger.felicitas.Sessions.gschema.xml:6
 msgid "Last timer position"
 msgstr "Dernière position de la minuterie"
 
 #: ../assets/resources/index.gschema.xml:7
-#: ../builddir/files/share/glib-2.0/schemas/com.pojtinger.felicitas.Sessions.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
