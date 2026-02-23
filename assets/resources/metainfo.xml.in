@@ -71,6 +71,13 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.13" date='2026-02-22T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.13</url>
+            <description translate="no">
+                <p>Gracefully handle missing portals, improve development experience and update
+                    translations</p>
+            </description>
+        </release>
         <release version="0.1.12" date='2026-02-17T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.12</url>
             <description translate="no">
