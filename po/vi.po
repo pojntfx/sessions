@@ -165,10 +165,12 @@ msgid "Timer running during a work session"
 msgstr "Hẹn giờ chạy trong phiên làm việc"
 
 #: ../assets/resources/index.gschema.xml:6
+#: ../builddir/files/share/glib-2.0/schemas/com.pojtinger.felicitas.Sessions.gschema.xml:6
 msgid "Last timer position"
 msgstr "Vị trí hẹn giờ cuối cùng"
 
 #: ../assets/resources/index.gschema.xml:7
+#: ../builddir/files/share/glib-2.0/schemas/com.pojtinger.felicitas.Sessions.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
