@@ -73,7 +73,21 @@ $ go generate ./...
 $ go run -ldflags="-X 'main.LocaleDir=${PWD}/po' -X 'main.SchemaDir=${PWD}/assets/resources'" .
 ```
 
-You can also open the project in [GNOME Builder](https://flathub.org/apps/org.gnome.Builder) and run it by clicking the play button in the header bar. Note that GNOME Builder doesn't automatically download the sources specified in [go.mod.json](./go.mod.json), so you need to either run `go mod vendor` manually or copy the contents of [go.mod.json](./go.mod.json) into the `.modules[] | select(.name == "multiplex") | .sources` field of [com.pojtinger.felicitas.Sessions.json](./com.pojtinger.felicitas.Sessions.json).
+You can also open the project in [GNOME Builder](https://flathub.org/apps/org.gnome.Builder) and run it by clicking the play button in the header bar, or use [Foundry](https://gitlab.gnome.org/GNOME/foundry) directly:
+
+```shell
+$ foundry init
+$ foundry run
+```
+
+If you want to reproduce the build from Flathub, you can use [flatpak-builder](https://docs.flathub.org/docs/for-app-authors/submission#before-submission) directly:
+
+```shell
+$ flatpak run --command=flathub-build org.flatpak.Builder --install com.pojtinger.felicitas.Sessions.json
+$ flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest com.pojtinger.felicitas.Sessions.json
+$ flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
+$ flatpak run com.pojtinger.felicitas.Sessions
+```
 
 To translate Sessions, you can use [Weblate](https://hosted.weblate.org/engage/sessions/). This is the current translation status:
 
