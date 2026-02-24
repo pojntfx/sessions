@@ -25,6 +25,8 @@ var (
 const (
 	minDialValue = 30
 	maxDialValue = 3600
+
+	notificationIdVar = "session-finished"
 )
 
 type MainWindow struct {
@@ -143,6 +145,8 @@ func (w *MainWindow) StartAlarmPlayback() {
 func (w *MainWindow) StopAlarmPlayback() {
 	w.alarmClockElapsedFile.SetPlaying(false)
 	w.alarmClockElapsedFile.Seek(0)
+
+	w.app.WithdrawNotification(notificationIdVar)
 }
 
 func (w *MainWindow) UpdateButtons() {
@@ -197,11 +201,11 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 			w.StartAlarmPlayback()
 
 			n := gio.NewNotification(L("Session Finished"))
+			n.SetBody(L("Time to take a break"))
 			n.SetPriority(gio.GNotificationPriorityUrgentValue)
 			n.SetDefaultAction("app.stopAlarmPlayback")
-			n.AddButton(L("Stop Alarm"), "app.stopAlarmPlayback")
 
-			w.app.SendNotification("session-finished", n)
+			w.app.SendNotification(notificationIdVar, n)
 
 			return false
 		}
