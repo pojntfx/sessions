@@ -22,6 +22,7 @@
         "bash -c 'desktop-file-install --dir=/app/share/applications assets/meta/$FLATPAK_ID.desktop'",
         "bash -c 'install -D -m 0644 assets/resources/metainfo.xml /app/share/metainfo/$FLATPAK_ID.metainfo.xml'",
         "bash -c 'install -D -m 0644 assets/meta/icon.svg /app/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg'",
+        "bash -c 'install -D -m 0644 assets/meta/icon-symbolic.svg /app/share/icons/hicolor/symbolic/apps/$FLATPAK_ID-symbolic.svg'",
         "bash -c 'mkdir -p /app/share/locale && (cd po && find . -name \"*.mo\" -exec cp --parents {} /app/share/locale/ \\;)'",
         "bash -c 'install -D -m 0644 assets/resources/index.gschema.xml /app/share/glib-2.0/schemas/$FLATPAK_ID.gschema.xml'",
         "glib-compile-schemas /app/share/glib-2.0/schemas"
