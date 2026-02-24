@@ -202,7 +202,7 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 
 			n := gio.NewNotification(L("Session Finished"))
 			n.SetBody(L("Time to take a break"))
-			n.SetPriority(gio.GNotificationPriorityUrgentValue)
+			n.SetPriority(gio.GNotificationPriorityHighValue)
 			n.SetDefaultAction("app.stopAlarmPlayback")
 
 			w.app.SendNotification(notificationIdVar, n)
