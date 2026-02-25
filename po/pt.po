@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-14 21:46+0200\n"
-"PO-Revision-Date: 2025-08-15 20:01+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2026-02-26 22:09+0000\n"
+"Last-Translator: Luiz Fernando Giolo Alves <lfgiolo+weblate@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/sessions/"
 "sessions/pt/>\n"
 "Language: pt\n"
@@ -12,35 +12,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.16.1-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Abrir menu"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Mostrar atalhos de teclado"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Fechar janela"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Fechar aplicação"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Temporizador"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Iniciar ou encerrar temporizador"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
@@ -60,11 +60,11 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu Principal"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Tempo Restante"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
@@ -76,7 +76,7 @@ msgstr "_Iniciar Timer"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Atalhos Teclado"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
@@ -90,12 +90,12 @@ msgstr "ssantos <ssantos@web.de>"
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "A executar o temporizador em segundo plano"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Temporizador em execução"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
@@ -107,7 +107,7 @@ msgstr "Sessão finalizada"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Hora de fazer uma pausa"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
@@ -120,6 +120,8 @@ msgstr "Sessões de foco com intervalos cronometrados"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;temporizador;produtividade;foco;intervalos de trabalho;gestão de "
+"tarefas;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -159,10 +161,12 @@ msgstr "O temporizador está a contar numa sessão de trabalho"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Última posição do temporizador"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"A última posição do temporizador definida manualmente será restaurada quando "
+"a aplicação for iniciada"
