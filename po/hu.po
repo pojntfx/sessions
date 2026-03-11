@@ -2,23 +2,23 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
-"PO-Revision-Date: 2025-08-09 20:38+0000\n"
-"Last-Translator: rdbende <rdbende@proton.me>\n"
+"PO-Revision-Date: 2026-03-11 12:43+0000\n"
+"Last-Translator: Miklós Reichel <miklos.reichel@gmail.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sessions/"
 "sessions/hu/>\n"
 "Language: hu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Általános"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Menü megnyitása"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
