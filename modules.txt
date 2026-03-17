@@ -1,3 +1,27 @@
+# codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80
+## explicit; go 1.18
+codeberg.org/puregotk/purego
+codeberg.org/puregotk/purego/internal/cgo
+codeberg.org/puregotk/purego/internal/fakecgo
+codeberg.org/puregotk/purego/internal/strings
+codeberg.org/puregotk/purego/internal/xreflect
+# codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b
+## explicit; go 1.23.0
+codeberg.org/puregotk/puregotk/internal/core
+codeberg.org/puregotk/puregotk/pkg/core
+codeberg.org/puregotk/puregotk/v4/adw
+codeberg.org/puregotk/puregotk/v4/cairo
+codeberg.org/puregotk/puregotk/v4/gdk
+codeberg.org/puregotk/puregotk/v4/gdkpixbuf
+codeberg.org/puregotk/puregotk/v4/gio
+codeberg.org/puregotk/puregotk/v4/glib
+codeberg.org/puregotk/puregotk/v4/gmodule
+codeberg.org/puregotk/puregotk/v4/gobject
+codeberg.org/puregotk/puregotk/v4/gobject/types
+codeberg.org/puregotk/puregotk/v4/graphene
+codeberg.org/puregotk/puregotk/v4/gsk
+codeberg.org/puregotk/puregotk/v4/gtk
+codeberg.org/puregotk/puregotk/v4/pango
 # github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa
 ## explicit; go 1.24.4
 github.com/dennwc/flatpak-go-mod
@@ -12,37 +36,13 @@ github.com/goccy/go-yaml/parser
 github.com/goccy/go-yaml/printer
 github.com/goccy/go-yaml/scanner
 github.com/goccy/go-yaml/token
-# github.com/godbus/dbus/v5 v5.1.0
-## explicit; go 1.12
+# github.com/godbus/dbus/v5 v5.2.2
+## explicit; go 1.20
 github.com/godbus/dbus/v5
-# github.com/jwijenbergh/purego v0.0.0-20251017112123-b71757b9ba42 => github.com/pojntfx/purego v0.0.0-20260128031338-5429b1e47a6d
-## explicit; go 1.18
-github.com/jwijenbergh/purego
-github.com/jwijenbergh/purego/internal/cgo
-github.com/jwijenbergh/purego/internal/fakecgo
-github.com/jwijenbergh/purego/internal/strings
-github.com/jwijenbergh/purego/internal/xreflect
-# github.com/jwijenbergh/puregotk v0.0.0-20251201161753-28ec1479c381 => github.com/pojntfx/puregotk v0.0.0-20260220051800-f8a38f1e0894
-## explicit; go 1.23.0
-github.com/jwijenbergh/puregotk/internal/core
-github.com/jwijenbergh/puregotk/pkg/core
-github.com/jwijenbergh/puregotk/v4/adw
-github.com/jwijenbergh/puregotk/v4/cairo
-github.com/jwijenbergh/puregotk/v4/gdk
-github.com/jwijenbergh/puregotk/v4/gdkpixbuf
-github.com/jwijenbergh/puregotk/v4/gio
-github.com/jwijenbergh/puregotk/v4/glib
-github.com/jwijenbergh/puregotk/v4/gmodule
-github.com/jwijenbergh/puregotk/v4/gobject
-github.com/jwijenbergh/puregotk/v4/gobject/types
-github.com/jwijenbergh/puregotk/v4/graphene
-github.com/jwijenbergh/puregotk/v4/gsk
-github.com/jwijenbergh/puregotk/v4/gtk
-github.com/jwijenbergh/puregotk/v4/pango
-# github.com/pojntfx/go-gettext v0.3.0
+# github.com/pojntfx/go-gettext v0.4.1
 ## explicit; go 1.25.0
 github.com/pojntfx/go-gettext/pkg/i18n
-# github.com/rymdport/portal v0.4.3-0.20260218173435-15da1e91be7c
+# github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb
 ## explicit; go 1.19
 github.com/rymdport/portal
 github.com/rymdport/portal/background
@@ -55,3 +55,6 @@ golang.org/x/mod/internal/lazyregexp
 golang.org/x/mod/modfile
 golang.org/x/mod/module
 golang.org/x/mod/semver
+# golang.org/x/sys v0.42.0
+## explicit; go 1.25.0
+golang.org/x/sys/unix
