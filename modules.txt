@@ -5,7 +5,7 @@ codeberg.org/puregotk/purego/internal/cgo
 codeberg.org/puregotk/purego/internal/fakecgo
 codeberg.org/puregotk/purego/internal/strings
 codeberg.org/puregotk/purego/internal/xreflect
-# codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b
+# codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53
 ## explicit; go 1.23.0
 codeberg.org/puregotk/puregotk/internal/core
 codeberg.org/puregotk/puregotk/pkg/core

@@ -2,6 +2,8 @@ codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80 h1:y5ZxMLLOjl4xc
 codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80/go.mod h1:hVVM4ddvYRlc3IcK3CXJPlMwd/vaLj7gdDBZ6oPgT8w=
 codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b h1:28vVKrF9Y+xPk72vNvxNkTbB1h046ZzKTHAL9JLGQc4=
 codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b/go.mod h1:Q2E89WEkiGRObalH0QeYJe19f1H+6cn40xavs9+cxdU=
+codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53 h1:2djv1s/tkZRjI8DNzA97mfpGR31VJ1da8QHaqecWCDI=
+codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53/go.mod h1:Q2E89WEkiGRObalH0QeYJe19f1H+6cn40xavs9+cxdU=
 github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa h1:c5k0CB16zFqMTKviySxusHVRFAnggzX3l6JK3Cw6fiQ=
 github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa/go.mod h1:4akg2uvMr36H/vDzQSPofcff2LBk4u+bTAPy2bxVoOo=
 github.com/goccy/go-yaml v1.18.0 h1:8W7wMFS12Pcas7KU+VVkaiCng+kG8QiFeFwzFb+rwuw=

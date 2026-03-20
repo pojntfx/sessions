@@ -5,7 +5,7 @@ go 1.25.0
 tool github.com/dennwc/flatpak-go-mod
 
 require (
-	codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b
+	codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53
 	github.com/pojntfx/go-gettext v0.4.1
 	github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb
 )
