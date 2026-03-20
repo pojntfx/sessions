@@ -7,12 +7,8 @@
 
   <name xml:lang="en">Sessions</name>
   <shortdesc xml:lang="en">Focus with timed work intervals</shortdesc>
-  <description xml:lang="en">Sessions is a simple visual timer application designed specifically for
-    the pomodoro technique, helping you stay productive by breaking work into focused sessions with
-    regular breaks.</description>
 
-  <homepage rdf:resource="https://github.com/pojntfx/sessions/" />
-  <download-page rdf:resource="https://flathub.org/apps/com.pojtinger.felicitas.Sessions" />
+  <homepage rdf:resource="https://apps.gnome.org/Sessions/" />
   <bug-database rdf:resource="https://github.com/pojntfx/sessions/issues/" />
 
   <programming-language>Go</programming-language>
@@ -22,6 +18,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Felicitas Pojtinger</foaf:name>
+      <foaf:mbox rdf:resource="mailto:felicitas@pojtinger.com" />
       <foaf:account>
         <foaf:OnlineAccount>
           <foaf:accountServiceHomepage rdf:resource="https://github.com" />
