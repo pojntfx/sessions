@@ -6,6 +6,8 @@ Focus with timed work intervals.
 
 <br/>
 
+[![GNOME Circle](https://circle.gnome.org/assets/button/badge.svg)](https://apps.gnome.org/Sessions/)
+[![Please do not theme this app](https://stopthemingmy.app/badge.svg)](https://stopthemingmy.app)
 [![Flatpak CI](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml/badge.svg)](https://github.com/pojntfx/sessions/actions/workflows/flatpak.yaml)
 ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.25-61CFDD.svg)
 [![Go Reference](https://pkg.go.dev/badge/github.com/pojntfx/sessions.svg)](https://pkg.go.dev/github.com/pojntfx/sessions)
@@ -61,6 +63,8 @@ Click on an image to see a larger version.
 - [puregotk/puregotk](https://codeberg.org/puregotk/puregotk) provides the GTK4 and `libadwaita` bindings for Go.
 
 ## Contributing
+
+If you are new to contributing to open-source projects or projects in the GNOME ecosystem, the [contribution guide](https://welcome.gnome.org/app/Sessions/) for Sessions might be helpful to you.
 
 To contribute, please use the [GitHub flow](https://guides.github.com/introduction/flow/) and follow the [GNOME Code of Conduct](https://conduct.gnome.org/).
 
