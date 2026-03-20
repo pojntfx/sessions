@@ -150,11 +150,11 @@ msgstr "Отслеживать свой прогресс в чистом от о
 msgid "Take regular breaks to maintain productivity"
 msgstr "Брать регулярные перерывы для поддержки продуктивности"
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Настройка новой сессии таймера"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "Таймер работает во время рабочей сессии"
 

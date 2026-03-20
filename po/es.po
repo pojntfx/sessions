@@ -149,11 +149,11 @@ msgstr ""
 msgid "Take regular breaks to maintain productivity"
 msgstr "Tomar descansos regulares para mantener la productividad"
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Configura un nuevo temporizador"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "Temporizador en marcha durante una sesión de trabajo"
 

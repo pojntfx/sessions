@@ -150,11 +150,11 @@ msgstr "Acompanhe seu progresso em uma interface limpa, sem distrações"
 msgid "Take regular breaks to maintain productivity"
 msgstr "Faça pausas regulares para manter a produtividade"
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Configure uma nova sessão do timer"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "O timer está contando uma sessão de trabalho"
 

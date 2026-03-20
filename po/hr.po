@@ -149,11 +149,11 @@ msgstr "Prati svoj napredak s jednostavnim sučeljem"
 msgid "Take regular breaks to maintain productivity"
 msgstr "Redovito pauziraj rad za održavanje produktivnosti"
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Postavljanje novog timera"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "Timer odbrojava tijekom radne sesije"
 

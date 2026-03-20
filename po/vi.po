@@ -150,11 +150,11 @@ msgstr "Theo dõi tiến trình của bạn với giao diện rõ ràng, không 
 msgid "Take regular breaks to maintain productivity"
 msgstr "Nghỉ giải lao thường xuyên để duy trì năng suất"
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Thiết lập phiên hẹn giờ mới"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "Hẹn giờ chạy trong phiên làm việc"
 

@@ -145,11 +145,11 @@ msgstr ""
 msgid "Take regular breaks to maintain productivity"
 msgstr ""
 
-#: ../assets/resources/metainfo.xml.in:64
+#: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
 msgstr "Yeni zamanlayıcı oturumu ayarlanıyor"
 
-#: ../assets/resources/metainfo.xml.in:69
+#: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
 msgstr "Zamanlayıcı çalışma oturumu sırasında çalışıyor"
 

@@ -26,13 +26,14 @@
     <content_rating type="oars-1.1" />
 
     <url type="bugtracker">https://github.com/pojntfx/sessions/issues</url>
-    <url type="homepage">https://github.com/pojntfx/sessions/</url>
+    <url type="homepage">https://apps.gnome.org/Sessions/</url>
     <url type="donation">https://github.com/sponsors/pojntfx</url>
-    <url type="help">https://matrix.to/#/#sessions:matrix.org?via=matrix.org</url>
-    <url type="contact">https://felicitas.pojtinger.com/imprint</url>
+    <url type="help">https://matrix.to/#/#sessions:matrix.org</url>
+    <url type="contact">https://matrix.to/#/#sessions:matrix.org</url>
     <url type="faq">https://github.com/pojntfx/sessions?tab=readme-ov-file#tutorial</url>
     <url type="vcs-browser">https://github.com/pojntfx/sessions/</url>
     <url type="translate">https://hosted.weblate.org/projects/sessions/</url>
+    <url type="contribute">https://welcome.gnome.org/app/Sessions/</url>
 
     <launchable type="desktop-id">com.pojtinger.felicitas.Sessions.desktop</launchable>
 
