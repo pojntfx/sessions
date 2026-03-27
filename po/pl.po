@@ -3,116 +3,117 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-27 13:39+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-27 21:43+0000\n"
+"Last-Translator: Victoria Niedzielska <royal.victoria@proton.me>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/sessions/sessions/"
+"pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Translate Toolkit 3.19.3\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Ogólne"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Otwieranie menu"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Wyświetlanie skrótów klawiszowych"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Zamykanie okna"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Zakończenie działania"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Minutnik"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Rozpoczęcie lub zatrzymanie minutnika"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Dodawanie 30 sekund"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Usuwanie 30 sekund"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr ""
+msgstr "Sesje"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu główne"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Pozostały czas"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
 msgid "_Start Timer"
-msgstr ""
+msgstr "_Rozpocznij minutnik"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Skróty klawiszowe"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr ""
+msgstr "_O programie"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:83
 msgid "translator-credits"
-msgstr ""
+msgstr "Victoria Niedzielska <victorian@gnome.org>, 2026"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Działanie minutnika w tle"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Minutnik jest włączony"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
-msgstr ""
+msgstr "_Zatrzymaj"
 
 #: ../internal/components/main_window.go:203
 msgid "Session Finished"
-msgstr ""
+msgstr "Skończono sesję"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Czas wziąć przerwę"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Skupiaj się z określonymi interwałami pracy"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -120,6 +121,9 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;timer;minutnik;productivity;produktywność;focus;skupienie;work "
+"intervals;odstępy;interwały;praca;task mamagement;zarządzanie "
+"zadaniami;zarządzanie zadaniem;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -127,10 +131,13 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"Sesje to prosta aplikacja z minutnikiem zaprojektowana specjalnie dla "
+"techniki pomodoro, aby pomóc z produktywności za pomocą podzielenia pracy w "
+"skupione sesje z regularnymi przerwami."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "Pozwala na:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
