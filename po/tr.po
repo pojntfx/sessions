@@ -155,7 +155,7 @@ msgstr "Zamanlayıcı çalışma oturumu sırasında çalışıyor"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Son zamanlayıcı konumu"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
