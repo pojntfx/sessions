@@ -3,115 +3,116 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-28 06:59+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-03-29 06:09+0000\n"
+"Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/sessions/"
+"sessions/oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Translate Toolkit 3.19.3\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Dobrir lo menú"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Afichar los acorchis clavièr"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Tampar la fenèstra"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Quitar"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Minutador"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Lançar o arrestar lo minutador"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Apondre 30 segondas"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Tirar 30 secondas"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr ""
+msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menú principal"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Temps demorant"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
 msgid "_Start Timer"
-msgstr ""
+msgstr "_Lançar lo minutador"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Acorchis clavièr"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr ""
+msgstr "_A prepaus de sessions"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:83
 msgid "translator-credits"
-msgstr ""
+msgstr "Quentin PAGÈS"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Execucion del minutador en rèireplan"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Minutador en execucion"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
-msgstr ""
+msgstr "_Arrestar"
 
 #: ../internal/components/main_window.go:203
 msgid "Session Finished"
-msgstr ""
+msgstr "Session terminada"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Es ora de far una pausa"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Se concentrar amb d'intervals de trabalh minutats"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -119,6 +120,8 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;timer;productivitat;fòcus;trabalh; "
+"prètzfach;prètzfait;interval;gestion;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -126,37 +129,43 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"Sessions es una aplicacion de cronomètre visual simpla concebuda "
+"especialament per la tecnica pomodoro, que vos ajuda a demorar productiu en "
+"devesissent lo trabalh en sessions focalizadas amb de pauses regularas."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "Vos permet de :"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
+"Aviar de sessions de trabalh concentradas amb de cronomètres de personalizar"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr ""
+msgstr "Seguir vòstres progresses amb una interfàcia neta e sens distraccion"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Fasètz de pausas regularas per manténer la productivitat"
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "Configuracion d'un minutador novèl"
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "Minutador en execucion pendent una session de trabalh"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Darrièra posicion del minutador"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"La darrièra posicion del cronomètre reglada a la man que serà restablida a "
+"l'aviada de l'aplicacion"
