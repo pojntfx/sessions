@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-27 13:39+0200\n"
-"PO-Revision-Date: 2026-03-27 21:43+0000\n"
-"Last-Translator: Victoria Niedzielska <royal.victoria@proton.me>\n"
+"PO-Revision-Date: 2026-03-31 06:09+0000\n"
+"Last-Translator: Victoria Niedzielska <victorian@gnome.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sessions/sessions/"
 "pl/>\n"
 "Language: pl\n"
@@ -46,12 +46,12 @@ msgstr "Rozpoczęcie lub zatrzymanie minutnika"
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr "Dodawanie 30 sekund"
+msgstr "Dodanie 30 sekund"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr "Usuwanie 30 sekund"
+msgstr "Usunięcie 30 sekund"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -142,29 +142,32 @@ msgstr "Pozwala na:"
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
 msgstr ""
+"Zaczynanie skupionych sesji pracy z dostrajalną kontrolą czasu minutnika"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr ""
+msgstr "Śledzenie swojego progresu z czystym, nierozpraszającym interfejsem"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Branie regularnych przerw, aby utrzymać produktywność"
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "Ustawianie nowej sesji minutnika"
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "Minutnik odliczający czas podczas sesji pracy"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Ostatnia pozycja minutnika"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"Ostatnia ręcznie ustawiona pozycja minutnika będzie przywrócona, podczas "
+"uruchomienia aplikacji"
