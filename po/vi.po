@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-22 15:03+0200\n"
-"PO-Revision-Date: 2026-02-13 05:09+0000\n"
+"PO-Revision-Date: 2026-04-07 15:34+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/sessions/"
 "sessions/vi/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
@@ -90,12 +90,12 @@ msgstr "Loc Huynh <huynhloc.contact@gmail.com>"
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Chạy bộ hẹn giờ ở chế độ nền"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Hẹn giờ đang chạy"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
@@ -107,7 +107,7 @@ msgstr "Phiên kết thúc"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Đã đến lúc phải nghỉ ngơi"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
