@@ -3,115 +3,116 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-07 17:34+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-08 16:10+0000\n"
+"Last-Translator: Fjuro <fjuro@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Czech <https://hosted.weblate.org/projects/sessions/sessions/"
+"cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Translate Toolkit 3.19.3\n"
+"Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "Obecné"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Otevřít nabídku"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Zobrazit klávesové zkratky"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Zavřít okno"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Ukončit"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Časovač"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Spustit nebo zastavit časovač"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Přidat 30 sekund"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Odebrat 30 sekund"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr ""
+msgstr "Relace"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Hlavní nabídka"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Zbývající čas"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
 msgid "_Start Timer"
-msgstr ""
+msgstr "_Spustit časovač"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Klávesové zkratky"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr ""
+msgstr "_O aplikaci Relace"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:83
 msgid "translator-credits"
-msgstr ""
+msgstr "Jonáš Loskot <preklad@jonasloskot.cz>"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Spuštění časovače na pozadí"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Časovač běží"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
-msgstr ""
+msgstr "_Zastavit"
 
 #: ../internal/components/main_window.go:203
 msgid "Session Finished"
-msgstr ""
+msgstr "Relace dokončena"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Čas na přestávku"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Soustředění s časově ohraničenými pracovními intervaly"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -119,6 +120,7 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;časovač;produktivita;soustředění;pracovní intervaly;správa úkolů;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -126,37 +128,42 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"Relace jsou jednoduchým vizuálním časovačem navrženým specificky pro "
+"techniku pomodoro, což vám pomůže zůstat produktivní rozdělením práce na "
+"relace s pravidelnými pauzami."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "Umožňuje vám:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
-msgstr ""
+msgstr "Začněte s pracovními relacemi s nastavitelnou délkou trvání"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
-msgstr ""
+msgstr "Sledujte svůj postup v minimalistickém rozhraní"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Dělejte si pravidelné přestávky, abyste si udrželi produktivitu"
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "Nastavení nové relace časovače"
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "Časovač během pracovní relace"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Poslední pozice časovače"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"Poslední ručně nastavená pozice časovače, která bude obnovena při spuštění "
+"aplikace"
