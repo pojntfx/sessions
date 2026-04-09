@@ -1,7 +1,5 @@
 codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80 h1:y5ZxMLLOjl4xc2tBl02olxZQ06xbbKiR+2ipBfDrVcs=
 codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80/go.mod h1:hVVM4ddvYRlc3IcK3CXJPlMwd/vaLj7gdDBZ6oPgT8w=
-codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b h1:28vVKrF9Y+xPk72vNvxNkTbB1h046ZzKTHAL9JLGQc4=
-codeberg.org/puregotk/puregotk v0.0.0-20260317050435-ff6e1078003b/go.mod h1:Q2E89WEkiGRObalH0QeYJe19f1H+6cn40xavs9+cxdU=
 codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53 h1:2djv1s/tkZRjI8DNzA97mfpGR31VJ1da8QHaqecWCDI=
 codeberg.org/puregotk/puregotk v0.0.0-20260320050432-5bb8c3359c53/go.mod h1:Q2E89WEkiGRObalH0QeYJe19f1H+6cn40xavs9+cxdU=
 github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa h1:c5k0CB16zFqMTKviySxusHVRFAnggzX3l6JK3Cw6fiQ=
@@ -16,5 +14,5 @@ github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb h1:fELJ2snyLryeU
 github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb/go.mod h1:kFF4jslnJ8pD5uCi17brj/ODlfIidOxlgUDTO5ncnC4=
 golang.org/x/mod v0.27.0 h1:kb+q2PyFnEADO2IEF935ehFUXlWiNjJWtRNgBLSfbxQ=
 golang.org/x/mod v0.27.0/go.mod h1:rWI627Fq0DEoudcK+MBkNkCe0EetEaDSwJJkCcjpazc=
-golang.org/x/sys v0.42.0 h1:omrd2nAlyT5ESRdCLYdm3+fMfNFE/+Rf4bDIQImRJeo=
-golang.org/x/sys v0.42.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=
+golang.org/x/sys v0.43.0 h1:Rlag2XtaFTxp19wS8MXlJwTvoh8ArU6ezoyFsMyCTNI=
+golang.org/x/sys v0.43.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=
