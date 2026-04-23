@@ -99,7 +99,7 @@ func init() {
 			styleContext := widget.GetStyleContext()
 			var accent, errColor gdk.RGBA
 			styleContext.LookupColor("accent_bg_color", &accent)
-			styleContext.LookupColor("error_bg_color", &errColor)
+			styleContext.LookupColor("error_color", &errColor)
 
 			highContrast := dialW.app.GetStyleManager().GetHighContrast()
 
