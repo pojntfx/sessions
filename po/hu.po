@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-09 14:33-0700\n"
-"PO-Revision-Date: 2026-03-11 12:43+0000\n"
-"Last-Translator: Miklós Reichel <miklos.reichel@gmail.com>\n"
+"PO-Revision-Date: 2026-04-26 21:09+0000\n"
+"Last-Translator: rdbende <rdbende@proton.me>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/sessions/"
 "sessions/hu/>\n"
 "Language: hu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
@@ -22,23 +22,23 @@ msgstr "Menü megnyitása"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Gyorsbillentyűk megnyitása"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Ablak bezárása"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Kilépés"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Időzítő"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Időzítő indítása vagy leállítása"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
@@ -58,11 +58,11 @@ msgstr "Sessions"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Főmenü"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Hátralévő idő"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
@@ -74,7 +74,7 @@ msgstr "_Indítás"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Gyorsbillentyűk"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
@@ -88,12 +88,12 @@ msgstr "rdbende <rdbende@proton.me>"
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Az időzítő futtatása a háttérben"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Az időzítő fut"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
@@ -105,12 +105,12 @@ msgstr "A munkamenet befejeződött"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Ideje szünetet tartani"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "Fókuszálj időzített munkaszakaszokkal"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -118,6 +118,8 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;timer;productivity;focus;work intervals;task management; "
+"fókuszálás;feladatok;munka;munkaszakaszok;szakaszok;munkamenetek;időzítő;termelékenység;koncentráció;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -125,37 +127,44 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
+"A Sessions egy egyszerű, vizuális időzítőalkalmazás, kifejezetten a pomodoro-"
+"módszerhez tervezve, amely segít fenntartani a termelékenységet azáltal, "
+"hogy a munkát koncentrált munkaszakaszokra osztja, rendszeres szünetekkel."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "Az alkalmazás segítségével:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
-msgstr ""
+msgstr "Fókuszált munkameneteket indíthatsz testreszabható időzítővel"
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr ""
+"Nyomonkövetheted az előrehaladásodat egy letisztult, zavaró tényezőktől "
+"mentes felületen"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "Rendszeres szüneteket tarthatsz a termelékenység fenntartásához"
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "Új időzítő beállítása"
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "Időzítő fut a munkaszakasz közben"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Utolsó időzítő helyzet"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
+"Az legutóbbi kézzel beállított időzítő, amely az alkalmazás indításakor "
+"visszaáll"
