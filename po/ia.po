@@ -1,116 +1,117 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-09 14:33-0700\n"
-"PO-Revision-Date: 2026-04-26 21:09+0000\n"
-"Last-Translator: rdbende <rdbende@proton.me>\n"
-"Language-Team: Hungarian <https://hosted.weblate.org/projects/sessions/"
-"sessions/hu/>\n"
-"Language: hu\n"
+"POT-Creation-Date: 2026-04-28 02:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ia\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Translate Toolkit 3.19.6\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr "Általános"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr "Menü megnyitása"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr "Gyorsbillentyűk megnyitása"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr "Ablak bezárása"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr "Kilépés"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr "Időzítő"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr "Időzítő indítása vagy leállítása"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr "30mp hozzáadása"
+msgstr ""
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr "30mp levonása"
+msgstr ""
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr "Sessions"
+msgstr ""
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr "Főmenü"
+msgstr ""
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr "Hátralévő idő"
+msgstr ""
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
-msgstr "05:00"
+msgstr ""
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
 msgid "_Start Timer"
-msgstr "_Indítás"
+msgstr ""
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr "_Gyorsbillentyűk"
+msgstr ""
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr "_A Sessions névjegye"
+msgstr ""
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:83
 msgid "translator-credits"
-msgstr "rdbende <rdbende@proton.me>"
+msgstr ""
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr "Az időzítő futtatása a háttérben"
+msgstr ""
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr "Az időzítő fut"
+msgstr ""
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
-msgstr "_Állj"
+msgstr ""
 
 #: ../internal/components/main_window.go:203
 msgid "Session Finished"
-msgstr "A munkamenet befejeződött"
+msgstr ""
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr "Ideje szünetet tartani"
+msgstr ""
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr "Fókuszálj időzített munkaszakaszokkal"
+msgstr ""
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
@@ -118,8 +119,6 @@ msgstr "Fókuszálj időzített munkaszakaszokkal"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
-"pomodoro;timer;productivity;focus;work intervals;task management; "
-"fókuszálás;feladatok;munka;munkaszakaszok;szakaszok;munkamenetek;időzítő;termelékenység;koncentráció;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -127,44 +126,37 @@ msgid ""
 "pomodoro technique, helping you stay productive by breaking work into "
 "focused sessions with regular breaks."
 msgstr ""
-"A Sessions egy egyszerű, vizuális időzítőalkalmazás, kifejezetten a pomodoro-"
-"módszerhez tervezve, amely segít fenntartani a termelékenységet azáltal, "
-"hogy a munkát koncentrált munkaszakaszokra osztja, rendszeres szünetekkel."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr "Az alkalmazás segítségével:"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
-msgstr "Fókuszált munkameneteket indíthatsz testreszabható időzítővel"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:16
 msgid "Track your progress with a clean, distraction-free interface"
 msgstr ""
-"Nyomonkövetheted az előrehaladásodat egy letisztult, zavaró tényezőktől "
-"mentes felületen"
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr "Rendszeres szüneteket tarthatsz a termelékenység fenntartásához"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr "Új időzítő beállítása"
+msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr "Időzítő fut a munkaszakasz közben"
+msgstr ""
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr "Utolsó időzítő helyzet"
+msgstr ""
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
 "The last manually set timer position that will be restored when the app "
 "starts"
 msgstr ""
-"Az legutóbbi kézzel beállított időzítő, amely az alkalmazás indításakor "
-"visszaáll"
