@@ -3,83 +3,84 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-28 02:30+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-29 01:09+0000\n"
+"Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
+"Language-Team: Interlingua <https://hosted.weblate.org/projects/sessions/"
+"sessions/ia/>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Translate Toolkit 3.19.6\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ../assets/resources/shortcuts-dialog.blp:9
 msgid "Open menu"
-msgstr ""
+msgstr "Aperir menu"
 
 #: ../assets/resources/shortcuts-dialog.blp:14
 msgid "Show keyboard shortcuts"
-msgstr ""
+msgstr "Monstrar vias breve de claviero"
 
 #: ../assets/resources/shortcuts-dialog.blp:19
 msgid "Close window"
-msgstr ""
+msgstr "Clauder fenestra"
 
 #: ../assets/resources/shortcuts-dialog.blp:24
 msgid "Quit"
-msgstr ""
+msgstr "Quitar"
 
 #: ../assets/resources/shortcuts-dialog.blp:30
 msgid "Timer"
-msgstr ""
+msgstr "Temporisator"
 
 #: ../assets/resources/shortcuts-dialog.blp:33
 msgid "Start or stop timer"
-msgstr ""
+msgstr "Initiar o stoppar le temporisator"
 
 #: ../assets/resources/shortcuts-dialog.blp:38
 #: ../assets/resources/window.blp:114
 msgid "Add 30 seconds"
-msgstr ""
+msgstr "Adder 30 secundas"
 
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr ""
+msgstr "Remover 30 secundas"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr ""
+msgstr "Sessiones"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu principal"
 
 #: ../assets/resources/window.blp:54
 msgid "Remaining Time"
-msgstr ""
+msgstr "Tempore remanente"
 
 #: ../assets/resources/window.blp:58
 msgid "05:00"
-msgstr ""
+msgstr "05:00"
 
 #: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
 msgid "_Start Timer"
-msgstr ""
+msgstr "Initiar _temporisator"
 
 #: ../assets/resources/window.blp:129
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "Vias breve de _claviero"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr ""
+msgstr "_A proposito de Sessiones"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:83
@@ -89,24 +90,24 @@ msgstr ""
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:91
 msgid "Running the Timer in the Background"
-msgstr ""
+msgstr "Temporisator in execution in secunde plano"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
 #: ../internal/components/main_window.go:107
 msgid "Timer Running"
-msgstr ""
+msgstr "Temporisator in execution"
 
 #: ../internal/components/main_window.go:155
 msgid "_Stop"
-msgstr ""
+msgstr "_Stoppar"
 
 #: ../internal/components/main_window.go:203
 msgid "Session Finished"
-msgstr ""
+msgstr "Session finite"
 
 #: ../internal/components/main_window.go:204
 msgid "Time to take a break"
-msgstr ""
+msgstr "Tempore de prender un pausa"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
@@ -119,6 +120,8 @@ msgstr ""
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
 msgstr ""
+"pomodoro;temporisator;productivitate;focus;intervallos de travalio;gestion "
+"de cargas;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -129,7 +132,7 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "Isto te permitte:"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
@@ -149,11 +152,11 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "Temporisator in execution durante un session de travalio"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
-msgstr ""
+msgstr "Ultime position de temporisator"
 
 #: ../assets/resources/index.gschema.xml:7
 msgid ""
