@@ -129,3 +129,70 @@ func TestStartDragging(t *testing.T) {
 		)
 	}
 }
+
+func TestStopDragging(t *testing.T) {
+	var stopDraggingTests = []struct {
+		name          string
+		remainingTime time.Duration
+		prepare       func(*stateMachine) error
+		expectErr     bool
+	}{
+		{
+			name:          "can transition from dragging state to counting down state with valid initial remaining time",
+			remainingTime: initialRemainingTime,
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: false,
+		},
+		{
+			name:          "can not transition from dragging state to counting down state with initial remaining time below minimum remaining time",
+			remainingTime: minRemainingTime - remainingTimerAdjustmentInterval,
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+		{
+			name:          "can not transition from dragging state to counting down state with initial remaining time above maximum remaining time",
+			remainingTime: maxRemainingTime + remainingTimerAdjustmentInterval,
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+		{
+			name:          "can not transition from dragging state to counting down state with initial remaining time that's not divisible by remainingTimerAdjustmentInterval",
+			remainingTime: initialRemainingTime + time.Millisecond*50,
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+		{
+			name:          "can not transition from initial to counting down state",
+			remainingTime: initialRemainingTime,
+			prepare: func(sm *stateMachine) error {
+				return nil
+			},
+			expectErr: true,
+		},
+	}
+	for _, tt := range stopDraggingTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				s := newStateMachine(0)
+
+				require.NoError(t, tt.prepare(s))
+
+				err := s.StopDragging(t.Context(), tt.remainingTime)
+				if tt.expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			},
+		)
+	}
+}

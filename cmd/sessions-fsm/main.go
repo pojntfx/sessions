@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"time"
 
 	"github.com/qmuntal/stateless"
@@ -24,6 +25,7 @@ const (
 	triggerMinusTimer trigger = "minusTimer"
 
 	triggerStartDragging trigger = "startDragging"
+	triggerStopDragging  trigger = "stopDragging"
 
 	triggerStartTimer trigger = "startTimer"
 	triggerStopTimer  trigger = "stopTimer"
@@ -59,6 +61,11 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 
 	s.machine.Configure(statePaused).Permit(triggerStartDragging, stateDragging)
 
+	s.machine.SetTriggerParameters(triggerStopDragging, reflect.TypeFor[time.Duration]())
+	s.machine.
+		Configure(stateDragging).
+		Permit(triggerStopDragging, stateCountingDown, s.validRemainingTime)
+
 	return s
 }
 
@@ -92,6 +99,17 @@ func (s *stateMachine) mustBeAboveMinRemainingTime(ctx context.Context, args ...
 	return true
 }
 
+func (s *stateMachine) validRemainingTime(ctx context.Context, args ...any) bool {
+	newRemainingTime := args[0].(time.Duration)
+	if newRemainingTime < minRemainingTime ||
+		newRemainingTime > maxRemainingTime ||
+		newRemainingTime%remainingTimerAdjustmentInterval != 0 {
+		return false
+	}
+
+	return true
+}
+
 func (s *stateMachine) PlusTimer(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerPlusTimer)
 }
@@ -102,6 +120,10 @@ func (s *stateMachine) MinusTimer(ctx context.Context) error {
 
 func (s *stateMachine) StartDragging(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerStartDragging)
+}
+
+func (s *stateMachine) StopDragging(ctx context.Context, remainingTime time.Duration) error {
+	return s.machine.FireCtx(ctx, triggerStopDragging, remainingTime)
 }
 
 func main() {
@@ -125,6 +147,10 @@ func main() {
 	}
 
 	if err := s.StartDragging(ctx); err != nil {
+		panic(err)
+	}
+
+	if err := s.StopDragging(ctx, initialRemainingTime+remainingTimerAdjustmentInterval*3); err != nil {
 		panic(err)
 	}
 }
