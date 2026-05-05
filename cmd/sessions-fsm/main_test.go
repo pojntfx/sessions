@@ -4,28 +4,30 @@ import (
 	"fmt"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestPlusTimer(t *testing.T) {
 	var plusTimerTests = []struct {
-		initial   time.Duration
-		plusTimes int
-		expectErr bool
+		initial time.Duration
+		plusTimes,
+		expectErrAt int
 	}{
 		{
-			initial:   time.Duration(0),
-			plusTimes: 1,
-			expectErr: false,
+			initial:     time.Duration(0),
+			plusTimes:   1,
+			expectErrAt: -1,
 		},
 		{
-			initial:   maxRemainingTime - remainingTimerAdjustmentInterval,
-			plusTimes: 1,
-			expectErr: false,
+			initial:     maxRemainingTime - remainingTimerAdjustmentInterval,
+			plusTimes:   1,
+			expectErrAt: -1,
 		},
 		{
-			initial:   maxRemainingTime - remainingTimerAdjustmentInterval,
-			plusTimes: 2,
-			expectErr: true,
+			initial:     maxRemainingTime - remainingTimerAdjustmentInterval,
+			plusTimes:   2,
+			expectErrAt: 1,
 		},
 	}
 	for _, tt := range plusTimerTests {
@@ -36,8 +38,10 @@ func TestPlusTimer(t *testing.T) {
 
 				for i := range tt.plusTimes {
 					err := s.PlusTimer(t.Context())
-					if err != nil && !tt.expectErr {
-						t.Errorf("i=%v got err=%v, want expectErr=%v", i, err, tt.expectErr)
+					if i == tt.expectErrAt {
+						require.Error(t, err)
+					} else {
+						require.NoError(t, err)
 					}
 				}
 			},
@@ -47,24 +51,24 @@ func TestPlusTimer(t *testing.T) {
 
 func TestMinusTimer(t *testing.T) {
 	var minusTimerTests = []struct {
-		initial    time.Duration
-		minusTimes int
-		expectErr  bool
+		initial time.Duration
+		minusTimes,
+		expectErrAt int
 	}{
 		{
-			initial:    maxRemainingTime,
-			minusTimes: 1,
-			expectErr:  false,
+			initial:     maxRemainingTime,
+			minusTimes:  1,
+			expectErrAt: -1,
 		},
 		{
-			initial:    minRemainingTime + remainingTimerAdjustmentInterval,
-			minusTimes: 1,
-			expectErr:  false,
+			initial:     minRemainingTime + remainingTimerAdjustmentInterval,
+			minusTimes:  1,
+			expectErrAt: -1,
 		},
 		{
-			initial:    minRemainingTime + remainingTimerAdjustmentInterval,
-			minusTimes: 2,
-			expectErr:  true,
+			initial:     minRemainingTime + remainingTimerAdjustmentInterval,
+			minusTimes:  2,
+			expectErrAt: 1,
 		},
 	}
 	for _, tt := range minusTimerTests {
@@ -75,8 +79,10 @@ func TestMinusTimer(t *testing.T) {
 
 				for i := range tt.minusTimes {
 					err := s.MinusTimer(t.Context())
-					if err != nil && !tt.expectErr {
-						t.Errorf("i=%v got err=%v, want expectErr=%v", i, err, tt.expectErr)
+					if i == tt.expectErrAt {
+						require.Error(t, err)
+					} else {
+						require.NoError(t, err)
 					}
 				}
 			},
