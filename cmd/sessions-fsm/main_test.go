@@ -221,3 +221,50 @@ func TestStopDragging(t *testing.T) {
 		)
 	}
 }
+
+func TestStopTimer(t *testing.T) {
+	var stopTimerTests = []struct {
+		name          string
+		remainingTime time.Duration
+		prepare       func(*stateMachine) error
+		expectErr     bool
+	}{
+		{
+			name:          "can transition from counting down state to stopped state",
+			remainingTime: initialRemainingTime,
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartDragging(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.StopDragging(t.Context(), initialRemainingTime)
+			},
+			expectErr: false,
+		},
+		{
+			name:          "can not transition from dragging state to stopped state",
+			remainingTime: initialRemainingTime,
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+	}
+	for _, tt := range stopTimerTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				s := newStateMachine(0)
+
+				require.NoError(t, tt.prepare(s))
+
+				err := s.StopTimer(t.Context())
+				if tt.expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			},
+		)
+	}
+}

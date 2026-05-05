@@ -12,7 +12,7 @@ import (
 type state string
 
 const (
-	statePaused       state = "paused"
+	stateStopped      state = "stopped"
 	stateDragging     state = "dragging"
 	stateCountingDown state = "countingDown"
 	stateAlarming     state = "alarming"
@@ -46,19 +46,19 @@ type stateMachine struct {
 func newStateMachine(remainingTime time.Duration) *stateMachine {
 	s := &stateMachine{
 		currentRemainingTime: remainingTime,
-		machine:              stateless.NewStateMachine(statePaused),
+		machine:              stateless.NewStateMachine(stateStopped),
 	}
 
 	s.machine.
-		Configure(statePaused).
+		Configure(stateStopped).
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
 		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
 	s.machine.
-		Configure(statePaused).
+		Configure(stateStopped).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
 
-	s.machine.Configure(statePaused).Permit(triggerStartDragging, stateDragging)
+	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
 
 	s.machine.SetTriggerParameters(triggerStopDragging, reflect.TypeFor[time.Duration]())
 	s.machine.
@@ -75,6 +75,8 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		Configure(stateCountingDown).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
+
+	s.machine.Configure(stateCountingDown).Permit(triggerStopTimer, stateStopped)
 
 	return s
 }
@@ -136,6 +138,10 @@ func (s *stateMachine) StopDragging(ctx context.Context, remainingTime time.Dura
 	return s.machine.FireCtx(ctx, triggerStopDragging, remainingTime)
 }
 
+func (s *stateMachine) StopTimer(ctx context.Context) error {
+	return s.machine.FireCtx(ctx, triggerStopTimer)
+}
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -182,5 +188,9 @@ func main() {
 		if err := s.MinusTimer(ctx); err != nil {
 			panic(err)
 		}
+	}
+
+	if err := s.StopTimer(ctx); err != nil {
+		panic(err)
 	}
 }
