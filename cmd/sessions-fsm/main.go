@@ -53,7 +53,6 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		Configure(statePaused).
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
 		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
-
 	s.machine.
 		Configure(statePaused).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
@@ -67,6 +66,15 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		Permit(triggerStopDragging, stateCountingDown, s.validRemainingTime)
 
 	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
+
+	s.machine.
+		Configure(stateCountingDown).
+		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
+		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
+	s.machine.
+		Configure(stateCountingDown).
+		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
+		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
 
 	return s
 }
@@ -162,5 +170,17 @@ func main() {
 
 	if err := s.StopDragging(ctx, initialRemainingTime+remainingTimerAdjustmentInterval*2); err != nil {
 		panic(err)
+	}
+
+	for range 50 {
+		if err := s.PlusTimer(ctx); err != nil {
+			panic(err)
+		}
+	}
+
+	for range 30 {
+		if err := s.MinusTimer(ctx); err != nil {
+			panic(err)
+		}
 	}
 }

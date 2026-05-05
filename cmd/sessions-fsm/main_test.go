@@ -31,21 +31,28 @@ func TestPlusTimer(t *testing.T) {
 		},
 	}
 	for _, tt := range plusTimerTests {
-		t.Run(
-			fmt.Sprintf("initial %v plusTimes %v", tt.initial, tt.plusTimes),
-			func(t *testing.T) {
-				s := newStateMachine(tt.initial)
+		for _, fromCountingDown := range []bool{true, false} {
+			t.Run(
+				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.plusTimes, fromCountingDown),
+				func(t *testing.T) {
+					s := newStateMachine(tt.initial)
 
-				for i := range tt.plusTimes {
-					err := s.PlusTimer(t.Context())
-					if i == tt.expectErrAt {
-						require.Error(t, err)
-					} else {
-						require.NoError(t, err)
+					if fromCountingDown {
+						require.NoError(t, s.StartDragging(t.Context()))
+						require.NoError(t, s.StopDragging(t.Context(), initialRemainingTime))
 					}
-				}
-			},
-		)
+
+					for i := range tt.plusTimes {
+						err := s.PlusTimer(t.Context())
+						if i == tt.expectErrAt {
+							require.Error(t, err)
+						} else {
+							require.NoError(t, err)
+						}
+					}
+				},
+			)
+		}
 	}
 }
 
@@ -72,21 +79,28 @@ func TestMinusTimer(t *testing.T) {
 		},
 	}
 	for _, tt := range minusTimerTests {
-		t.Run(
-			fmt.Sprintf("initial %v plusTimes %v", tt.initial, tt.minusTimes),
-			func(t *testing.T) {
-				s := newStateMachine(tt.initial)
+		for _, fromCountingDown := range []bool{true, false} {
+			t.Run(
+				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.minusTimes, fromCountingDown),
+				func(t *testing.T) {
+					s := newStateMachine(tt.initial)
 
-				for i := range tt.minusTimes {
-					err := s.MinusTimer(t.Context())
-					if i == tt.expectErrAt {
-						require.Error(t, err)
-					} else {
-						require.NoError(t, err)
+					if fromCountingDown {
+						require.NoError(t, s.StartDragging(t.Context()))
+						require.NoError(t, s.StopDragging(t.Context(), initialRemainingTime))
 					}
-				}
-			},
-		)
+
+					for i := range tt.minusTimes {
+						err := s.MinusTimer(t.Context())
+						if i == tt.expectErrAt {
+							require.Error(t, err)
+						} else {
+							require.NoError(t, err)
+						}
+					}
+				},
+			)
+		}
 	}
 }
 
