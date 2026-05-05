@@ -77,6 +77,7 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
 
 	s.machine.Configure(stateCountingDown).Permit(triggerStopTimer, stateStopped)
+	s.machine.Configure(stateStopped).Permit(triggerStartTimer, stateCountingDown)
 
 	return s
 }
@@ -142,6 +143,10 @@ func (s *stateMachine) StopTimer(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerStopTimer)
 }
 
+func (s *stateMachine) StartTimer(ctx context.Context) error {
+	return s.machine.FireCtx(ctx, triggerStartTimer)
+}
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -191,6 +196,10 @@ func main() {
 	}
 
 	if err := s.StopTimer(ctx); err != nil {
+		panic(err)
+	}
+
+	if err := s.StartTimer(ctx); err != nil {
 		panic(err)
 	}
 }
