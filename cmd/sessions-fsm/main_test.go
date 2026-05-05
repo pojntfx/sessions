@@ -110,6 +110,17 @@ func TestStartDragging(t *testing.T) {
 			},
 			expectErr: true,
 		},
+		{
+			name: "can transition from counting down state to dragging",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartDragging(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.StopDragging(t.Context(), initialRemainingTime)
+			},
+			expectErr: false,
+		},
 	}
 	for _, tt := range startDraggingTests {
 		t.Run(

@@ -66,6 +66,8 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		Configure(stateDragging).
 		Permit(triggerStopDragging, stateCountingDown, s.validRemainingTime)
 
+	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
+
 	return s
 }
 
@@ -151,6 +153,14 @@ func main() {
 	}
 
 	if err := s.StopDragging(ctx, initialRemainingTime+remainingTimerAdjustmentInterval*3); err != nil {
+		panic(err)
+	}
+
+	if err := s.StartDragging(ctx); err != nil {
+		panic(err)
+	}
+
+	if err := s.StopDragging(ctx, initialRemainingTime+remainingTimerAdjustmentInterval*2); err != nil {
 		panic(err)
 	}
 }
