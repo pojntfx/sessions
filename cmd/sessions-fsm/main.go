@@ -49,6 +49,11 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
 		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
 
+	s.machine.
+		Configure(statePaused).
+		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
+		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
+
 	return s
 }
 
@@ -67,8 +72,27 @@ func (s *stateMachine) mustBeBelowMaxRemainingTime(ctx context.Context, args ...
 	return true
 }
 
+func (s *stateMachine) decreaseRemainingTime(ctx context.Context, args ...any) error {
+	s.currentRemainingTime -= remainingTimerAdjustmentInterval
+
+	return nil
+}
+
+func (s *stateMachine) mustBeAboveMinRemainingTime(ctx context.Context, args ...any) bool {
+	newRemainingTime := s.currentRemainingTime - remainingTimerAdjustmentInterval
+	if newRemainingTime < minRemainingTime {
+		return false
+	}
+
+	return true
+}
+
 func (s *stateMachine) PlusTimer(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerPlusTimer)
+}
+
+func (s *stateMachine) MinusTimer(ctx context.Context) error {
+	return s.machine.FireCtx(ctx, triggerMinusTimer)
 }
 
 func main() {
@@ -81,6 +105,12 @@ func main() {
 
 	for range 50 {
 		if err := s.PlusTimer(ctx); err != nil {
+			panic(err)
+		}
+	}
+
+	for range 30 {
+		if err := s.MinusTimer(ctx); err != nil {
 			panic(err)
 		}
 	}
