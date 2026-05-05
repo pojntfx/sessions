@@ -22,6 +22,9 @@ type trigger string
 const (
 	triggerPlusTimer  trigger = "plusTimer"
 	triggerMinusTimer trigger = "minusTimer"
+
+	triggerStartDragging trigger = "startDragging"
+
 	triggerStartTimer trigger = "startTimer"
 	triggerStopTimer  trigger = "stopTimer"
 )
@@ -53,6 +56,8 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 		Configure(statePaused).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
+
+	s.machine.Configure(statePaused).Permit(triggerStartDragging, stateDragging)
 
 	return s
 }
@@ -95,6 +100,10 @@ func (s *stateMachine) MinusTimer(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerMinusTimer)
 }
 
+func (s *stateMachine) StartDragging(ctx context.Context) error {
+	return s.machine.FireCtx(ctx, triggerStartDragging)
+}
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -113,5 +122,9 @@ func main() {
 		if err := s.MinusTimer(ctx); err != nil {
 			panic(err)
 		}
+	}
+
+	if err := s.StartDragging(ctx); err != nil {
+		panic(err)
 	}
 }

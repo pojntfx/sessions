@@ -89,3 +89,43 @@ func TestMinusTimer(t *testing.T) {
 		)
 	}
 }
+
+func TestStartDragging(t *testing.T) {
+	var startDraggingTests = []struct {
+		name      string
+		prepare   func(*stateMachine) error
+		expectErr bool
+	}{
+		{
+			name: "can transition from initial state to dragging",
+			prepare: func(sm *stateMachine) error {
+				return nil
+			},
+			expectErr: false,
+		},
+		{
+			name: "can not transition from dragging state to dragging",
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+	}
+	for _, tt := range startDraggingTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				s := newStateMachine(0)
+
+				require.NoError(t, tt.prepare(s))
+
+				err := s.StartDragging(t.Context())
+				if tt.expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			},
+		)
+	}
+}

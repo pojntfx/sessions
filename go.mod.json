@@ -33,11 +33,25 @@
     "url": "https://proxy.golang.org/github.com/rymdport/portal/@v/v0.4.3-0.20260225172009-01112360d2cb.zip"
   },
   {
+    "dest": "vendor/github.com/stretchr/testify",
+    "sha256": "b7325b561ead5304b72b9f32aebc871ff49b3823667d530a49fd6c8f3adfc96e",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/stretchr/testify/@v/v1.11.1.zip"
+  },
+  {
     "dest": "vendor/codeberg.org/puregotk/purego",
     "sha256": "0d5fb9e11934b151ac357a9c0660e4dcd287d2f93db0829356415f6e6a8ef84b",
     "strip-components": 3,
     "type": "archive",
     "url": "https://proxy.golang.org/codeberg.org/puregotk/purego/@v/v0.0.0-20260224095105-2513c838cb80.zip"
+  },
+  {
+    "dest": "vendor/github.com/davecgh/go-spew",
+    "sha256": "6b44a843951f371b7010c754ecc3cabefe815d5ced1c5b9409fb2d697e8a890d",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/davecgh/go-spew/@v/v1.1.1.zip"
   },
   {
     "dest": "vendor/github.com/dennwc/flatpak-go-mod",
@@ -61,6 +75,13 @@
     "url": "https://proxy.golang.org/github.com/godbus/dbus/v5/@v/v5.2.2.zip"
   },
   {
+    "dest": "vendor/github.com/pmezard/go-difflib",
+    "sha256": "de04cecc1a4b8d53e4357051026794bcbc54f2e6a260cfac508ce69d5d6457a0",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/pmezard/go-difflib/@v/v1.0.0.zip"
+  },
+  {
     "dest": "vendor/golang.org/x/mod",
     "sha256": "19fb241d46e4397d3193b5fa899e2a9d62bb5d1c41f73d09d29c17c3c0d3953c",
     "strip-components": 3,
@@ -73,5 +94,12 @@
     "strip-components": 3,
     "type": "archive",
     "url": "https://proxy.golang.org/golang.org/x/sys/@v/v0.43.0.zip"
+  },
+  {
+    "dest": "vendor/gopkg.in/yaml.v3",
+    "sha256": "aab8fbc4e6300ea08e6afe1caea18a21c90c79f489f52c53e2f20431f1a9a015",
+    "strip-components": 2,
+    "type": "archive",
+    "url": "https://proxy.golang.org/gopkg.in/yaml.v3/@v/v3.0.1.zip"
   }
 ]
