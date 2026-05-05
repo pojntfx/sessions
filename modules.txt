@@ -42,6 +42,9 @@ github.com/godbus/dbus/v5
 # github.com/pojntfx/go-gettext v0.4.2
 ## explicit; go 1.25.0
 github.com/pojntfx/go-gettext/pkg/i18n
+# github.com/qmuntal/stateless v1.8.0
+## explicit; go 1.24
+github.com/qmuntal/stateless
 # github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb
 ## explicit; go 1.19
 github.com/rymdport/portal

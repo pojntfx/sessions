@@ -14,6 +14,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/pojntfx/go-gettext v0.4.2 h1:mYWcztN4idj11/GCNg+N2zNyJSpFKnIAr5ilksyIMtU=
 github.com/pojntfx/go-gettext v0.4.2/go.mod h1:YztK1MAxD+AUmeEb+X4KUYOHEF0FmDaLoBZBBmxNC3Y=
+github.com/qmuntal/stateless v1.8.0 h1:9+Eg/7bWLKxUxs/vysNYAelFAh85kTyueC3ee6v8im8=
+github.com/qmuntal/stateless v1.8.0/go.mod h1:KWa8KVzIBD/ZS0EdzL5oU79sGq7fKwH9WEFijTC5AWw=
 github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb h1:fELJ2snyLryeUCr5wwaw48zmf3IhB8OebEP75DOo0KI=
 github.com/rymdport/portal v0.4.3-0.20260225172009-01112360d2cb/go.mod h1:kFF4jslnJ8pD5uCi17brj/ODlfIidOxlgUDTO5ncnC4=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=

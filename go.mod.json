@@ -19,6 +19,13 @@
     "url": "https://proxy.golang.org/github.com/pojntfx/go-gettext/@v/v0.4.2.zip"
   },
   {
+    "dest": "vendor/github.com/qmuntal/stateless",
+    "sha256": "155b18f498fd08b3984e1e0cd34d70ddf4b5136e82d8d57694b4decb5e7eac59",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/qmuntal/stateless/@v/v1.8.0.zip"
+  },
+  {
     "dest": "vendor/github.com/rymdport/portal",
     "sha256": "29be324d2b08f1736c4bafff0bbb816164ceac98c221967de8121e4827031805",
     "strip-components": 3,
