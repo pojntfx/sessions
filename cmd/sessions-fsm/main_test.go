@@ -306,3 +306,47 @@ func TestStartTimer(t *testing.T) {
 		)
 	}
 }
+
+func TestTimerFinished(t *testing.T) {
+	var alarmingTests = []struct {
+		name      string
+		prepare   func(*stateMachine) error
+		expectErr bool
+	}{
+		{
+			name: "can transition from counting down state to alarming state",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartDragging(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.StopDragging(t.Context(), initialRemainingTime)
+			},
+			expectErr: false,
+		},
+		{
+			name: "can not transition from dragging state to alarming state",
+			prepare: func(sm *stateMachine) error {
+				return sm.StartDragging(t.Context())
+			},
+			expectErr: true,
+		},
+	}
+	for _, tt := range alarmingTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				s := newStateMachine(0)
+
+				require.NoError(t, tt.prepare(s))
+
+				err := s.timerFinished(t.Context())
+				if tt.expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			},
+		)
+	}
+}
