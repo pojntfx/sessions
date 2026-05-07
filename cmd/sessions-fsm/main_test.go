@@ -135,6 +135,17 @@ func TestStartDragging(t *testing.T) {
 			},
 			expectErr: false,
 		},
+		{
+			name: "can not transition from alarming state to dragging",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartTimer(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.timerFinished(t.Context())
+			},
+			expectErr: true,
+		},
 	}
 	for _, tt := range startDraggingTests {
 		t.Run(
@@ -247,6 +258,17 @@ func TestStopTimer(t *testing.T) {
 			},
 			expectErr: true,
 		},
+		{
+			name: "can not transition from alarming state to stopped state",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartTimer(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.timerFinished(t.Context())
+			},
+			expectErr: true,
+		},
 	}
 	for _, tt := range stopTimerTests {
 		t.Run(
@@ -308,7 +330,7 @@ func TestStartTimer(t *testing.T) {
 }
 
 func TestTimerFinished(t *testing.T) {
-	var alarmingTests = []struct {
+	var timerFinishedTests = []struct {
 		name      string
 		prepare   func(*stateMachine) error
 		expectErr bool
@@ -316,11 +338,7 @@ func TestTimerFinished(t *testing.T) {
 		{
 			name: "can transition from counting down state to alarming state",
 			prepare: func(sm *stateMachine) error {
-				if err := sm.StartDragging(t.Context()); err != nil {
-					return err
-				}
-
-				return sm.StopDragging(t.Context(), initialRemainingTime)
+				return sm.StartTimer(t.Context())
 			},
 			expectErr: false,
 		},
@@ -332,7 +350,7 @@ func TestTimerFinished(t *testing.T) {
 			expectErr: true,
 		},
 	}
-	for _, tt := range alarmingTests {
+	for _, tt := range timerFinishedTests {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
@@ -341,6 +359,50 @@ func TestTimerFinished(t *testing.T) {
 				require.NoError(t, tt.prepare(s))
 
 				err := s.timerFinished(t.Context())
+				if tt.expectErr {
+					require.Error(t, err)
+				} else {
+					require.NoError(t, err)
+				}
+			},
+		)
+	}
+}
+
+func TestStopAlarmihng(t *testing.T) {
+	var stopAlarmingTests = []struct {
+		name      string
+		prepare   func(*stateMachine) error
+		expectErr bool
+	}{
+		{
+			name: "can transition from alarming state state to stopped state",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartTimer(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.timerFinished(t.Context())
+			},
+			expectErr: false,
+		},
+		{
+			name: "can not transition from counting down state to stopped state",
+			prepare: func(sm *stateMachine) error {
+				return sm.StartTimer(t.Context())
+			},
+			expectErr: true,
+		},
+	}
+	for _, tt := range stopAlarmingTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				s := newStateMachine(0)
+
+				require.NoError(t, tt.prepare(s))
+
+				err := s.StopAlarming(t.Context())
 				if tt.expectErr {
 					require.Error(t, err)
 				} else {

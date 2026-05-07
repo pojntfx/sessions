@@ -31,6 +31,7 @@ const (
 	triggerStopTimer  trigger = "stopTimer"
 
 	triggerTimerFinished trigger = "timerFinished"
+	triggerStopAlarming  trigger = "stopAlarming"
 )
 
 const (
@@ -82,6 +83,8 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 	s.machine.Configure(stateStopped).Permit(triggerStartTimer, stateCountingDown)
 
 	s.machine.Configure(stateCountingDown).Permit(triggerTimerFinished, stateAlarming)
+
+	s.machine.Configure(stateAlarming).Permit(triggerStopAlarming, stateStopped)
 
 	return s
 }
@@ -155,6 +158,10 @@ func (s *stateMachine) timerFinished(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerTimerFinished)
 }
 
+func (s *stateMachine) StopAlarming(ctx context.Context) error {
+	return s.machine.FireCtx(ctx, triggerStopAlarming)
+}
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -212,6 +219,10 @@ func main() {
 	}
 
 	if err := s.timerFinished(ctx); err != nil {
+		panic(err)
+	}
+
+	if err := s.StopAlarming(ctx); err != nil {
 		panic(err)
 	}
 }
