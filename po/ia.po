@@ -70,7 +70,7 @@ msgstr "Tempore remanente"
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:160
+#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:199
 msgid "_Start Timer"
 msgstr "Initiar _temporisator"
 
@@ -88,24 +88,26 @@ msgid "translator-credits"
 msgstr ""
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
-#: ../internal/components/main_window.go:91
+#: ../internal/components/main_window.go:92
 msgid "Running the Timer in the Background"
 msgstr "Temporisator in execution in secunde plano"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
-#: ../internal/components/main_window.go:107
+#: ../internal/components/main_window.go:108
 msgid "Timer Running"
 msgstr "Temporisator in execution"
 
-#: ../internal/components/main_window.go:155
-msgid "_Stop"
-msgstr "_Stoppar"
-
-#: ../internal/components/main_window.go:203
+#: ../internal/components/main_window.go:144
+#: ../internal/components/main_window.go:245
 msgid "Session Finished"
 msgstr "Session finite"
 
-#: ../internal/components/main_window.go:204
+#: ../internal/components/main_window.go:183
+#: ../internal/components/main_window.go:191
+msgid "_Stop"
+msgstr "_Stoppar"
+
+#: ../internal/components/main_window.go:246
 msgid "Time to take a break"
 msgstr "Tempore de prender un pausa"
 
