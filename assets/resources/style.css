@@ -6,3 +6,22 @@
 .dial__display {
   font-feature-settings: "tnum";
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes dial-display-alarm-blink {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    99% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .dial__display--alarming {
+    animation: dial-display-alarm-blink 1s linear infinite;
+  }
+}

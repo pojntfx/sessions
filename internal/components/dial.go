@@ -156,12 +156,17 @@ func init() {
 				var angle float64
 				var lineColor gdk.RGBA
 				var fillR, fillG, fillB, fillA float32
+				noFill := false
 
 				if dialW.running && dialW.remain > 0 {
 					ratio := dialW.remain.Seconds() / float64(dialW.totalSec)
 					angle = -math.Pi/2 + 2*math.Pi*progress*ratio
 					lineColor = errColor
 					fillR, fillG, fillB, fillA = errColor.Red, errColor.Green, errColor.Blue, 0.3
+				} else if dialW.running && dialW.remain == 0 {
+					angle = -math.Pi / 2
+					lineColor = errColor
+					noFill = true
 				} else {
 					angle = end
 					lineColor = accent
@@ -180,16 +185,18 @@ func init() {
 				endX := float32(cx + r*math.Sin(angle+math.Pi/2))
 				endY := float32(cy - r*math.Cos(angle+math.Pi/2))
 
-				arcBuilder := gsk.NewPathBuilder()
-				defer arcBuilder.Unref()
-				arcBuilder.MoveTo(float32(cx), float32(cy))
-				arcBuilder.LineTo(startX, startY)
-				arcBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
-				arcBuilder.LineTo(float32(cx), float32(cy))
-				arcPath := arcBuilder.ToPath()
-				defer arcPath.Unref()
-				snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
-				strokeBorder(arcPath)
+				if !noFill {
+					arcBuilder := gsk.NewPathBuilder()
+					defer arcBuilder.Unref()
+					arcBuilder.MoveTo(float32(cx), float32(cy))
+					arcBuilder.LineTo(startX, startY)
+					arcBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
+					arcBuilder.LineTo(float32(cx), float32(cy))
+					arcPath := arcBuilder.ToPath()
+					defer arcPath.Unref()
+					snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
+					strokeBorder(arcPath)
+				}
 
 				lineStrokeColor := gdk.RGBA{
 					Red:   lineColor.Red,

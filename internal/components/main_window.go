@@ -44,6 +44,7 @@ type MainWindow struct {
 	log                   *slog.Logger
 	totalSec              int
 	running               bool
+	alarming              bool
 	remain                time.Duration
 	timer                 uint32
 	dragging              bool
@@ -136,9 +137,13 @@ func (w *MainWindow) releaseApp() {
 }
 
 func (w *MainWindow) StartAlarmPlayback() {
+	w.alarming = true
 	w.alarmClockElapsedFile.Seek(0)
 	w.alarmClockElapsedFile.Play()
 
+	w.label.Announce(L("Session Finished"), gtk.AccessibleAnnouncementPriorityHighValue)
+
+	w.startFlash()
 	w.releaseApp()
 }
 
@@ -147,36 +152,73 @@ func (w *MainWindow) StopAlarmPlayback() {
 	w.alarmClockElapsedFile.Seek(0)
 
 	w.app.WithdrawNotification(notificationIdVar)
+
+	if w.alarming {
+		w.stopAlarming()
+	}
+}
+
+func (w *MainWindow) stopAlarming() {
+	w.alarming = false
+	w.running = false
+	w.stopFlash()
+
+	w.UpdateButtons()
+	w.UpdateDial()
+
+	w.releaseApp()
+}
+
+func (w *MainWindow) startFlash() {
+	w.label.AddCssClass("dial__display--alarming")
+}
+
+func (w *MainWindow) stopFlash() {
+	w.label.RemoveCssClass("dial__display--alarming")
 }
 
 func (w *MainWindow) UpdateButtons() {
-	if w.running {
+	if w.alarming {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
 		w.actionButton.SetLabel(L("_Stop"))
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
+
+		w.plusButton.SetSensitive(false)
+		w.minusButton.SetSensitive(false)
+	} else if w.running {
+		w.actionButton.SetIconName("media-playback-stop-symbolic")
+		w.actionButton.SetLabel(L("_Stop"))
+		w.actionButton.RemoveCssClass("suggested-action")
+		w.actionButton.AddCssClass("destructive-action")
+
+		w.plusButton.SetSensitive(w.totalSec < maxDialValue)
+		w.minusButton.SetSensitive(w.totalSec > minDialValue)
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
 		w.actionButton.SetLabel(L("_Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
-	}
 
-	w.plusButton.SetSensitive(w.totalSec < maxDialValue)
-	w.minusButton.SetSensitive(w.totalSec > minDialValue)
+		w.plusButton.SetSensitive(w.totalSec < maxDialValue)
+		w.minusButton.SetSensitive(w.totalSec > minDialValue)
+	}
 }
 
 func (w *MainWindow) UpdateDial() {
 	var m, s int
-	if w.running {
+	if w.alarming {
+		m, s = 0, 0
+		w.dialWidget.SetTimer(w.totalSec, true, 0)
+	} else if w.running {
 		m, s = int(w.remain.Minutes()), int(w.remain.Seconds())%60
+		w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
 	} else {
 		m, s = w.totalSec/60, w.totalSec%60
+		w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
 	}
 
 	w.label.SetText(fmt.Sprintf("%02d:%02d", m, s))
-
-	w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
 }
 
 func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
@@ -195,10 +237,10 @@ func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
 				w.timer = 0
 			}
 
+			w.StartAlarmPlayback()
+
 			w.UpdateButtons()
 			w.UpdateDial()
-
-			w.StartAlarmPlayback()
 
 			n := gio.NewNotification(L("Session Finished"))
 			n.SetBody(L("Time to take a break"))
@@ -252,6 +294,10 @@ func (w *MainWindow) resumeTimer() {
 }
 
 func (w *MainWindow) handleDialing(x, y float64) {
+	if w.alarming {
+		return
+	}
+
 	if w.running && !w.dragging {
 		w.paused = true
 		if w.timer > 0 {
@@ -291,6 +337,10 @@ func (w *MainWindow) handleDialing(x, y float64) {
 func (w *MainWindow) setupDialGestures() {
 	drag := gtk.NewGestureDrag()
 	onDragBegin := func(_ gtk.GestureDrag, x float64, y float64) {
+		if w.alarming {
+			return
+		}
+
 		w.dragging = true
 		w.handleDialing(x, y)
 	}
@@ -306,6 +356,10 @@ func (w *MainWindow) setupDialGestures() {
 	onDragEnd := func(_ gtk.GestureDrag, dx float64, dy float64) {
 		w.dragging = false
 
+		if w.alarming {
+			return
+		}
+
 		if w.paused {
 			w.paused = false
 			w.resumeTimer()
@@ -317,6 +371,10 @@ func (w *MainWindow) setupDialGestures() {
 
 	click := gtk.NewGestureClick()
 	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
+		if w.alarming {
+			return
+		}
+
 		w.handleDialing(x, y)
 	}
 	click.ConnectPressed(&onPress)
@@ -326,7 +384,10 @@ func (w *MainWindow) setupDialGestures() {
 }
 
 func (w *MainWindow) ToggleTimer() {
-	if w.running {
+	if w.alarming {
+		w.stopAlarming()
+		w.StopAlarmPlayback()
+	} else if w.running {
 		w.StopTimer()
 	} else if w.totalSec > 0 {
 		w.StartTimer()
@@ -334,6 +395,10 @@ func (w *MainWindow) ToggleTimer() {
 }
 
 func (w *MainWindow) AddTime() {
+	if w.alarming {
+		return
+	}
+
 	if w.totalSec < maxDialValue {
 		w.totalSec += minDialValue
 		if w.running {
@@ -347,6 +412,10 @@ func (w *MainWindow) AddTime() {
 }
 
 func (w *MainWindow) RemoveTime() {
+	if w.alarming {
+		return
+	}
+
 	if w.totalSec > minDialValue {
 		w.totalSec -= minDialValue
 		if w.running {
