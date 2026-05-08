@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"reflect"
 	"time"
 
@@ -39,17 +40,47 @@ const (
 	minRemainingTime                 = time.Duration(0)
 	maxRemainingTime                 = time.Hour
 	remainingTimerAdjustmentInterval = time.Second * 30
+	tickerInterval                   = time.Second
 )
 
-type stateMachine struct {
-	currentRemainingTime time.Duration
-	machine              *stateless.StateMachine
+type hooks struct {
+	onBeforeStartingTimer func(ctx context.Context) error
+	onAfterStartingTimer  func(ctx context.Context) error
+
+	onRemainingTimeTick func(ctx context.Context, currentRemainingTime time.Duration) error
+
+	onBeforeStoppingTimer func(ctx context.Context) error
+	onAfterStoppingTimer  func(ctx context.Context) error
+
+	onStartAlarm func(ctx context.Context) error
+
+	onStopAlarm func(ctx context.Context) error
 }
 
-func newStateMachine(remainingTime time.Duration) *stateMachine {
+type stateMachine struct {
+	initialRemainingTime,
+	currentRemainingTime time.Duration
+	ctx   context.Context
+	log   *slog.Logger
+	hooks *hooks
+
+	machine *stateless.StateMachine
+	ticker  *time.Ticker
+}
+
+func newStateMachine(
+	ctx context.Context,
+	remainingTime time.Duration,
+	log *slog.Logger,
+	hooks *hooks,
+) *stateMachine {
 	s := &stateMachine{
-		currentRemainingTime: remainingTime,
-		machine:              stateless.NewStateMachine(stateStopped),
+		ctx:                  ctx,
+		initialRemainingTime: remainingTime,
+		log:                  log,
+		hooks:                hooks,
+
+		machine: stateless.NewStateMachine(stateStopped),
 	}
 
 	s.machine.
@@ -86,17 +117,24 @@ func newStateMachine(remainingTime time.Duration) *stateMachine {
 
 	s.machine.Configure(stateAlarming).Permit(triggerStopAlarming, stateStopped)
 
+	s.machine.Configure(stateCountingDown).OnEntry(s.onTimerStart)
+	s.machine.Configure(stateAlarming).OnEntry(s.onStartAlarm)
+	s.machine.
+		Configure(stateStopped).
+		OnEntryFrom(triggerStopTimer, s.onTimerStop).
+		OnEntryFrom(triggerStopAlarming, s.onStopAlarm)
+
 	return s
 }
 
 func (s *stateMachine) increaseRemainingTime(ctx context.Context, args ...any) error {
-	s.currentRemainingTime += remainingTimerAdjustmentInterval
+	s.initialRemainingTime += remainingTimerAdjustmentInterval
 
 	return nil
 }
 
 func (s *stateMachine) mustBeBelowMaxRemainingTime(ctx context.Context, args ...any) bool {
-	newRemainingTime := s.currentRemainingTime + remainingTimerAdjustmentInterval
+	newRemainingTime := s.initialRemainingTime + remainingTimerAdjustmentInterval
 	if newRemainingTime > maxRemainingTime {
 		return false
 	}
@@ -105,13 +143,13 @@ func (s *stateMachine) mustBeBelowMaxRemainingTime(ctx context.Context, args ...
 }
 
 func (s *stateMachine) decreaseRemainingTime(ctx context.Context, args ...any) error {
-	s.currentRemainingTime -= remainingTimerAdjustmentInterval
+	s.initialRemainingTime -= remainingTimerAdjustmentInterval
 
 	return nil
 }
 
 func (s *stateMachine) mustBeAboveMinRemainingTime(ctx context.Context, args ...any) bool {
-	newRemainingTime := s.currentRemainingTime - remainingTimerAdjustmentInterval
+	newRemainingTime := s.initialRemainingTime - remainingTimerAdjustmentInterval
 	if newRemainingTime < minRemainingTime {
 		return false
 	}
@@ -162,11 +200,107 @@ func (s *stateMachine) StopAlarming(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerStopAlarming)
 }
 
+func (s *stateMachine) onTimerStart(ctx context.Context, args ...any) error {
+	s.log.InfoContext(ctx, "Calling onBeforeStartingTimer hook")
+	if err := s.hooks.onBeforeStartingTimer(ctx); err != nil {
+		return err
+	}
+
+	s.currentRemainingTime = s.initialRemainingTime
+	s.ticker = time.NewTicker(tickerInterval)
+
+	go func() {
+		for {
+			select {
+			case <-s.ctx.Done():
+				return
+
+			// TODO: Don't leak this goroutine by closing a goroutine or cancelling a context when the ticker has finished (see https://gobyexample.com/tickers)
+
+			case <-s.ticker.C:
+				s.currentRemainingTime -= tickerInterval
+
+				s.log.InfoContext(
+					s.ctx, "Calling onRemainingTimeTick hook",
+					"currentRemainingTime", s.currentRemainingTime,
+				)
+				if err := s.hooks.onRemainingTimeTick(ctx, s.currentRemainingTime); err != nil {
+					s.log.ErrorContext(s.ctx, "Could not call onRemainingTimeTick hook", "err", err)
+				}
+
+				if s.currentRemainingTime == 0 {
+					if err := s.timerFinished(s.ctx); err != nil {
+						s.log.ErrorContext(s.ctx, "Could not call handler to finish timer", "err", err)
+					}
+				}
+			}
+		}
+	}()
+
+	s.log.InfoContext(ctx, "Calling onAfterStartingTimer hook")
+	if err := s.hooks.onAfterStartingTimer(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *stateMachine) onTimerStop(ctx context.Context, args ...any) error {
+	s.log.InfoContext(ctx, "Calling onBeforeStoppingTimer hook")
+	if err := s.hooks.onBeforeStoppingTimer(ctx); err != nil {
+		return err
+	}
+
+	s.ticker.Stop()
+
+	s.log.InfoContext(ctx, "Calling onAfterStoppingTimer hook")
+	if err := s.hooks.onAfterStoppingTimer(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *stateMachine) onStartAlarm(ctx context.Context, args ...any) error {
+	s.log.InfoContext(ctx, "Calling onStartAlarm hook")
+	if err := s.hooks.onStartAlarm(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *stateMachine) onStopAlarm(ctx context.Context, args ...any) error {
+	s.log.InfoContext(ctx, "Calling onStopAlarm hook")
+	if err := s.hooks.onStopAlarm(ctx); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	s := newStateMachine(initialRemainingTime)
+	s := newStateMachine(
+		ctx,
+		initialRemainingTime,
+		slog.Default(),
+		&hooks{
+			onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+			onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+			onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+			onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+			onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+			onStartAlarm: func(ctx context.Context) error { return nil },
+
+			onStopAlarm: func(ctx context.Context) error { return nil },
+		},
+	)
 
 	fmt.Println(s.machine.ToGraph())
 

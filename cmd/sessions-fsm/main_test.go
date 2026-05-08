@@ -1,3 +1,4 @@
+// TODO: Update tests to use hooks to assert whether callbacks are called correctly and use dry state machine mode so that we don't depend on ticker/`time.*`
 package main
 
 import (
