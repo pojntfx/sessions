@@ -1,4 +1,4 @@
-// TODO: In tests, assert whether the right hooks get called for each transition
+// TODO: In tests, assert whether the right hooks get called for each transition everywhere
 // TODO: In tests, use synctest to test the timers correctly (see https://pkg.go.dev/testing/synctest)
 package main
 
@@ -228,6 +228,8 @@ func TestStopDragging(t *testing.T) {
 		remainingTime time.Duration
 		prepare       func(*stateMachine) error
 		expectErr     bool
+		onBeforeStartingTimerCalled,
+		onAfterStartingTimerCalled int
 	}{
 		{
 			name:          "can transition from dragging state to counting down state with valid initial remaining time",
@@ -235,7 +237,9 @@ func TestStopDragging(t *testing.T) {
 			prepare: func(sm *stateMachine) error {
 				return sm.StartDragging(t.Context())
 			},
-			expectErr: false,
+			expectErr:                   false,
+			onBeforeStartingTimerCalled: 1,
+			onAfterStartingTimerCalled:  1,
 		},
 		{
 			name:          "can not transition from dragging state to counting down state with initial remaining time below minimum remaining time",
@@ -274,12 +278,24 @@ func TestStopDragging(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
+				var (
+					onBeforeStartingTimerCalled = 0
+					onAfterStartingTimerCalled  = 0
+				)
 				s := newTestingStateMachine(
 					t,
 					0,
 					&hooks{
-						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+						onBeforeStartingTimer: func(ctx context.Context) error {
+							onBeforeStartingTimerCalled++
+
+							return nil
+						},
+						onAfterStartingTimer: func(ctx context.Context) error {
+							onAfterStartingTimerCalled++
+
+							return nil
+						},
 
 						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
@@ -300,6 +316,9 @@ func TestStopDragging(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 				}
+
+				require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
+				require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
 			},
 		)
 	}
@@ -311,6 +330,8 @@ func TestStopTimer(t *testing.T) {
 		remainingTime time.Duration
 		prepare       func(*stateMachine) error
 		expectErr     bool
+		onBeforeStoppingTimerCalled,
+		onAfterStoppingTimerCalled int
 	}{
 		{
 			name: "can transition from counting down state to stopped state",
@@ -321,7 +342,9 @@ func TestStopTimer(t *testing.T) {
 
 				return sm.StopDragging(t.Context(), initialRemainingTime)
 			},
-			expectErr: false,
+			expectErr:                   false,
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
 		},
 		{
 			name: "can not transition from dragging state to stopped state",
@@ -346,6 +369,10 @@ func TestStopTimer(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
+				var (
+					onBeforeStoppingTimerCalled = 0
+					onAfterStoppingTimerCalled  = 0
+				)
 				s := newTestingStateMachine(
 					t,
 					0,
@@ -355,8 +382,16 @@ func TestStopTimer(t *testing.T) {
 
 						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+						onBeforeStoppingTimer: func(ctx context.Context) error {
+							onBeforeStoppingTimerCalled++
+
+							return nil
+						},
+						onAfterStoppingTimer: func(ctx context.Context) error {
+							onAfterStoppingTimerCalled++
+
+							return nil
+						},
 
 						onStartAlarm: func(ctx context.Context) error { return nil },
 
@@ -372,6 +407,9 @@ func TestStopTimer(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 				}
+
+				require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
+				require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
 			},
 		)
 	}
@@ -382,13 +420,17 @@ func TestStartTimer(t *testing.T) {
 		name      string
 		prepare   func(*stateMachine) error
 		expectErr bool
+		onBeforeStartingTimerCalled,
+		onAfterStartingTimerCalled int
 	}{
 		{
 			name: "can transition from stopped state to counting down state",
 			prepare: func(sm *stateMachine) error {
 				return nil
 			},
-			expectErr: false,
+			expectErr:                   false,
+			onBeforeStartingTimerCalled: 1,
+			onAfterStartingTimerCalled:  1,
 		},
 		{
 			name: "can not transition from dragging state to counting down state",
@@ -402,12 +444,24 @@ func TestStartTimer(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
+				var (
+					onBeforeStartingTimerCalled = 0
+					onAfterStartingTimerCalled  = 0
+				)
 				s := newTestingStateMachine(
 					t,
 					0,
 					&hooks{
-						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+						onBeforeStartingTimer: func(ctx context.Context) error {
+							onBeforeStartingTimerCalled++
+
+							return nil
+						},
+						onAfterStartingTimer: func(ctx context.Context) error {
+							onAfterStartingTimerCalled++
+
+							return nil
+						},
 
 						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
@@ -428,6 +482,9 @@ func TestStartTimer(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 				}
+
+				require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
+				require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
 			},
 		)
 	}
@@ -435,16 +492,18 @@ func TestStartTimer(t *testing.T) {
 
 func TestTimerFinished(t *testing.T) {
 	var timerFinishedTests = []struct {
-		name      string
-		prepare   func(*stateMachine) error
-		expectErr bool
+		name               string
+		prepare            func(*stateMachine) error
+		expectErr          bool
+		onStartAlarmCalled int
 	}{
 		{
 			name: "can transition from counting down state to alarming state",
 			prepare: func(sm *stateMachine) error {
 				return sm.StartTimer(t.Context())
 			},
-			expectErr: false,
+			expectErr:          false,
+			onStartAlarmCalled: 1,
 		},
 		{
 			name: "can not transition from dragging state to alarming state",
@@ -458,6 +517,7 @@ func TestTimerFinished(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
+				onStartAlarmCalled := 0
 				s := newTestingStateMachine(
 					t,
 					0,
@@ -470,7 +530,11 @@ func TestTimerFinished(t *testing.T) {
 						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
 
-						onStartAlarm: func(ctx context.Context) error { return nil },
+						onStartAlarm: func(ctx context.Context) error {
+							onStartAlarmCalled++
+
+							return nil
+						},
 
 						onStopAlarm: func(ctx context.Context) error { return nil },
 					},
@@ -484,6 +548,8 @@ func TestTimerFinished(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 				}
+
+				require.Equal(t, tt.onStartAlarmCalled, onStartAlarmCalled)
 			},
 		)
 	}
@@ -491,9 +557,10 @@ func TestTimerFinished(t *testing.T) {
 
 func TestStopAlarming(t *testing.T) {
 	var stopAlarmingTests = []struct {
-		name      string
-		prepare   func(*stateMachine) error
-		expectErr bool
+		name              string
+		prepare           func(*stateMachine) error
+		expectErr         bool
+		onStopAlarmCalled int
 	}{
 		{
 			name: "can transition from alarming state state to stopped state",
@@ -504,7 +571,8 @@ func TestStopAlarming(t *testing.T) {
 
 				return sm.timerFinished(t.Context())
 			},
-			expectErr: false,
+			expectErr:         false,
+			onStopAlarmCalled: 1,
 		},
 		{
 			name: "can not transition from counting down state to stopped state",
@@ -518,6 +586,7 @@ func TestStopAlarming(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
+				onStopAlarmCalled := 0
 				s := newTestingStateMachine(
 					t,
 					0,
@@ -532,7 +601,11 @@ func TestStopAlarming(t *testing.T) {
 
 						onStartAlarm: func(ctx context.Context) error { return nil },
 
-						onStopAlarm: func(ctx context.Context) error { return nil },
+						onStopAlarm: func(ctx context.Context) error {
+							onStopAlarmCalled++
+
+							return nil
+						},
 					},
 				)
 
@@ -544,6 +617,8 @@ func TestStopAlarming(t *testing.T) {
 				} else {
 					require.NoError(t, err)
 				}
+
+				require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
 			},
 		)
 	}
