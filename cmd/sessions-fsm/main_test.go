@@ -1,13 +1,20 @@
-// TODO: Update tests to use hooks to assert whether callbacks are called correctly and use dry state machine mode so that we don't depend on ticker/`time.*`
+// TODO: In tests, assert whether the right hooks get called for each transition
+// TODO: In tests, use synctest to test the timers correctly (see https://pkg.go.dev/testing/synctest)
 package main
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
 
+	"github.com/neilotoole/slogt"
 	"github.com/stretchr/testify/require"
 )
+
+func newTestingStateMachine(t *testing.T, remainingTime time.Duration, hooks *hooks) *stateMachine {
+	return newStateMachine(t.Context(), remainingTime, slogt.New(t), hooks)
+}
 
 func TestPlusTimer(t *testing.T) {
 	var plusTimerTests = []struct {
@@ -36,7 +43,23 @@ func TestPlusTimer(t *testing.T) {
 			t.Run(
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.plusTimes, fromCountingDown),
 				func(t *testing.T) {
-					s := newStateMachine(tt.initial)
+					s := newTestingStateMachine(
+						t,
+						tt.initial,
+						&hooks{
+							onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+							onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+							onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+							onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+							onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+							onStartAlarm: func(ctx context.Context) error { return nil },
+
+							onStopAlarm: func(ctx context.Context) error { return nil },
+						},
+					)
 
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
@@ -84,7 +107,23 @@ func TestMinusTimer(t *testing.T) {
 			t.Run(
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.minusTimes, fromCountingDown),
 				func(t *testing.T) {
-					s := newStateMachine(tt.initial)
+					s := newTestingStateMachine(
+						t,
+						tt.initial,
+						&hooks{
+							onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+							onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+							onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+							onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+							onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+							onStartAlarm: func(ctx context.Context) error { return nil },
+
+							onStopAlarm: func(ctx context.Context) error { return nil },
+						},
+					)
 
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
@@ -152,7 +191,23 @@ func TestStartDragging(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
@@ -219,7 +274,23 @@ func TestStopDragging(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
@@ -275,7 +346,23 @@ func TestStopTimer(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
@@ -315,7 +402,23 @@ func TestStartTimer(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
@@ -355,7 +458,23 @@ func TestTimerFinished(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
@@ -370,7 +489,7 @@ func TestTimerFinished(t *testing.T) {
 	}
 }
 
-func TestStopAlarmihng(t *testing.T) {
+func TestStopAlarming(t *testing.T) {
 	var stopAlarmingTests = []struct {
 		name      string
 		prepare   func(*stateMachine) error
@@ -399,7 +518,23 @@ func TestStopAlarmihng(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				s := newStateMachine(0)
+				s := newTestingStateMachine(
+					t,
+					0,
+					&hooks{
+						onBeforeStartingTimer: func(ctx context.Context) error { return nil },
+						onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+						onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+						onStartAlarm: func(ctx context.Context) error { return nil },
+
+						onStopAlarm: func(ctx context.Context) error { return nil },
+					},
+				)
 
 				require.NoError(t, tt.prepare(s))
 
