@@ -64,8 +64,9 @@ type stateMachine struct {
 	log   *slog.Logger
 	hooks *hooks
 
-	machine *stateless.StateMachine
-	ticker  *time.Ticker
+	machine         *stateless.StateMachine
+	ticker          *time.Ticker
+	cancelTickerCtx context.CancelFunc
 }
 
 func newStateMachine(
@@ -208,14 +209,14 @@ func (s *stateMachine) onTimerStart(ctx context.Context, args ...any) error {
 
 	s.currentRemainingTime = s.initialRemainingTime
 	s.ticker = time.NewTicker(tickerInterval)
+	tickerCtx, cancelTickerCtx := context.WithCancel(s.ctx)
+	s.cancelTickerCtx = cancelTickerCtx
 
 	go func() {
 		for {
 			select {
-			case <-s.ctx.Done():
+			case <-tickerCtx.Done(): // tickerCtx derives from s.ctx so this catches both
 				return
-
-			// TODO: Don't leak this goroutine by closing a goroutine or cancelling a context when the ticker has finished (see https://gobyexample.com/tickers)
 
 			case <-s.ticker.C:
 				s.currentRemainingTime -= tickerInterval
@@ -252,6 +253,7 @@ func (s *stateMachine) onTimerStop(ctx context.Context, args ...any) error {
 	}
 
 	s.ticker.Stop()
+	s.cancelTickerCtx()
 
 	s.log.InfoContext(ctx, "Calling onAfterStoppingTimer hook")
 	if err := s.hooks.onAfterStoppingTimer(ctx); err != nil {
