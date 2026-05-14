@@ -55,7 +55,7 @@ type hooks struct {
 
 	onStartAlarm func(ctx context.Context) error
 
-	// onStopAlarm func(ctx context.Context) error
+	onStopAlarm func(ctx context.Context) error
 }
 
 type stateMachine struct {
