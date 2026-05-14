@@ -55,7 +55,7 @@ type hooks struct {
 
 	onStartAlarm func(ctx context.Context) error
 
-	onStopAlarm func(ctx context.Context) error
+	// onStopAlarm func(ctx context.Context) error
 }
 
 type stateMachine struct {
@@ -108,8 +108,11 @@ func newStateMachine(
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
-	// TODO: We need to change the initial remaining time to the last current time (rounded to nearest multiple
-	// of remainingTimerAdjustmentInterval) and then restart the timer
+	// TODO: When incrementing/decrementing from the counting down state, we need to round the current remaining
+	// time down to the nearest lower multiple of remainingTimerAdjustmentInterval, increment from there, set that as the
+	// new initial time (& maybe call the onInitialRemainingTimeChange hook? Might not be necessary, we will update the UI with the onCurrentRemainingTimeTick),
+	// stop the _internal_ timer (without calling the hooks/changing state), manually call onCurrentRemainingTimeTick to reflect the new position, and
+	// restart the _internal_ timer (without calling the hooks/changing state)
 
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
