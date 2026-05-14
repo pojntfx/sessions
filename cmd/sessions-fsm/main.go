@@ -116,7 +116,8 @@ func newStateMachine(
 	s.machine.SetTriggerParameters(triggerStopDragging, reflect.TypeFor[time.Duration]())
 	s.machine.
 		Configure(stateDragging).
-		Permit(triggerStopDragging, stateCountingDown, s.validInitialRemainingTime)
+		Permit(triggerStopDragging, stateCountingDown, s.validInitialRemainingTime).
+		OnExitWith(triggerStopDragging, s.setInitialRemainingTime)
 
 	// From counting down state, we can start dragging as well
 	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
@@ -183,6 +184,14 @@ func (s *stateMachine) validInitialRemainingTime(ctx context.Context, args ...an
 	}
 
 	return true
+}
+
+func (s *stateMachine) setInitialRemainingTime(ctx context.Context, args ...any) error {
+	newInitialRemainingTime := args[0].(time.Duration)
+
+	s.initialRemainingTime = newInitialRemainingTime
+
+	return nil
 }
 
 func (s *stateMachine) PlusTimer(ctx context.Context) error {

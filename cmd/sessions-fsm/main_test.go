@@ -63,7 +63,7 @@ func TestPlusTimer(t *testing.T) {
 
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
-						require.NoError(t, s.StopDragging(t.Context(), initialRemainingTime))
+						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 					}
 
 					for i := range tt.plusTimes {
@@ -127,7 +127,7 @@ func TestMinusTimer(t *testing.T) {
 
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
-						require.NoError(t, s.StopDragging(t.Context(), initialRemainingTime))
+						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 					}
 
 					for i := range tt.minusTimes {
@@ -315,6 +315,8 @@ func TestStopDragging(t *testing.T) {
 					require.Error(t, err)
 				} else {
 					require.NoError(t, err)
+
+					require.Equal(t, tt.remainingTime, s.initialRemainingTime)
 				}
 
 				require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
