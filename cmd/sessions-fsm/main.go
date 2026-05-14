@@ -90,34 +90,35 @@ func newStateMachine(
 	s.machine.
 		Configure(stateStopped).
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
-		OnExitWith(triggerPlusTimer, s.increaseInitialRemainingTime)
+		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTime)
 	s.machine.
 		Configure(stateStopped).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
-		OnExitWith(triggerMinusTimer, s.decreaseInitialRemainingTime)
+		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
 	// From counting down state, we can also increment and decrement the initial remaining
 	// time, same as for the stopped state
 	s.machine.
 		Configure(stateCountingDown).
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
-		OnExitWith(triggerPlusTimer, s.increaseInitialRemainingTime)
+		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTime)
 	s.machine.
 		Configure(stateCountingDown).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
-		OnExitWith(triggerMinusTimer, s.decreaseInitialRemainingTime)
+		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
 
 	// When we stop dragging, before entering into counting down state,
-	// we validate whether the new initial remaining time is valid, and if it
-	// is, we set it
+	// we validate whether the new initial remaining time is valid
 	s.machine.SetTriggerParameters(triggerStopDragging, reflect.TypeFor[time.Duration]())
 	s.machine.
 		Configure(stateDragging).
-		Permit(triggerStopDragging, stateCountingDown, s.validInitialRemainingTime).
-		OnExitWith(triggerStopDragging, s.setInitialRemainingTime)
+		Permit(triggerStopDragging, stateCountingDown, s.validInitialRemainingTime)
+
+	// When we enter the counting down state by stopping to drag, we set the initial remaining time
+	s.machine.Configure(stateCountingDown).OnEntryFrom(triggerStopDragging, s.setInitialRemainingTime)
 
 	// From counting down state, we can start dragging as well
 	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
@@ -133,14 +134,14 @@ func newStateMachine(
 	s.machine.Configure(stateAlarming).Permit(triggerStopAlarming, stateStopped)
 
 	// When we enter the counting down state, we start the timer
-	s.machine.Configure(stateCountingDown).OnEntry(s.onTimerStart)
+	s.machine.Configure(stateCountingDown).OnEntry(s.startTimer)
 	// When we enter the alarming state, we start the alarm
-	s.machine.Configure(stateAlarming).OnEntry(s.onStartAlarm)
+	s.machine.Configure(stateAlarming).OnEntry(s.startAlarm)
 	// When we enter the stopped state, we stop the alarm or timer
 	s.machine.
 		Configure(stateStopped).
-		OnEntryFrom(triggerStopTimer, s.onTimerStop).
-		OnEntryFrom(triggerStopAlarming, s.onStopAlarm)
+		OnEntryFrom(triggerStopTimer, s.stopTimer).
+		OnEntryFrom(triggerStopAlarming, s.stopAlarm)
 
 	return s
 }
@@ -226,7 +227,7 @@ func (s *stateMachine) StopAlarming(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerStopAlarming)
 }
 
-func (s *stateMachine) onTimerStart(ctx context.Context, args ...any) error {
+func (s *stateMachine) startTimer(ctx context.Context, args ...any) error {
 	s.log.InfoContext(ctx, "Calling onBeforeStartingTimer hook")
 	if err := s.hooks.onBeforeStartingTimer(ctx); err != nil {
 		return err
@@ -271,7 +272,7 @@ func (s *stateMachine) onTimerStart(ctx context.Context, args ...any) error {
 	return nil
 }
 
-func (s *stateMachine) onTimerStop(ctx context.Context, args ...any) error {
+func (s *stateMachine) stopTimer(ctx context.Context, args ...any) error {
 	s.log.InfoContext(ctx, "Calling onBeforeStoppingTimer hook")
 	if err := s.hooks.onBeforeStoppingTimer(ctx); err != nil {
 		return err
@@ -288,7 +289,7 @@ func (s *stateMachine) onTimerStop(ctx context.Context, args ...any) error {
 	return nil
 }
 
-func (s *stateMachine) onStartAlarm(ctx context.Context, args ...any) error {
+func (s *stateMachine) startAlarm(ctx context.Context, args ...any) error {
 	s.log.InfoContext(ctx, "Calling onStartAlarm hook")
 	if err := s.hooks.onStartAlarm(ctx); err != nil {
 		return err
@@ -297,7 +298,7 @@ func (s *stateMachine) onStartAlarm(ctx context.Context, args ...any) error {
 	return nil
 }
 
-func (s *stateMachine) onStopAlarm(ctx context.Context, args ...any) error {
+func (s *stateMachine) stopAlarm(ctx context.Context, args ...any) error {
 	s.log.InfoContext(ctx, "Calling onStopAlarm hook")
 	if err := s.hooks.onStopAlarm(ctx); err != nil {
 		return err
