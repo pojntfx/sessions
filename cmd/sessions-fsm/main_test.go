@@ -1,11 +1,10 @@
-// TODO: In tests, assert whether the right hooks get called for each transition everywhere
-// TODO: In tests, use synctest to test the timers correctly (see https://pkg.go.dev/testing/synctest)
 package main
 
 import (
 	"context"
 	"fmt"
 	"testing"
+	"testing/synctest"
 	"time"
 
 	"github.com/neilotoole/slogt"
@@ -394,7 +393,9 @@ func TestStopTimer(t *testing.T) {
 
 				return sm.timerFinished(t.Context())
 			},
-			expectErr: true,
+			expectErr:                   true,
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
 		},
 	}
 	for _, tt := range stopTimerTests {
@@ -592,10 +593,12 @@ func TestTimerFinished(t *testing.T) {
 
 func TestStopAlarming(t *testing.T) {
 	var stopAlarmingTests = []struct {
-		name              string
-		prepare           func(*stateMachine) error
-		expectErr         bool
-		onStopAlarmCalled int
+		name      string
+		prepare   func(*stateMachine) error
+		expectErr bool
+		onStopAlarmCalled,
+		onBeforeStoppingTimerCalled,
+		onAfterStoppingTimerCalled int
 	}{
 		{
 			name: "can transition from alarming state state to stopped state",
@@ -606,8 +609,10 @@ func TestStopAlarming(t *testing.T) {
 
 				return sm.timerFinished(t.Context())
 			},
-			expectErr:         false,
-			onStopAlarmCalled: 1,
+			expectErr:                   false,
+			onStopAlarmCalled:           1,
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
 		},
 		{
 			name: "can not transition from counting down state to stopped state",
@@ -621,7 +626,11 @@ func TestStopAlarming(t *testing.T) {
 		t.Run(
 			tt.name,
 			func(t *testing.T) {
-				onStopAlarmCalled := 0
+				var (
+					onStopAlarmCalled           = 0
+					onBeforeStoppingTimerCalled = 0
+					onAfterStoppingTimerCalled  = 0
+				)
 				s := newTestingStateMachine(
 					t,
 					0,
@@ -632,8 +641,16 @@ func TestStopAlarming(t *testing.T) {
 						onInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
 						onCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+						onBeforeStoppingTimer: func(ctx context.Context) error {
+							onBeforeStoppingTimerCalled++
+
+							return nil
+						},
+						onAfterStoppingTimer: func(ctx context.Context) error {
+							onAfterStoppingTimerCalled++
+
+							return nil
+						},
 
 						onStartAlarm: func(ctx context.Context) error { return nil },
 
@@ -655,6 +672,205 @@ func TestStopAlarming(t *testing.T) {
 				}
 
 				require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
+				require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
+				require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
+			},
+		)
+	}
+}
+
+func TestEndToEnd(t *testing.T) {
+	var endToEndTests = []struct {
+		name string
+
+		runScenario func(t *testing.T, s *stateMachine)
+
+		onBeforeStartingTimerCalled,
+		onAfterStartingTimerCalled int
+
+		internalInitialRemainingTime time.Duration
+
+		onBeforeStoppingTimerCalled,
+		onAfterStoppingTimerCalled,
+
+		onStartAlarmCalled,
+
+		onStopAlarmCalled int
+	}{
+		{
+			name: "can set an alarm for 60s, wait for it to finish, and stop the alarm",
+
+			runScenario: func(t *testing.T, s *stateMachine) {
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+
+				require.NoError(t, s.StartTimer(t.Context()))
+
+				time.Sleep(remainingTimerAdjustmentInterval * 3) // We run this *3, not *2, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+
+				require.NoError(t, s.StopAlarming(t.Context()))
+			},
+
+			onBeforeStartingTimerCalled: 1,
+			onAfterStartingTimerCalled:  1,
+
+			internalInitialRemainingTime: remainingTimerAdjustmentInterval * 2,
+
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
+
+			onStartAlarmCalled: 1,
+
+			onStopAlarmCalled: 1,
+		},
+		{
+			name: "can set an alarm for 120s, wait for it to finish, and stop the alarm",
+
+			runScenario: func(t *testing.T, s *stateMachine) {
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+
+				require.NoError(t, s.StartTimer(t.Context()))
+
+				time.Sleep(remainingTimerAdjustmentInterval * 5) // We run this *5, not *4, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+
+				require.NoError(t, s.StopAlarming(t.Context()))
+			},
+
+			onBeforeStartingTimerCalled: 1,
+			onAfterStartingTimerCalled:  1,
+
+			internalInitialRemainingTime: remainingTimerAdjustmentInterval * 4,
+
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
+
+			onStartAlarmCalled: 1,
+
+			onStopAlarmCalled: 1,
+		},
+		{
+			name: "can set an alarm for 120s, wait for it to finish, and keep the alarm running",
+
+			runScenario: func(t *testing.T, s *stateMachine) {
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+				require.NoError(t, s.PlusTimer(t.Context()))
+
+				require.NoError(t, s.StartTimer(t.Context()))
+
+				time.Sleep(remainingTimerAdjustmentInterval * 5) // We run this *5, not *4, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+			},
+
+			onBeforeStartingTimerCalled: 1,
+			onAfterStartingTimerCalled:  1,
+
+			internalInitialRemainingTime: remainingTimerAdjustmentInterval * 4,
+
+			onBeforeStoppingTimerCalled: 1,
+			onAfterStoppingTimerCalled:  1,
+
+			onStartAlarmCalled: 1,
+
+			onStopAlarmCalled: 0,
+		},
+	}
+	for _, tt := range endToEndTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				synctest.Test(t, func(t *testing.T) {
+					var (
+						onCurrentRemainingTimeTickCallArguments         = []time.Duration{}
+						expectedOnCurrentRemainingTimeTickCallArguments = []time.Duration{}
+					)
+
+					for i := tt.internalInitialRemainingTime - tickerInterval; i >= 0; i -= tickerInterval {
+						expectedOnCurrentRemainingTimeTickCallArguments = append(expectedOnCurrentRemainingTimeTickCallArguments, i)
+					}
+
+					var (
+						onBeforeStartingTimerCalled = 0
+						onAfterStartingTimerCalled  = 0
+
+						internalInitialRemainingTime = time.Duration(0)
+
+						onBeforeStoppingTimerCalled = 0
+						onAfterStoppingTimerCalled  = 0
+
+						onStartAlarmCalled = 0
+
+						onStopAlarmCalled = 0
+					)
+					s := newTestingStateMachine(
+						t,
+						0,
+						&hooks{
+							onBeforeStartingTimer: func(ctx context.Context) error {
+								onBeforeStartingTimerCalled++
+
+								return nil
+							},
+							onAfterStartingTimer: func(ctx context.Context) error {
+								onAfterStartingTimerCalled++
+
+								return nil
+							},
+
+							onInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
+								internalInitialRemainingTime = initialRemainingTime
+
+								return nil
+							},
+							onCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
+								onCurrentRemainingTimeTickCallArguments = append(onCurrentRemainingTimeTickCallArguments, currentRemainingTime)
+
+								return nil
+							},
+
+							onBeforeStoppingTimer: func(ctx context.Context) error {
+								onBeforeStoppingTimerCalled++
+
+								return nil
+							},
+							onAfterStoppingTimer: func(ctx context.Context) error {
+								onAfterStoppingTimerCalled++
+
+								return nil
+							},
+
+							onStartAlarm: func(ctx context.Context) error {
+								onStartAlarmCalled++
+
+								return nil
+							},
+
+							onStopAlarm: func(ctx context.Context) error {
+								onStopAlarmCalled++
+
+								return nil
+							},
+						},
+					)
+
+					tt.runScenario(t, s)
+
+					require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
+					require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
+
+					require.Equal(t, tt.internalInitialRemainingTime, internalInitialRemainingTime)
+
+					require.Equal(t, expectedOnCurrentRemainingTimeTickCallArguments, onCurrentRemainingTimeTickCallArguments)
+
+					require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
+					require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
+
+					require.Equal(t, tt.onStartAlarmCalled, onStartAlarmCalled)
+					require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
+				})
 			},
 		)
 	}
