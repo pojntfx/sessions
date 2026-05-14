@@ -84,42 +84,58 @@ func newStateMachine(
 		machine: stateless.NewStateMachine(stateStopped),
 	}
 
+	// From stopped state, we can increment and decrement the initial remaining time
+	// as long as it is higher than the minimum initial remaining time and higher
+	// than the maximum remaining time
 	s.machine.
 		Configure(stateStopped).
-		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
-		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
+		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
+		OnExitWith(triggerPlusTimer, s.increaseInitialRemainingTime)
 	s.machine.
 		Configure(stateStopped).
-		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
-		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
+		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
+		OnExitWith(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
+	// From counting down state, we can also increment and decrement the initial remaining
+	// time, same as for the stopped state
+	s.machine.
+		Configure(stateCountingDown).
+		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
+		OnExitWith(triggerPlusTimer, s.increaseInitialRemainingTime)
+	s.machine.
+		Configure(stateCountingDown).
+		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
+		OnExitWith(triggerMinusTimer, s.decreaseInitialRemainingTime)
+
+	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
 
+	// When we stop dragging, before entering into counting down state,
+	// we validate whether the new initial remaining time is valid, and if it
+	// is, we set it
 	s.machine.SetTriggerParameters(triggerStopDragging, reflect.TypeFor[time.Duration]())
 	s.machine.
 		Configure(stateDragging).
-		Permit(triggerStopDragging, stateCountingDown, s.validRemainingTime)
+		Permit(triggerStopDragging, stateCountingDown, s.validInitialRemainingTime)
 
+	// From counting down state, we can start dragging as well
 	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
 
-	s.machine.
-		Configure(stateCountingDown).
-		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxRemainingTime).
-		OnEntryFrom(triggerPlusTimer, s.increaseRemainingTime)
-	s.machine.
-		Configure(stateCountingDown).
-		PermitReentry(triggerMinusTimer, s.mustBeAboveMinRemainingTime).
-		OnEntryFrom(triggerMinusTimer, s.decreaseRemainingTime)
-
+	// From counting down state, we can stop/reset and then restart the timer
 	s.machine.Configure(stateCountingDown).Permit(triggerStopTimer, stateStopped)
 	s.machine.Configure(stateStopped).Permit(triggerStartTimer, stateCountingDown)
 
+	// From counting down state, we can go into alarming state when the timer has finished
 	s.machine.Configure(stateCountingDown).Permit(triggerTimerFinished, stateAlarming)
 
+	// From alarming state, we can return to stopped state when the alarm is stopped
 	s.machine.Configure(stateAlarming).Permit(triggerStopAlarming, stateStopped)
 
+	// When we enter the counting down state, we start the timer
 	s.machine.Configure(stateCountingDown).OnEntry(s.onTimerStart)
+	// When we enter the alarming state, we start the alarm
 	s.machine.Configure(stateAlarming).OnEntry(s.onStartAlarm)
+	// When we enter the stopped state, we stop the alarm or timer
 	s.machine.
 		Configure(stateStopped).
 		OnEntryFrom(triggerStopTimer, s.onTimerStop).
@@ -128,41 +144,41 @@ func newStateMachine(
 	return s
 }
 
-func (s *stateMachine) increaseRemainingTime(ctx context.Context, args ...any) error {
+func (s *stateMachine) increaseInitialRemainingTime(ctx context.Context, args ...any) error {
 	s.initialRemainingTime += remainingTimerAdjustmentInterval
 
 	return nil
 }
 
-func (s *stateMachine) mustBeBelowMaxRemainingTime(ctx context.Context, args ...any) bool {
-	newRemainingTime := s.initialRemainingTime + remainingTimerAdjustmentInterval
-	if newRemainingTime > maxRemainingTime {
+func (s *stateMachine) mustBeBelowMaxInitialRemainingTime(ctx context.Context, args ...any) bool {
+	newInitialRemainingTime := s.initialRemainingTime + remainingTimerAdjustmentInterval
+	if newInitialRemainingTime > maxRemainingTime {
 		return false
 	}
 
 	return true
 }
 
-func (s *stateMachine) decreaseRemainingTime(ctx context.Context, args ...any) error {
+func (s *stateMachine) decreaseInitialRemainingTime(ctx context.Context, args ...any) error {
 	s.initialRemainingTime -= remainingTimerAdjustmentInterval
 
 	return nil
 }
 
-func (s *stateMachine) mustBeAboveMinRemainingTime(ctx context.Context, args ...any) bool {
-	newRemainingTime := s.initialRemainingTime - remainingTimerAdjustmentInterval
-	if newRemainingTime < minRemainingTime {
+func (s *stateMachine) mustBeAboveMinInitialRemainingTime(ctx context.Context, args ...any) bool {
+	newInitialRemainingTime := s.initialRemainingTime - remainingTimerAdjustmentInterval
+	if newInitialRemainingTime < minRemainingTime {
 		return false
 	}
 
 	return true
 }
 
-func (s *stateMachine) validRemainingTime(ctx context.Context, args ...any) bool {
-	newRemainingTime := args[0].(time.Duration)
-	if newRemainingTime < minRemainingTime ||
-		newRemainingTime > maxRemainingTime ||
-		newRemainingTime%remainingTimerAdjustmentInterval != 0 {
+func (s *stateMachine) validInitialRemainingTime(ctx context.Context, args ...any) bool {
+	newInitialRemainingTime := args[0].(time.Duration)
+	if newInitialRemainingTime < minRemainingTime ||
+		newInitialRemainingTime > maxRemainingTime ||
+		newInitialRemainingTime%remainingTimerAdjustmentInterval != 0 {
 		return false
 	}
 
