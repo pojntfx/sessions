@@ -47,7 +47,8 @@ type hooks struct {
 	onBeforeStartingTimer func(ctx context.Context) error
 	onAfterStartingTimer  func(ctx context.Context) error
 
-	onRemainingTimeTick func(ctx context.Context, currentRemainingTime time.Duration) error
+	onInitialRemainingTimeChange func(ctx context.Context, initialRemainingTime time.Duration) error
+	onCurrentRemainingTimeTick   func(ctx context.Context, currentRemainingTime time.Duration) error
 
 	onBeforeStoppingTimer func(ctx context.Context) error
 	onAfterStoppingTimer  func(ctx context.Context) error
@@ -107,6 +108,9 @@ func newStateMachine(
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
+	// TODO: We need to change the initial remaining time to the last current time (rounded to nearest multiple
+	// of remainingTimerAdjustmentInterval) and then restart the timer
+
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
 
@@ -149,6 +153,14 @@ func newStateMachine(
 func (s *stateMachine) increaseInitialRemainingTime(ctx context.Context, args ...any) error {
 	s.initialRemainingTime += remainingTimerAdjustmentInterval
 
+	s.log.InfoContext(
+		s.ctx, "Calling onInitialRemainingTimeChange hook",
+		"initialRemainingTime", s.initialRemainingTime,
+	)
+	if err := s.hooks.onInitialRemainingTimeChange(ctx, s.initialRemainingTime); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -163,6 +175,14 @@ func (s *stateMachine) mustBeBelowMaxInitialRemainingTime(ctx context.Context, a
 
 func (s *stateMachine) decreaseInitialRemainingTime(ctx context.Context, args ...any) error {
 	s.initialRemainingTime -= remainingTimerAdjustmentInterval
+
+	s.log.InfoContext(
+		s.ctx, "Calling onInitialRemainingTimeChange hook",
+		"initialRemainingTime", s.initialRemainingTime,
+	)
+	if err := s.hooks.onInitialRemainingTimeChange(ctx, s.initialRemainingTime); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -191,6 +211,14 @@ func (s *stateMachine) setInitialRemainingTime(ctx context.Context, args ...any)
 	newInitialRemainingTime := args[0].(time.Duration)
 
 	s.initialRemainingTime = newInitialRemainingTime
+
+	s.log.InfoContext(
+		s.ctx, "Calling onInitialRemainingTimeChange hook",
+		"initialRemainingTime", s.initialRemainingTime,
+	)
+	if err := s.hooks.onInitialRemainingTimeChange(ctx, s.initialRemainingTime); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -248,11 +276,11 @@ func (s *stateMachine) startTimer(ctx context.Context, args ...any) error {
 				s.currentRemainingTime -= tickerInterval
 
 				s.log.InfoContext(
-					s.ctx, "Calling onRemainingTimeTick hook",
+					s.ctx, "Calling onCurrentRemainingTimeTick hook",
 					"currentRemainingTime", s.currentRemainingTime,
 				)
-				if err := s.hooks.onRemainingTimeTick(ctx, s.currentRemainingTime); err != nil {
-					s.log.ErrorContext(s.ctx, "Could not call onRemainingTimeTick hook", "err", err)
+				if err := s.hooks.onCurrentRemainingTimeTick(ctx, s.currentRemainingTime); err != nil {
+					s.log.ErrorContext(s.ctx, "Could not call onCurrentRemainingTimeTick hook", "err", err)
 				}
 
 				if s.currentRemainingTime == 0 {
@@ -319,7 +347,8 @@ func main() {
 			onBeforeStartingTimer: func(ctx context.Context) error { return nil },
 			onAfterStartingTimer:  func(ctx context.Context) error { return nil },
 
-			onRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+			onInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
+			onCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
 			onBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 			onAfterStoppingTimer:  func(ctx context.Context) error { return nil },
@@ -332,13 +361,13 @@ func main() {
 
 	fmt.Println(s.machine.ToGraph())
 
-	for range 50 {
+	for range 5 {
 		if err := s.PlusTimer(ctx); err != nil {
 			panic(err)
 		}
 	}
 
-	for range 30 {
+	for range 3 {
 		if err := s.MinusTimer(ctx); err != nil {
 			panic(err)
 		}
@@ -360,13 +389,13 @@ func main() {
 		panic(err)
 	}
 
-	for range 50 {
+	for range 5 {
 		if err := s.PlusTimer(ctx); err != nil {
 			panic(err)
 		}
 	}
 
-	for range 30 {
+	for range 3 {
 		if err := s.MinusTimer(ctx); err != nil {
 			panic(err)
 		}
