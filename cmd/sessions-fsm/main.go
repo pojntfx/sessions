@@ -139,11 +139,15 @@ func newStateMachine(
 
 	// When we enter the counting down state, we start the timer
 	s.machine.Configure(stateCountingDown).OnEntry(s.startTimer)
-	// When we enter the alarming state, we start the alarm
-	s.machine.Configure(stateAlarming).OnEntry(s.startAlarm)
+	// When we enter the alarming state, we stop the timer and start the alarm
+	s.machine.Configure(stateAlarming).
+		OnEntry(s.stopTimer).
+		OnEntry(s.startAlarm)
 	// When we enter the stopped state, we stop the alarm or timer
 	s.machine.
 		Configure(stateStopped).
+		// This won't fire when entering from alarming state since the trigger there is
+		// triggerStopAlarming, not triggerStopTimer
 		OnEntryFrom(triggerStopTimer, s.stopTimer).
 		OnEntryFrom(triggerStopAlarming, s.stopAlarm)
 
