@@ -66,14 +66,19 @@ func TestPlusTimer(t *testing.T) {
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 					}
 
+					expectedInitialRemainingTime := tt.initial
 					for i := range tt.plusTimes {
 						err := s.PlusTimer(t.Context())
 						if i == tt.expectErrAt {
 							require.Error(t, err)
 						} else {
 							require.NoError(t, err)
+
+							expectedInitialRemainingTime += remainingTimerAdjustmentInterval
 						}
 					}
+
+					require.Equal(t, expectedInitialRemainingTime, s.initialRemainingTime)
 				},
 			)
 		}
@@ -130,14 +135,19 @@ func TestMinusTimer(t *testing.T) {
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 					}
 
+					expectedInitialRemainingTime := tt.initial
 					for i := range tt.minusTimes {
 						err := s.MinusTimer(t.Context())
 						if i == tt.expectErrAt {
 							require.Error(t, err)
 						} else {
 							require.NoError(t, err)
+
+							expectedInitialRemainingTime -= remainingTimerAdjustmentInterval
 						}
 					}
+
+					require.Equal(t, expectedInitialRemainingTime, s.initialRemainingTime)
 				},
 			)
 		}
