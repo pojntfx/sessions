@@ -43,13 +43,26 @@ func TestPlusTimer(t *testing.T) {
 			t.Run(
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.plusTimes, fromCountingDown),
 				func(t *testing.T) {
-					internalInitialRemainingTime := time.Duration(0)
+					var (
+						onBeforeStartingTimerCalled = 0
+						onAfterStartingTimerCalled  = 0
+
+						internalInitialRemainingTime = time.Duration(0)
+					)
 					s := newTestingStateMachine(
 						t,
 						tt.initial,
 						&hooks{
-							onBeforeStartingTimer: func(ctx context.Context) error { return nil },
-							onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+							onBeforeStartingTimer: func(ctx context.Context) error {
+								onBeforeStartingTimerCalled++
+
+								return nil
+							},
+							onAfterStartingTimer: func(ctx context.Context) error {
+								onAfterStartingTimerCalled++
+
+								return nil
+							},
 
 							onInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 								internalInitialRemainingTime = initialRemainingTime
@@ -71,9 +84,11 @@ func TestPlusTimer(t *testing.T) {
 						require.NoError(t, s.StartDragging(t.Context()))
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 
-						// After we stop dragging, the internal timer starts ticking, but since we
-						// only assert the initial remaining time and assert whether the timer starts running
+						// After we stop dragging, the timer should be running.
+						// We only assert the initial remaining time and assert whether the timer starts running
 						// in TestEndToEnd, not here, this test does not have a race
+						require.Equal(t, 1, onBeforeStartingTimerCalled)
+						require.Equal(t, 1, onAfterStartingTimerCalled)
 					}
 
 					expectedInitialRemainingTime := tt.initial
@@ -86,6 +101,12 @@ func TestPlusTimer(t *testing.T) {
 
 							expectedInitialRemainingTime += remainingTimerAdjustmentInterval
 						}
+					}
+
+					if fromCountingDown {
+						// The timer should still be running if we increased during the counting down phase
+						require.Equal(t, 2, onBeforeStartingTimerCalled)
+						require.Equal(t, 2, onAfterStartingTimerCalled)
 					}
 
 					require.Equal(t, expectedInitialRemainingTime, internalInitialRemainingTime)
@@ -122,13 +143,26 @@ func TestMinusTimer(t *testing.T) {
 			t.Run(
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.minusTimes, fromCountingDown),
 				func(t *testing.T) {
-					internalInitialRemainingTime := time.Duration(0)
+					var (
+						onBeforeStartingTimerCalled = 0
+						onAfterStartingTimerCalled  = 0
+
+						internalInitialRemainingTime = time.Duration(0)
+					)
 					s := newTestingStateMachine(
 						t,
 						tt.initial,
 						&hooks{
-							onBeforeStartingTimer: func(ctx context.Context) error { return nil },
-							onAfterStartingTimer:  func(ctx context.Context) error { return nil },
+							onBeforeStartingTimer: func(ctx context.Context) error {
+								onBeforeStartingTimerCalled++
+
+								return nil
+							},
+							onAfterStartingTimer: func(ctx context.Context) error {
+								onAfterStartingTimerCalled++
+
+								return nil
+							},
 
 							onInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 								internalInitialRemainingTime = initialRemainingTime
@@ -150,9 +184,11 @@ func TestMinusTimer(t *testing.T) {
 						require.NoError(t, s.StartDragging(t.Context()))
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
 
-						// After we stop dragging, the internal timer starts ticking, but since we
-						// only assert the initial remaining time and assert whether the timer starts running
+						// After we stop dragging, the timer should be running.
+						// We only assert the initial remaining time and assert whether the timer starts running
 						// in TestEndToEnd, not here, this test does not have a race
+						require.Equal(t, 1, onBeforeStartingTimerCalled)
+						require.Equal(t, 1, onAfterStartingTimerCalled)
 					}
 
 					expectedInitialRemainingTime := tt.initial
@@ -165,6 +201,12 @@ func TestMinusTimer(t *testing.T) {
 
 							expectedInitialRemainingTime -= remainingTimerAdjustmentInterval
 						}
+					}
+
+					if fromCountingDown {
+						// The timer should still be running if we increased during the counting down phase
+						require.Equal(t, 2, onBeforeStartingTimerCalled)
+						require.Equal(t, 2, onAfterStartingTimerCalled)
 					}
 
 					require.Equal(t, expectedInitialRemainingTime, internalInitialRemainingTime)
