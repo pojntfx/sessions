@@ -42,6 +42,9 @@ github.com/goccy/go-yaml/token
 # github.com/godbus/dbus/v5 v5.2.2
 ## explicit; go 1.20
 github.com/godbus/dbus/v5
+# github.com/neilotoole/slogt v1.1.0
+## explicit; go 1.21
+github.com/neilotoole/slogt
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib
