@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"testing"
 	"testing/synctest"
@@ -167,9 +168,10 @@ func TestMinusTimer(t *testing.T) {
 
 func TestStartDragging(t *testing.T) {
 	var startDraggingTests = []struct {
-		name      string
-		prepare   func(*stateMachine) error
-		expectErr bool
+		name         string
+		prepare      func(*stateMachine) error
+		expectErr    bool
+		postRunCheck func(*stateMachine) error
 	}{
 		{
 			name: "can transition from initial state to dragging",
@@ -207,6 +209,24 @@ func TestStartDragging(t *testing.T) {
 			},
 			expectErr: true,
 		},
+		{
+			name: "transitioning from counting down state to dragging cancels running timer",
+			prepare: func(sm *stateMachine) error {
+				if err := sm.StartDragging(t.Context()); err != nil {
+					return err
+				}
+
+				return sm.StopDragging(t.Context(), initialRemainingTime)
+			},
+			expectErr: false,
+			postRunCheck: func(sm *stateMachine) error {
+				if sm.tickerCtx.Err() == nil {
+					return errors.New("timer is still running")
+				}
+
+				return nil
+			},
+		},
 	}
 	for _, tt := range startDraggingTests {
 		t.Run(
@@ -238,6 +258,10 @@ func TestStartDragging(t *testing.T) {
 					require.Error(t, err)
 				} else {
 					require.NoError(t, err)
+				}
+
+				if hook := tt.postRunCheck; hook != nil {
+					require.NoError(t, hook(s))
 				}
 			},
 		)

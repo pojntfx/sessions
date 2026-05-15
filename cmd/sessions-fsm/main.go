@@ -67,6 +67,7 @@ type stateMachine struct {
 
 	machine         *stateless.StateMachine
 	ticker          *time.Ticker
+	tickerCtx       context.Context
 	cancelTickerCtx context.CancelFunc
 }
 
@@ -111,8 +112,8 @@ func newStateMachine(
 	// TODO: When incrementing/decrementing from the counting down state, we need to round the current remaining
 	// time down to the nearest lower multiple of remainingTimerAdjustmentInterval, increment from there, set that as the
 	// new initial time (& maybe call the onInitialRemainingTimeChange hook? Might not be necessary, we will update the UI with the onCurrentRemainingTimeTick),
-	// stop the _internal_ timer (without calling the hooks/changing state), manually call onCurrentRemainingTimeTick to reflect the new position, and
-	// restart the _internal_ timer (without calling the hooks/changing state)
+	// stop the _internal_ timer (without calling the hooks/changing state), manually call onCurrentRemainingTimeTick to reflect the new position. We do not
+	// need to manually re-start the internal timer, that should automatically happen when entering stateCountingDown already
 
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
@@ -127,8 +128,12 @@ func newStateMachine(
 	// When we enter the counting down state by stopping to drag, we set the initial remaining time
 	s.machine.Configure(stateCountingDown).OnEntryFrom(triggerStopDragging, s.setInitialRemainingTime)
 
-	// From counting down state, we can start dragging as well
-	s.machine.Configure(stateCountingDown).Permit(triggerStartDragging, stateDragging)
+	// From counting down state, we can start dragging as well. When we start dragging while in counting down state,
+	// we stop the timer
+	s.machine.
+		Configure(stateCountingDown).
+		Permit(triggerStartDragging, stateDragging).
+		OnExitWith(triggerStartDragging, s.stopTimerWithoutHooks)
 
 	// From counting down state, we can stop/reset and then restart the timer
 	s.machine.Configure(stateCountingDown).Permit(triggerStopTimer, stateStopped)
@@ -270,13 +275,12 @@ func (s *stateMachine) startTimer(ctx context.Context, args ...any) error {
 
 	s.currentRemainingTime = s.initialRemainingTime
 	s.ticker = time.NewTicker(tickerInterval)
-	tickerCtx, cancelTickerCtx := context.WithCancel(s.ctx)
-	s.cancelTickerCtx = cancelTickerCtx
+	s.tickerCtx, s.cancelTickerCtx = context.WithCancel(s.ctx)
 
 	go func() {
 		for {
 			select {
-			case <-tickerCtx.Done(): // tickerCtx derives from s.ctx so this catches both
+			case <-s.tickerCtx.Done(): // tickerCtx derives from s.ctx so this catches both
 				return
 
 			case <-s.ticker.C:
@@ -313,13 +317,21 @@ func (s *stateMachine) stopTimer(ctx context.Context, args ...any) error {
 		return err
 	}
 
-	s.ticker.Stop()
-	s.cancelTickerCtx()
+	if err := s.stopTimerWithoutHooks(ctx, args...); err != nil {
+		return err
+	}
 
 	s.log.InfoContext(ctx, "Calling onAfterStoppingTimer hook")
 	if err := s.hooks.onAfterStoppingTimer(ctx); err != nil {
 		return err
 	}
+
+	return nil
+}
+
+func (s *stateMachine) stopTimerWithoutHooks(ctx context.Context, args ...any) error {
+	s.ticker.Stop()
+	s.cancelTickerCtx()
 
 	return nil
 }
