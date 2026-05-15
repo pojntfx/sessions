@@ -108,11 +108,11 @@ func newStateMachine(
 		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxCurrentRemainingTime).
 		OnExitWith(triggerPlusTimer, s.stopTimerWithoutHooks).
 		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTimeFromCurrentRemainingTime)
-	// TODO: Apply same smart increment/decrement logic as above to the minus timer triggers
 	s.machine.
 		Configure(stateCountingDown).
-		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
-		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
+		PermitReentry(triggerMinusTimer, s.mustBeAboveMinCurrentRemainingTime).
+		OnExitWith(triggerMinusTimer, s.stopTimerWithoutHooks).
+		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTimeFromCurrentRemainingTime)
 
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
@@ -261,6 +261,29 @@ func (s *stateMachine) increaseInitialRemainingTimeFromCurrentRemainingTime(ctx 
 func (s *stateMachine) mustBeBelowMaxCurrentRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, 1)
 	if newInitialRemainingTime > maxRemainingTime {
+		return false
+	}
+
+	return true
+}
+
+func (s *stateMachine) decreaseInitialRemainingTimeFromCurrentRemainingTime(ctx context.Context, args ...any) error {
+	s.initialRemainingTime = getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, -1)
+
+	s.log.InfoContext(
+		s.ctx, "Calling onInitialRemainingTimeChange hook",
+		"initialRemainingTime", s.initialRemainingTime,
+	)
+	if err := s.hooks.onInitialRemainingTimeChange(ctx, s.initialRemainingTime); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *stateMachine) mustBeAboveMinCurrentRemainingTime(ctx context.Context, args ...any) bool {
+	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, -1)
+	if newInitialRemainingTime < minRemainingTime {
 		return false
 	}
 
