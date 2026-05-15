@@ -70,6 +70,10 @@ func TestPlusTimer(t *testing.T) {
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
+
+						// After we stop dragging, the internal timer starts ticking, but since we
+						// only assert the initial remaining time and assert whether the timer starts running
+						// in TestEndToEnd, not here, this test does not have a race
 					}
 
 					expectedInitialRemainingTime := tt.initial
@@ -145,6 +149,10 @@ func TestMinusTimer(t *testing.T) {
 					if fromCountingDown {
 						require.NoError(t, s.StartDragging(t.Context()))
 						require.NoError(t, s.StopDragging(t.Context(), tt.initial))
+
+						// After we stop dragging, the internal timer starts ticking, but since we
+						// only assert the initial remaining time and assert whether the timer starts running
+						// in TestEndToEnd, not here, this test does not have a race
 					}
 
 					expectedInitialRemainingTime := tt.initial
@@ -895,6 +903,67 @@ func TestEndToEnd(t *testing.T) {
 					require.Equal(t, tt.onStartAlarmCalled, onStartAlarmCalled)
 					require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
 				})
+			},
+		)
+	}
+}
+
+func TestGetInitialRemainingTimeFromCurrentRemainingTime(t *testing.T) {
+	var getRemainingTimeTests = []struct {
+		name                 string
+		currentRemainingTime time.Duration
+		intervalsToAdd       int
+		newRemainingTime     time.Duration
+	}{
+		{
+			name:                 "0s plus 1 interval results in 30s",
+			currentRemainingTime: 0,
+			intervalsToAdd:       1,
+			newRemainingTime:     remainingTimerAdjustmentInterval,
+		},
+		{
+			name:                 "0s plus 2 intervals results in 60s",
+			currentRemainingTime: 0,
+			intervalsToAdd:       2,
+			newRemainingTime:     remainingTimerAdjustmentInterval * 2,
+		},
+		{
+			name:                 "5s plus 2 intervals results in 60s",
+			currentRemainingTime: time.Second * 5,
+			intervalsToAdd:       2,
+			newRemainingTime:     remainingTimerAdjustmentInterval * 2,
+		},
+		{
+			name:                 "14s plus 2 intervals results in 60s",
+			currentRemainingTime: time.Second * 14,
+			intervalsToAdd:       2,
+			newRemainingTime:     remainingTimerAdjustmentInterval * 2,
+		},
+		{
+			name:                 "15s plus 2 intervals results in 90s",
+			currentRemainingTime: time.Second * 15,
+			intervalsToAdd:       2,
+			newRemainingTime:     remainingTimerAdjustmentInterval * 3,
+		},
+		{
+			name:                 "30s plus 2 intervals results in 90s",
+			currentRemainingTime: remainingTimerAdjustmentInterval,
+			intervalsToAdd:       2,
+			newRemainingTime:     remainingTimerAdjustmentInterval * 3,
+		},
+	}
+	for _, tt := range getRemainingTimeTests {
+		t.Run(
+			tt.name,
+			func(t *testing.T) {
+				require.Equal(
+					t,
+					tt.newRemainingTime,
+					getInitialRemainingTimeFromCurrentRemainingTime(
+						tt.currentRemainingTime,
+						tt.intervalsToAdd,
+					),
+				)
 			},
 		)
 	}

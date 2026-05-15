@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"math"
 	"reflect"
 	"time"
 
@@ -99,21 +100,19 @@ func newStateMachine(
 		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
 
 	// From counting down state, we can also increment and decrement the initial remaining
-	// time, same as for the stopped state
+	// time, same as for the stopped state. When we increment while in counting down state, we
+	// stop the timer first; it will be restarted automatically again once we transition back into
+	// the counting down state with the new value
 	s.machine.
 		Configure(stateCountingDown).
-		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
-		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTime)
+		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxCurrentRemainingTime).
+		OnExitWith(triggerPlusTimer, s.stopTimerWithoutHooks).
+		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTimeFromCurrentRemainingTime)
+	// TODO: Apply same smart increment/decrement logic as above to the minus timer triggers
 	s.machine.
 		Configure(stateCountingDown).
 		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
 		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
-
-	// TODO: When incrementing/decrementing from the counting down state, we need to round the current remaining
-	// time down to the nearest lower multiple of remainingTimerAdjustmentInterval, increment from there, set that as the
-	// new initial time (& maybe call the onInitialRemainingTimeChange hook? Might not be necessary, we will update the UI with the onCurrentRemainingTimeTick),
-	// stop the _internal_ timer (without calling the hooks/changing state), manually call onCurrentRemainingTimeTick to reflect the new position. We do not
-	// need to manually re-start the internal timer, that should automatically happen when entering stateCountingDown already
 
 	// From stopped state, we can start dragging
 	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
@@ -233,6 +232,39 @@ func (s *stateMachine) setInitialRemainingTime(ctx context.Context, args ...any)
 	}
 
 	return nil
+}
+
+func getInitialRemainingTimeFromCurrentRemainingTime(currentRemainingTime time.Duration, intervalsToAdd int) time.Duration {
+	intervals := time.Duration(
+		math.Round(
+			float64(currentRemainingTime)/float64(remainingTimerAdjustmentInterval),
+		) + float64(intervalsToAdd),
+	)
+
+	return intervals * remainingTimerAdjustmentInterval
+}
+
+func (s *stateMachine) increaseInitialRemainingTimeFromCurrentRemainingTime(ctx context.Context, args ...any) error {
+	s.initialRemainingTime = getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, 1)
+
+	s.log.InfoContext(
+		s.ctx, "Calling onInitialRemainingTimeChange hook",
+		"initialRemainingTime", s.initialRemainingTime,
+	)
+	if err := s.hooks.onInitialRemainingTimeChange(ctx, s.initialRemainingTime); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (s *stateMachine) mustBeBelowMaxCurrentRemainingTime(ctx context.Context, args ...any) bool {
+	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, 1)
+	if newInitialRemainingTime > maxRemainingTime {
+		return false
+	}
+
+	return true
 }
 
 func (s *stateMachine) PlusTimer(ctx context.Context) error {
