@@ -77,6 +77,8 @@ func TestPlusTimer(t *testing.T) {
 							OnStartAlarm: func(ctx context.Context) error { return nil },
 
 							OnStopAlarm: func(ctx context.Context) error { return nil },
+
+							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 						},
 					)
 
@@ -177,6 +179,8 @@ func TestMinusTimer(t *testing.T) {
 							OnStartAlarm: func(ctx context.Context) error { return nil },
 
 							OnStopAlarm: func(ctx context.Context) error { return nil },
+
+							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 						},
 					)
 
@@ -298,6 +302,8 @@ func TestStartDragging(t *testing.T) {
 						OnStartAlarm: func(ctx context.Context) error { return nil },
 
 						OnStopAlarm: func(ctx context.Context) error { return nil },
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -408,6 +414,8 @@ func TestStopDragging(t *testing.T) {
 						OnStartAlarm: func(ctx context.Context) error { return nil },
 
 						OnStopAlarm: func(ctx context.Context) error { return nil },
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -512,6 +520,8 @@ func TestStopTimer(t *testing.T) {
 						OnStartAlarm: func(ctx context.Context) error { return nil },
 
 						OnStopAlarm: func(ctx context.Context) error { return nil },
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -588,6 +598,8 @@ func TestStartTimer(t *testing.T) {
 						OnStartAlarm: func(ctx context.Context) error { return nil },
 
 						OnStopAlarm: func(ctx context.Context) error { return nil },
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -655,6 +667,8 @@ func TestTimerFinished(t *testing.T) {
 						},
 
 						OnStopAlarm: func(ctx context.Context) error { return nil },
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -741,6 +755,8 @@ func TestStopAlarming(t *testing.T) {
 
 							return nil
 						},
+
+						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
 				)
 
@@ -778,6 +794,8 @@ func TestEndToEnd(t *testing.T) {
 		onStartAlarmCalled,
 
 		onStopAlarmCalled int
+
+		permittedTriggers []Trigger
 	}{
 		{
 			name: "can set an alarm for 60s, wait for it to finish, and stop the alarm",
@@ -804,6 +822,13 @@ func TestEndToEnd(t *testing.T) {
 			onStartAlarmCalled: 1,
 
 			onStopAlarmCalled: 1,
+
+			permittedTriggers: []Trigger{
+				TriggerStartTimer,
+				TriggerPlusTimer,
+				TriggerMinusTimer,
+				TriggerStartDragging,
+			},
 		},
 		{
 			name: "can set an alarm for 120s, wait for it to finish, and stop the alarm",
@@ -832,6 +857,13 @@ func TestEndToEnd(t *testing.T) {
 			onStartAlarmCalled: 1,
 
 			onStopAlarmCalled: 1,
+
+			permittedTriggers: []Trigger{
+				TriggerStartTimer,
+				TriggerPlusTimer,
+				TriggerMinusTimer,
+				TriggerStartDragging,
+			},
 		},
 		{
 			name: "can set an alarm for 120s, wait for it to finish, and keep the alarm running",
@@ -858,6 +890,8 @@ func TestEndToEnd(t *testing.T) {
 			onStartAlarmCalled: 1,
 
 			onStopAlarmCalled: 0,
+
+			permittedTriggers: []Trigger{TriggerStopAlarming},
 		},
 	}
 	for _, tt := range endToEndTests {
@@ -886,6 +920,8 @@ func TestEndToEnd(t *testing.T) {
 						onStartAlarmCalled = 0
 
 						onStopAlarmCalled = 0
+
+						internalPermittedTriggers = []Trigger{}
 					)
 					s := newTestingStateMachine(
 						t,
@@ -935,6 +971,12 @@ func TestEndToEnd(t *testing.T) {
 
 								return nil
 							},
+
+							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error {
+								internalPermittedTriggers = permittedTriggers
+
+								return nil
+							},
 						},
 					)
 
@@ -952,6 +994,8 @@ func TestEndToEnd(t *testing.T) {
 
 					require.Equal(t, tt.onStartAlarmCalled, onStartAlarmCalled)
 					require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
+
+					require.ElementsMatch(t, tt.permittedTriggers, internalPermittedTriggers)
 				})
 			},
 		)

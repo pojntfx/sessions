@@ -23,6 +23,8 @@ type Hooks struct {
 	OnStartAlarm func(ctx context.Context) error
 
 	OnStopAlarm func(ctx context.Context) error
+
+	OnPermittedTriggersChange func(ctx context.Context, permittedTriggers []Trigger) error
 }
 
 type StateMachine struct {
@@ -58,12 +60,12 @@ func NewStateMachine(
 	// than the maximum remaining time
 	s.machine.
 		Configure(stateStopped).
-		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
-		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTime)
+		PermitReentry(TriggerPlusTimer, s.mustBeBelowMaxInitialRemainingTime).
+		OnEntryFrom(TriggerPlusTimer, s.increaseInitialRemainingTime)
 	s.machine.
 		Configure(stateStopped).
-		PermitReentry(triggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
-		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTime)
+		PermitReentry(TriggerMinusTimer, s.mustBeAboveMinInitialRemainingTime).
+		OnEntryFrom(TriggerMinusTimer, s.decreaseInitialRemainingTime)
 
 	// From counting down state, we can also increment and decrement the initial remaining
 	// time, same as for the stopped state. When we increment while in counting down state, we
@@ -71,17 +73,17 @@ func NewStateMachine(
 	// the counting down state with the new value
 	s.machine.
 		Configure(stateCountingDown).
-		PermitReentry(triggerPlusTimer, s.mustBeBelowMaxCurrentRemainingTime).
-		OnExitWith(triggerPlusTimer, s.stopTimerWithoutHooks).
-		OnEntryFrom(triggerPlusTimer, s.increaseInitialRemainingTimeFromCurrentRemainingTime)
+		PermitReentry(TriggerPlusTimer, s.mustBeBelowMaxCurrentRemainingTime).
+		OnExitWith(TriggerPlusTimer, s.stopTimerWithoutHooks).
+		OnEntryFrom(TriggerPlusTimer, s.increaseInitialRemainingTimeFromCurrentRemainingTime)
 	s.machine.
 		Configure(stateCountingDown).
-		PermitReentry(triggerMinusTimer, s.mustBeAboveMinCurrentRemainingTime).
-		OnExitWith(triggerMinusTimer, s.stopTimerWithoutHooks).
-		OnEntryFrom(triggerMinusTimer, s.decreaseInitialRemainingTimeFromCurrentRemainingTime)
+		PermitReentry(TriggerMinusTimer, s.mustBeAboveMinCurrentRemainingTime).
+		OnExitWith(TriggerMinusTimer, s.stopTimerWithoutHooks).
+		OnEntryFrom(TriggerMinusTimer, s.decreaseInitialRemainingTimeFromCurrentRemainingTime)
 
 	// From stopped state, we can start dragging
-	s.machine.Configure(stateStopped).Permit(triggerStartDragging, stateDragging)
+	s.machine.Configure(stateStopped).Permit(TriggerStartDragging, stateDragging)
 
 	// When we stop dragging, before entering into counting down state,
 	// we validate whether the new initial remaining time is valid
@@ -97,18 +99,18 @@ func NewStateMachine(
 	// we stop the timer
 	s.machine.
 		Configure(stateCountingDown).
-		Permit(triggerStartDragging, stateDragging).
-		OnExitWith(triggerStartDragging, s.stopTimerWithoutHooks)
+		Permit(TriggerStartDragging, stateDragging).
+		OnExitWith(TriggerStartDragging, s.stopTimerWithoutHooks)
 
 	// From counting down state, we can stop/reset and then restart the timer
-	s.machine.Configure(stateCountingDown).Permit(triggerStopTimer, stateStopped)
-	s.machine.Configure(stateStopped).Permit(triggerStartTimer, stateCountingDown)
+	s.machine.Configure(stateCountingDown).Permit(TriggerStopTimer, stateStopped)
+	s.machine.Configure(stateStopped).Permit(TriggerStartTimer, stateCountingDown)
 
 	// From counting down state, we can go into alarming state when the timer has finished
 	s.machine.Configure(stateCountingDown).Permit(triggerTimerFinished, stateAlarming)
 
 	// From alarming state, we can return to stopped state when the alarm is stopped
-	s.machine.Configure(stateAlarming).Permit(triggerStopAlarming, stateStopped)
+	s.machine.Configure(stateAlarming).Permit(TriggerStopAlarming, stateStopped)
 
 	// When we enter the counting down state, we start the timer
 	s.machine.Configure(stateCountingDown).OnEntry(s.startTimer)
@@ -121,8 +123,32 @@ func NewStateMachine(
 		Configure(stateStopped).
 		// This won't fire when entering from alarming state since the trigger there is
 		// triggerStopAlarming, not triggerStopTimer
-		OnEntryFrom(triggerStopTimer, s.stopTimer).
-		OnEntryFrom(triggerStopAlarming, s.stopAlarm)
+		OnEntryFrom(TriggerStopTimer, s.stopTimer).
+		OnEntryFrom(TriggerStopAlarming, s.stopAlarm)
+
+	s.machine.OnTransitioned(func(ctx context.Context, _ stateless.Transition) {
+		rawPermittedTriggers, err := s.machine.PermittedTriggersCtx(ctx)
+		if err != nil {
+			s.log.ErrorContext(s.ctx, "Could not get permitted triggers", "err", err)
+
+			return
+		}
+
+		permittedTriggers := make([]Trigger, len(rawPermittedTriggers))
+		for i := range len(permittedTriggers) {
+			// This is always safe since the only defined triggers in the state
+			// machine are our own
+			permittedTriggers[i] = rawPermittedTriggers[i].(Trigger)
+		}
+
+		s.log.InfoContext(
+			s.ctx, "Calling onPermittedTriggersChange hook",
+			"permittedTriggers", permittedTriggers,
+		)
+		if err := s.hooks.OnPermittedTriggersChange(ctx, permittedTriggers); err != nil {
+			s.log.ErrorContext(s.ctx, "Could not call onPermittedTriggersChange hook", "err", err)
+		}
+	})
 
 	return s
 }
@@ -182,6 +208,15 @@ func (s *StateMachine) mustBeAboveMinInitialRemainingTime(ctx context.Context, a
 }
 
 func (s *StateMachine) validInitialRemainingTime(ctx context.Context, args ...any) bool {
+	if len(args) <= 0 {
+		// len(args) will always be larger than 0 except for when
+		// calling s.machine.PermittedTriggersCtx(ctx), in which case
+		// we always deny this transition since we can't make a decision without
+		// knowing the argument value
+
+		return false
+	}
+
 	newInitialRemainingTime := args[0].(time.Duration)
 	if newInitialRemainingTime < minRemainingTime ||
 		newInitialRemainingTime > maxRemainingTime ||
@@ -265,15 +300,15 @@ func (s *StateMachine) mustBeAboveMinCurrentRemainingTime(ctx context.Context, a
 }
 
 func (s *StateMachine) PlusTimer(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerPlusTimer)
+	return s.machine.FireCtx(ctx, TriggerPlusTimer)
 }
 
 func (s *StateMachine) MinusTimer(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerMinusTimer)
+	return s.machine.FireCtx(ctx, TriggerMinusTimer)
 }
 
 func (s *StateMachine) StartDragging(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerStartDragging)
+	return s.machine.FireCtx(ctx, TriggerStartDragging)
 }
 
 func (s *StateMachine) StopDragging(ctx context.Context, remainingTime time.Duration) error {
@@ -287,11 +322,11 @@ func (s *StateMachine) CanStopDragging(ctx context.Context, remainingTime time.D
 }
 
 func (s *StateMachine) StopTimer(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerStopTimer)
+	return s.machine.FireCtx(ctx, TriggerStopTimer)
 }
 
 func (s *StateMachine) StartTimer(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerStartTimer)
+	return s.machine.FireCtx(ctx, TriggerStartTimer)
 }
 
 func (s *StateMachine) timerFinished(ctx context.Context) error {
@@ -299,7 +334,7 @@ func (s *StateMachine) timerFinished(ctx context.Context) error {
 }
 
 func (s *StateMachine) StopAlarming(ctx context.Context) error {
-	return s.machine.FireCtx(ctx, triggerStopAlarming)
+	return s.machine.FireCtx(ctx, TriggerStopAlarming)
 }
 
 func (s *StateMachine) startTimer(ctx context.Context, args ...any) error {

@@ -13,20 +13,23 @@ const (
 	stateAlarming     state = "alarming"
 )
 
-type trigger string
+type Trigger string
 
 const (
-	triggerPlusTimer  trigger = "plusTimer"
-	triggerMinusTimer trigger = "minusTimer"
+	TriggerPlusTimer  Trigger = "plusTimer"
+	TriggerMinusTimer Trigger = "minusTimer"
 
-	triggerStartDragging trigger = "startDragging"
-	triggerStopDragging  trigger = "stopDragging"
+	TriggerStartDragging Trigger = "startDragging"
+	// Checking whether this trigger can be used depends on what the new `remainingTime`
+	// would be, use `CanStopDragging` instead
+	triggerStopDragging Trigger = "stopDragging"
 
-	triggerStartTimer trigger = "startTimer"
-	triggerStopTimer  trigger = "stopTimer"
+	TriggerStartTimer Trigger = "startTimer"
+	TriggerStopTimer  Trigger = "stopTimer"
 
-	triggerTimerFinished trigger = "timerFinished"
-	triggerStopAlarming  trigger = "stopAlarming"
+	// This one is only called from within the state machine
+	triggerTimerFinished Trigger = "timerFinished"
+	TriggerStopAlarming  Trigger = "stopAlarming"
 )
 
 const (

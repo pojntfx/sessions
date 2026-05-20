@@ -30,6 +30,8 @@ func main() {
 			OnStartAlarm: func(ctx context.Context) error { return nil },
 
 			OnStopAlarm: func(ctx context.Context) error { return nil },
+
+			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error { return nil },
 		},
 	)
 
