@@ -280,6 +280,12 @@ func (s *StateMachine) StopDragging(ctx context.Context, remainingTime time.Dura
 	return s.machine.FireCtx(ctx, triggerStopDragging, remainingTime)
 }
 
+// CanStopDragging exists because onPermittedTriggersChange can't correctly report whether
+// you can stop dragging without knowing what the new remainingTime would be
+func (s *StateMachine) CanStopDragging(ctx context.Context, remainingTime time.Duration) (bool, error) {
+	return s.machine.CanFireCtx(ctx, triggerStopDragging, remainingTime)
+}
+
 func (s *StateMachine) StopTimer(ctx context.Context) error {
 	return s.machine.FireCtx(ctx, triggerStopTimer)
 }

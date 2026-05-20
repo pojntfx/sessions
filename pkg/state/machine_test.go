@@ -413,7 +413,15 @@ func TestStopDragging(t *testing.T) {
 
 				require.NoError(t, tt.prepare(s))
 
-				err := s.StopDragging(t.Context(), tt.remainingTime)
+				canStopDragging, err := s.CanStopDragging(t.Context(), tt.remainingTime)
+				require.NoError(t, err)
+				if tt.expectErr {
+					require.False(t, canStopDragging)
+				} else {
+					require.True(t, canStopDragging)
+				}
+
+				err = s.StopDragging(t.Context(), tt.remainingTime)
 				if tt.expectErr {
 					require.Error(t, err)
 				} else {
