@@ -370,6 +370,7 @@ func (s *StateMachine) startTimer(ctx context.Context, args ...any) error {
 				if err := s.hooks.OnCurrentRemainingTimeTick(ctx, s.currentRemainingTime); err != nil {
 					s.log.ErrorContext(s.ctx, "Could not call onCurrentRemainingTimeTick hook", "err", err)
 				}
+				s.FlushPermittedTriggers(ctx)
 
 				if s.currentRemainingTime == 0 {
 					if err := s.timerFinished(s.ctx); err != nil {

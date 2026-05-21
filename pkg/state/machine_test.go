@@ -809,6 +809,8 @@ func TestEndToEnd(t *testing.T) {
 		onStopAlarmCalled int
 
 		permittedTriggers []Trigger
+
+		onPermittedTriggersChangeCalled int
 	}{
 		{
 			name: "can set an alarm for 60s, wait for it to finish, and stop the alarm",
@@ -842,6 +844,8 @@ func TestEndToEnd(t *testing.T) {
 				TriggerMinusTimer,
 				TriggerStartDragging,
 			},
+
+			onPermittedTriggersChangeCalled: 96,
 		},
 		{
 			name: "can set an alarm for 120s, wait for it to finish, and stop the alarm",
@@ -877,6 +881,8 @@ func TestEndToEnd(t *testing.T) {
 				TriggerMinusTimer,
 				TriggerStartDragging,
 			},
+
+			onPermittedTriggersChangeCalled: 158,
 		},
 		{
 			name: "can set an alarm for 120s, wait for it to finish, and keep the alarm running",
@@ -905,6 +911,8 @@ func TestEndToEnd(t *testing.T) {
 			onStopAlarmCalled: 0,
 
 			permittedTriggers: []Trigger{TriggerStopAlarming},
+
+			onPermittedTriggersChangeCalled: 157,
 		},
 	}
 	for _, tt := range endToEndTests {
@@ -935,6 +943,8 @@ func TestEndToEnd(t *testing.T) {
 						onStopAlarmCalled = 0
 
 						internalPermittedTriggers = []Trigger{}
+
+						onPermittedTriggersChangeCalled = 0
 					)
 					s := newTestingStateMachine(
 						t,
@@ -986,6 +996,8 @@ func TestEndToEnd(t *testing.T) {
 							},
 
 							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error {
+								onPermittedTriggersChangeCalled++
+
 								internalPermittedTriggers = permittedTriggers
 
 								return nil
@@ -1013,6 +1025,8 @@ func TestEndToEnd(t *testing.T) {
 					s.FlushPermittedTriggers(t.Context())
 
 					require.ElementsMatch(t, tt.permittedTriggers, internalPermittedTriggers)
+
+					require.Equal(t, tt.onPermittedTriggersChangeCalled, onPermittedTriggersChangeCalled)
 				})
 			},
 		)
