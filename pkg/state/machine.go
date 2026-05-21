@@ -40,6 +40,7 @@ type StateMachine struct {
 	cancelTickerCtx context.CancelFunc
 }
 
+// NewStateMachine creates a new state machine in stopped state
 func NewStateMachine(
 	ctx context.Context,
 	remainingTime time.Duration,
@@ -126,28 +127,10 @@ func NewStateMachine(
 		OnEntryFrom(TriggerStopTimer, s.stopTimer).
 		OnEntryFrom(TriggerStopAlarming, s.stopAlarm)
 
+	// Every time we finished transitioning to a new state, flush the permitted triggers
+	// so that any external state will be updated
 	s.machine.OnTransitioned(func(ctx context.Context, _ stateless.Transition) {
-		rawPermittedTriggers, err := s.machine.PermittedTriggersCtx(ctx)
-		if err != nil {
-			s.log.ErrorContext(s.ctx, "Could not get permitted triggers", "err", err)
-
-			return
-		}
-
-		permittedTriggers := make([]Trigger, len(rawPermittedTriggers))
-		for i := range len(permittedTriggers) {
-			// This is always safe since the only defined triggers in the state
-			// machine are our own
-			permittedTriggers[i] = rawPermittedTriggers[i].(Trigger)
-		}
-
-		s.log.InfoContext(
-			s.ctx, "Calling onPermittedTriggersChange hook",
-			"permittedTriggers", permittedTriggers,
-		)
-		if err := s.hooks.OnPermittedTriggersChange(ctx, permittedTriggers); err != nil {
-			s.log.ErrorContext(s.ctx, "Could not call onPermittedTriggersChange hook", "err", err)
-		}
+		s.FlushPermittedTriggers(ctx)
 	})
 
 	return s
@@ -159,6 +142,30 @@ func (s *StateMachine) ToGraph() string {
 
 func (s *StateMachine) String() string {
 	return s.machine.String()
+}
+
+func (s *StateMachine) FlushPermittedTriggers(ctx context.Context) {
+	rawPermittedTriggers, err := s.machine.PermittedTriggersCtx(ctx)
+	if err != nil {
+		s.log.ErrorContext(s.ctx, "Could not get permitted triggers", "err", err)
+
+		return
+	}
+
+	permittedTriggers := make([]Trigger, len(rawPermittedTriggers))
+	for i := range len(permittedTriggers) {
+		// This is always safe since the only defined triggers in the state
+		// machine are our own
+		permittedTriggers[i] = rawPermittedTriggers[i].(Trigger)
+	}
+
+	s.log.InfoContext(
+		s.ctx, "Calling onPermittedTriggersChange hook",
+		"permittedTriggers", permittedTriggers,
+	)
+	if err := s.hooks.OnPermittedTriggersChange(ctx, permittedTriggers); err != nil {
+		s.log.ErrorContext(s.ctx, "Could not call onPermittedTriggersChange hook", "err", err)
+	}
 }
 
 func (s *StateMachine) increaseInitialRemainingTime(ctx context.Context, args ...any) error {

@@ -1009,6 +1009,10 @@ func TestEndToEnd(t *testing.T) {
 					require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
 
 					require.ElementsMatch(t, tt.permittedTriggers, internalPermittedTriggers)
+
+					s.FlushPermittedTriggers(t.Context())
+
+					require.ElementsMatch(t, tt.permittedTriggers, internalPermittedTriggers)
 				})
 			},
 		)
