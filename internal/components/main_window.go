@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"math"
 	"runtime"
+	"slices"
 	"time"
 	"unsafe"
 
@@ -114,9 +115,44 @@ func (w *MainWindow) LoadLastPosition() {
 
 			OnStopAlarm: func(ctx context.Context) error { return nil },
 
-			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error { return nil },
+			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error {
+				if slices.Contains(permittedTriggers, state.TriggerMinusTimer) {
+					fn := glib.SourceFunc(func(_ uintptr) bool {
+						w.minusButton.SetSensitive(true)
+
+						return false
+					})
+					glib.IdleAdd(&fn, 0)
+				} else {
+					fn := glib.SourceFunc(func(_ uintptr) bool {
+						w.minusButton.SetSensitive(false)
+
+						return false
+					})
+					glib.IdleAdd(&fn, 0)
+				}
+
+				if slices.Contains(permittedTriggers, state.TriggerPlusTimer) {
+					fn := glib.SourceFunc(func(_ uintptr) bool {
+						w.plusButton.SetSensitive(true)
+
+						return false
+					})
+					glib.IdleAdd(&fn, 0)
+				} else {
+					fn := glib.SourceFunc(func(_ uintptr) bool {
+						w.plusButton.SetSensitive(false)
+
+						return false
+					})
+					glib.IdleAdd(&fn, 0)
+				}
+
+				return nil
+			},
 		},
 	)
+	w.s.FlushPermittedTriggers(w.ctx)
 }
 
 func (w *MainWindow) SaveLastPosition() {
@@ -218,30 +254,16 @@ func (w *MainWindow) stopFlash() {
 }
 
 func (w *MainWindow) UpdateButtons() {
-	if w.alarming {
+	if w.alarming || w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
 		w.actionButton.SetLabel(L("_Stop"))
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
-
-		w.plusButton.SetSensitive(false)
-		w.minusButton.SetSensitive(false)
-	} else if w.running {
-		w.actionButton.SetIconName("media-playback-stop-symbolic")
-		w.actionButton.SetLabel(L("_Stop"))
-		w.actionButton.RemoveCssClass("suggested-action")
-		w.actionButton.AddCssClass("destructive-action")
-
-		w.plusButton.SetSensitive(w.totalSec < int(maxDialValue.Seconds()))
-		w.minusButton.SetSensitive(w.totalSec > int(minDialValue.Seconds()))
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
 		w.actionButton.SetLabel(L("_Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
-
-		w.plusButton.SetSensitive(w.totalSec < int(maxDialValue.Seconds()))
-		w.minusButton.SetSensitive(w.totalSec > int(minDialValue.Seconds()))
 	}
 }
 
