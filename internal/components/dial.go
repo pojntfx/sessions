@@ -185,17 +185,38 @@ func init() {
 				endX := float32(cx + r*math.Sin(angle+math.Pi/2))
 				endY := float32(cy - r*math.Cos(angle+math.Pi/2))
 
+				isFullCircle := startX == endX && startY == endY
+				largeArc := angle+math.Pi/2 > math.Pi
+
+				drawArcOrCircle := func(builder *gsk.PathBuilder, rx, ry float32, endX, endY float32) {
+					if isFullCircle {
+						builder.AddCircle(&graphene.Point{X: float32(cx), Y: float32(cy)}, rx)
+					} else {
+						builder.SvgArcTo(rx, ry, 0, largeArc, true, endX, endY)
+					}
+				}
+
 				if !noFill {
-					arcBuilder := gsk.NewPathBuilder()
-					defer arcBuilder.Unref()
-					arcBuilder.MoveTo(float32(cx), float32(cy))
-					arcBuilder.LineTo(startX, startY)
-					arcBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
-					arcBuilder.LineTo(float32(cx), float32(cy))
-					arcPath := arcBuilder.ToPath()
-					defer arcPath.Unref()
-					snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
-					strokeBorder(arcPath)
+					if isFullCircle {
+						fullFillBuilder := gsk.NewPathBuilder()
+						defer fullFillBuilder.Unref()
+						fullFillBuilder.AddCircle(&graphene.Point{X: float32(cx), Y: float32(cy)}, float32(r))
+						fullFillPath := fullFillBuilder.ToPath()
+						defer fullFillPath.Unref()
+						snapshot.AppendFill(fullFillPath, gsk.FillRuleWindingValue, &fillColor)
+						strokeBorder(fullFillPath)
+					} else {
+						arcBuilder := gsk.NewPathBuilder()
+						defer arcBuilder.Unref()
+						arcBuilder.MoveTo(float32(cx), float32(cy))
+						arcBuilder.LineTo(startX, startY)
+						drawArcOrCircle(arcBuilder, float32(r), float32(r), endX, endY)
+						arcBuilder.LineTo(float32(cx), float32(cy))
+						arcPath := arcBuilder.ToPath()
+						defer arcPath.Unref()
+						snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
+						strokeBorder(arcPath)
+					}
 				}
 
 				lineStrokeColor := gdk.RGBA{
@@ -208,7 +229,7 @@ func init() {
 				arcLineBuilder := gsk.NewPathBuilder()
 				defer arcLineBuilder.Unref()
 				arcLineBuilder.MoveTo(startX, startY)
-				arcLineBuilder.SvgArcTo(float32(r), float32(r), 0, angle+math.Pi/2 > math.Pi, true, endX, endY)
+				drawArcOrCircle(arcLineBuilder, float32(r), float32(r), endX, endY)
 				arcLinePath := arcLineBuilder.ToPath()
 				defer arcLinePath.Unref()
 				arcStroke := gsk.NewStroke(10.0)
@@ -228,7 +249,7 @@ func init() {
 					outerArcBuilder := gsk.NewPathBuilder()
 					defer outerArcBuilder.Unref()
 					outerArcBuilder.MoveTo(float32(cx), float32(cy-(r+5)))
-					outerArcBuilder.SvgArcTo(float32(r)+5, float32(r)+5, 0, angle+math.Pi/2 > math.Pi, true, float32(cx+(r+5)*math.Sin(angle+math.Pi/2)), float32(cy-(r+5)*math.Cos(angle+math.Pi/2)))
+					drawArcOrCircle(outerArcBuilder, float32(r)+5, float32(r)+5, float32(cx+(r+5)*math.Sin(angle+math.Pi/2)), float32(cy-(r+5)*math.Cos(angle+math.Pi/2)))
 					outerArcPath := outerArcBuilder.ToPath()
 					defer outerArcPath.Unref()
 					strokeBorder(outerArcPath)
@@ -236,7 +257,7 @@ func init() {
 					innerArcBuilder := gsk.NewPathBuilder()
 					defer innerArcBuilder.Unref()
 					innerArcBuilder.MoveTo(float32(cx), float32(cy-(r-5)))
-					innerArcBuilder.SvgArcTo(float32(r)-5, float32(r)-5, 0, angle+math.Pi/2 > math.Pi, true, float32(cx+(r-5)*math.Sin(angle+math.Pi/2)), float32(cy-(r-5)*math.Cos(angle+math.Pi/2)))
+					drawArcOrCircle(innerArcBuilder, float32(r)-5, float32(r)-5, float32(cx+(r-5)*math.Sin(angle+math.Pi/2)), float32(cy-(r-5)*math.Cos(angle+math.Pi/2)))
 					innerArcPath := innerArcBuilder.ToPath()
 					defer innerArcPath.Unref()
 					strokeBorder(innerArcPath)
