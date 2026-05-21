@@ -36,7 +36,8 @@ const (
 	DefaultInitialRemainingTime      = time.Minute * 5
 	RemainingTimerAdjustmentInterval = time.Second * 30
 
-	minRemainingTime = time.Duration(0)
-	MaxRemainingTime = time.Hour
-	tickerInterval   = time.Second
+	MinInitialRemainingTime = RemainingTimerAdjustmentInterval
+	MaxInitialRemainingTime = time.Hour
+
+	tickerInterval = time.Second
 )

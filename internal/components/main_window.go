@@ -25,8 +25,8 @@ var (
 )
 
 const (
-	minDialValue = time.Second * 30
-	maxDialValue = state.MaxRemainingTime
+	minDialValue = state.MinInitialRemainingTime
+	maxDialValue = state.MaxInitialRemainingTime
 
 	notificationIdVar = "session-finished"
 )

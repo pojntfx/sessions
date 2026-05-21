@@ -177,7 +177,7 @@ func (s *StateMachine) increaseInitialRemainingTime(ctx context.Context, args ..
 
 func (s *StateMachine) mustBeBelowMaxInitialRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := s.initialRemainingTime + RemainingTimerAdjustmentInterval
-	if newInitialRemainingTime > MaxRemainingTime {
+	if newInitialRemainingTime > MaxInitialRemainingTime {
 		return false
 	}
 
@@ -200,7 +200,7 @@ func (s *StateMachine) decreaseInitialRemainingTime(ctx context.Context, args ..
 
 func (s *StateMachine) mustBeAboveMinInitialRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := s.initialRemainingTime - RemainingTimerAdjustmentInterval
-	if newInitialRemainingTime < minRemainingTime {
+	if newInitialRemainingTime < MinInitialRemainingTime {
 		return false
 	}
 
@@ -218,8 +218,8 @@ func (s *StateMachine) validInitialRemainingTime(ctx context.Context, args ...an
 	}
 
 	newInitialRemainingTime := args[0].(time.Duration)
-	if newInitialRemainingTime < minRemainingTime ||
-		newInitialRemainingTime > MaxRemainingTime ||
+	if newInitialRemainingTime < MinInitialRemainingTime ||
+		newInitialRemainingTime > MaxInitialRemainingTime ||
 		newInitialRemainingTime%RemainingTimerAdjustmentInterval != 0 {
 		return false
 	}
@@ -269,7 +269,7 @@ func (s *StateMachine) increaseInitialRemainingTimeFromCurrentRemainingTime(ctx 
 
 func (s *StateMachine) mustBeBelowMaxCurrentRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, 1)
-	if newInitialRemainingTime > MaxRemainingTime {
+	if newInitialRemainingTime > MaxInitialRemainingTime {
 		return false
 	}
 
@@ -292,7 +292,7 @@ func (s *StateMachine) decreaseInitialRemainingTimeFromCurrentRemainingTime(ctx 
 
 func (s *StateMachine) mustBeAboveMinCurrentRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, -1)
-	if newInitialRemainingTime < minRemainingTime {
+	if newInitialRemainingTime < MinInitialRemainingTime {
 		return false
 	}
 

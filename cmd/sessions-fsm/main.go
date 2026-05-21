@@ -15,7 +15,7 @@ func main() {
 
 	s := state.NewStateMachine(
 		ctx,
-		state.DefaultInitialRemainingTime,
+		state.MinInitialRemainingTime,
 		slog.Default(),
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },

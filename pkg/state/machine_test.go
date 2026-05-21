@@ -23,17 +23,17 @@ func TestPlusTimer(t *testing.T) {
 		expectErrAt int
 	}{
 		{
-			initial:     time.Duration(0),
+			initial:     MinInitialRemainingTime,
 			plusTimes:   1,
 			expectErrAt: -1,
 		},
 		{
-			initial:     MaxRemainingTime - RemainingTimerAdjustmentInterval,
+			initial:     MaxInitialRemainingTime - RemainingTimerAdjustmentInterval,
 			plusTimes:   1,
 			expectErrAt: -1,
 		},
 		{
-			initial:     MaxRemainingTime - RemainingTimerAdjustmentInterval,
+			initial:     MaxInitialRemainingTime - RemainingTimerAdjustmentInterval,
 			plusTimes:   2,
 			expectErrAt: 1,
 		},
@@ -47,7 +47,7 @@ func TestPlusTimer(t *testing.T) {
 						onBeforeStartingTimerCalled = 0
 						onAfterStartingTimerCalled  = 0
 
-						internalInitialRemainingTime = time.Duration(0)
+						internalInitialRemainingTime = tt.initial
 					)
 					s := newTestingStateMachine(
 						t,
@@ -125,19 +125,24 @@ func TestMinusTimer(t *testing.T) {
 		expectErrAt int
 	}{
 		{
-			initial:     MaxRemainingTime,
+			initial:     MaxInitialRemainingTime,
 			minusTimes:  1,
 			expectErrAt: -1,
 		},
 		{
-			initial:     minRemainingTime + RemainingTimerAdjustmentInterval,
+			initial:     MinInitialRemainingTime + RemainingTimerAdjustmentInterval,
 			minusTimes:  1,
 			expectErrAt: -1,
 		},
 		{
-			initial:     minRemainingTime + RemainingTimerAdjustmentInterval,
+			initial:     MinInitialRemainingTime + RemainingTimerAdjustmentInterval,
 			minusTimes:  2,
 			expectErrAt: 1,
+		},
+		{
+			initial:     MinInitialRemainingTime,
+			minusTimes:  1,
+			expectErrAt: 0,
 		},
 	}
 	for _, tt := range minusTimerTests {
@@ -149,7 +154,7 @@ func TestMinusTimer(t *testing.T) {
 						onBeforeStartingTimerCalled = 0
 						onAfterStartingTimerCalled  = 0
 
-						internalInitialRemainingTime = time.Duration(0)
+						internalInitialRemainingTime = tt.initial
 					)
 					s := newTestingStateMachine(
 						t,
@@ -208,9 +213,17 @@ func TestMinusTimer(t *testing.T) {
 					}
 
 					if fromCountingDown {
-						// The timer should still be running if we increased during the counting down phase
-						require.Equal(t, 2, onBeforeStartingTimerCalled)
-						require.Equal(t, 2, onAfterStartingTimerCalled)
+						if tt.expectErrAt == 0 {
+							// If we tried to decrease during the counting down phase, but failed on the first decrease,
+							// then we only start the timer once (when we initially started dragging), we don't restart
+							// the timer when fail to decrease
+							require.Equal(t, 1, onBeforeStartingTimerCalled)
+							require.Equal(t, 1, onAfterStartingTimerCalled)
+						} else {
+							// The timer should still be running if we decreased during the counting down phase
+							require.Equal(t, 2, onBeforeStartingTimerCalled)
+							require.Equal(t, 2, onAfterStartingTimerCalled)
+						}
 					}
 
 					require.Equal(t, expectedInitialRemainingTime, internalInitialRemainingTime)
@@ -288,7 +301,7 @@ func TestStartDragging(t *testing.T) {
 			func(t *testing.T) {
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
@@ -345,7 +358,7 @@ func TestStopDragging(t *testing.T) {
 		},
 		{
 			name:          "can not transition from dragging state to counting down state with initial remaining time below minimum remaining time",
-			remainingTime: minRemainingTime - RemainingTimerAdjustmentInterval,
+			remainingTime: MinInitialRemainingTime - RemainingTimerAdjustmentInterval,
 			prepare: func(sm *StateMachine) error {
 				return sm.StartDragging(t.Context())
 			},
@@ -353,7 +366,7 @@ func TestStopDragging(t *testing.T) {
 		},
 		{
 			name:          "can not transition from dragging state to counting down state with initial remaining time above maximum remaining time",
-			remainingTime: MaxRemainingTime + RemainingTimerAdjustmentInterval,
+			remainingTime: MaxInitialRemainingTime + RemainingTimerAdjustmentInterval,
 			prepare: func(sm *StateMachine) error {
 				return sm.StartDragging(t.Context())
 			},
@@ -384,11 +397,11 @@ func TestStopDragging(t *testing.T) {
 					onBeforeStartingTimerCalled = 0
 					onAfterStartingTimerCalled  = 0
 
-					internalInitialRemainingTime = time.Duration(0)
+					internalInitialRemainingTime = MinInitialRemainingTime
 				)
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error {
 							onBeforeStartingTimerCalled++
@@ -498,7 +511,7 @@ func TestStopTimer(t *testing.T) {
 				)
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
@@ -576,7 +589,7 @@ func TestStartTimer(t *testing.T) {
 				)
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error {
 							onBeforeStartingTimerCalled++
@@ -649,7 +662,7 @@ func TestTimerFinished(t *testing.T) {
 				onStartAlarmCalled := 0
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
@@ -729,7 +742,7 @@ func TestStopAlarming(t *testing.T) {
 				)
 				s := newTestingStateMachine(
 					t,
-					0,
+					MinInitialRemainingTime,
 					&Hooks{
 						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
@@ -806,7 +819,7 @@ func TestEndToEnd(t *testing.T) {
 
 				require.NoError(t, s.StartTimer(t.Context()))
 
-				time.Sleep(RemainingTimerAdjustmentInterval * 3) // We run this *3, not *2, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+				time.Sleep(RemainingTimerAdjustmentInterval * 4) // We run this *4, not *3, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
 
 				require.NoError(t, s.StopAlarming(t.Context()))
 			},
@@ -814,7 +827,7 @@ func TestEndToEnd(t *testing.T) {
 			onBeforeStartingTimerCalled: 1,
 			onAfterStartingTimerCalled:  1,
 
-			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 2,
+			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 3,
 
 			onBeforeStoppingTimerCalled: 1,
 			onAfterStoppingTimerCalled:  1,
@@ -841,7 +854,7 @@ func TestEndToEnd(t *testing.T) {
 
 				require.NoError(t, s.StartTimer(t.Context()))
 
-				time.Sleep(RemainingTimerAdjustmentInterval * 5) // We run this *5, not *4, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+				time.Sleep(RemainingTimerAdjustmentInterval * 6) // We run this *6, not *5, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
 
 				require.NoError(t, s.StopAlarming(t.Context()))
 			},
@@ -849,7 +862,7 @@ func TestEndToEnd(t *testing.T) {
 			onBeforeStartingTimerCalled: 1,
 			onAfterStartingTimerCalled:  1,
 
-			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 4,
+			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 5,
 
 			onBeforeStoppingTimerCalled: 1,
 			onAfterStoppingTimerCalled:  1,
@@ -876,13 +889,13 @@ func TestEndToEnd(t *testing.T) {
 
 				require.NoError(t, s.StartTimer(t.Context()))
 
-				time.Sleep(RemainingTimerAdjustmentInterval * 5) // We run this *5, not *4, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
+				time.Sleep(RemainingTimerAdjustmentInterval * 6) // We run this *6, not *5, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
 			},
 
 			onBeforeStartingTimerCalled: 1,
 			onAfterStartingTimerCalled:  1,
 
-			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 4,
+			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 5,
 
 			onBeforeStoppingTimerCalled: 1,
 			onAfterStoppingTimerCalled:  1,
@@ -912,7 +925,7 @@ func TestEndToEnd(t *testing.T) {
 						onBeforeStartingTimerCalled = 0
 						onAfterStartingTimerCalled  = 0
 
-						internalInitialRemainingTime = time.Duration(0)
+						internalInitialRemainingTime = MinInitialRemainingTime
 
 						onBeforeStoppingTimerCalled = 0
 						onAfterStoppingTimerCalled  = 0
@@ -925,7 +938,7 @@ func TestEndToEnd(t *testing.T) {
 					)
 					s := newTestingStateMachine(
 						t,
-						0,
+						MinInitialRemainingTime,
 						&Hooks{
 							OnBeforeStartingTimer: func(ctx context.Context) error {
 								onBeforeStartingTimerCalled++
