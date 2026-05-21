@@ -93,8 +93,19 @@ func (w *MainWindow) LoadLastPosition() {
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
 
-			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
-			OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
+				w.totalSec = int(initialRemainingTime.Seconds())
+				if w.running {
+					w.remain = initialRemainingTime
+				}
+
+				w.UpdateDial()
+				w.UpdateButtons()
+				w.SaveLastPosition()
+
+				return nil
+			},
+			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
@@ -428,15 +439,8 @@ func (w *MainWindow) AddTime() {
 		return
 	}
 
-	if w.totalSec < int(maxDialValue.Seconds()) {
-		w.totalSec += int(minDialValue.Seconds())
-		if w.running {
-			w.remain = time.Duration(w.totalSec) * time.Second
-		}
-
-		w.UpdateDial()
-		w.UpdateButtons()
-		w.SaveLastPosition()
+	if err := w.s.PlusTimer(w.ctx); err != nil {
+		w.log.Error("Could not add time", "err", err)
 	}
 }
 
@@ -445,15 +449,8 @@ func (w *MainWindow) RemoveTime() {
 		return
 	}
 
-	if w.totalSec > int(minDialValue.Seconds()) {
-		w.totalSec -= int(minDialValue.Seconds())
-		if w.running {
-			w.remain = time.Duration(w.totalSec) * time.Second
-		}
-
-		w.UpdateDial()
-		w.UpdateButtons()
-		w.SaveLastPosition()
+	if err := w.s.MinusTimer(w.ctx); err != nil {
+		w.log.Error("Could not remove time", "err", err)
 	}
 }
 
