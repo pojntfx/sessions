@@ -37,6 +37,6 @@ const (
 	RemainingTimerAdjustmentInterval = time.Second * 30
 
 	minRemainingTime = time.Duration(0)
-	maxRemainingTime = time.Hour
+	MaxRemainingTime = time.Hour
 	tickerInterval   = time.Second
 )

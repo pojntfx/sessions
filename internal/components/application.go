@@ -1,6 +1,7 @@
 package components
 
 import (
+	"context"
 	"log/slog"
 	"runtime"
 	"unsafe"
@@ -12,6 +13,7 @@ import (
 	"codeberg.org/puregotk/puregotk/v4/gtk"
 	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
+	"github.com/pojntfx/sessions/pkg/state"
 )
 
 var (
@@ -25,9 +27,12 @@ type Application struct {
 	aboutDialog *adw.AboutDialog
 	settings    *gio.Settings
 	log         *slog.Logger
+
+	ctx context.Context
+	s   *state.StateMachine
 }
 
-func NewApplication(settings *gio.Settings, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) Application {
+func NewApplication(ctx context.Context, settings *gio.Settings, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) Application {
 	obj := gobject.NewObject(gTypeApplication, FirstPropertyNameVar, varArgs...)
 
 	var v Application
@@ -36,6 +41,8 @@ func NewApplication(settings *gio.Settings, log *slog.Logger, FirstPropertyNameV
 	app := (*Application)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 	app.settings = settings
 	app.log = log
+
+	app.ctx = ctx
 
 	return v
 }
@@ -85,9 +92,10 @@ func init() {
 			var app gtk.Application
 			a.Cast(&app)
 
-			obj := NewMainWindow(&sessionsApp.Application, sessionsApp.log, "application", app)
+			obj := NewMainWindow(sessionsApp.ctx, &sessionsApp.Application, sessionsApp.log, "application", app)
 
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
+			sessionsApp.window.ctx = sessionsApp.ctx
 			sessionsApp.window.settings = sessionsApp.settings
 			sessionsApp.window.LoadLastPosition()
 

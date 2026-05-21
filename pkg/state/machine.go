@@ -177,7 +177,7 @@ func (s *StateMachine) increaseInitialRemainingTime(ctx context.Context, args ..
 
 func (s *StateMachine) mustBeBelowMaxInitialRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := s.initialRemainingTime + RemainingTimerAdjustmentInterval
-	if newInitialRemainingTime > maxRemainingTime {
+	if newInitialRemainingTime > MaxRemainingTime {
 		return false
 	}
 
@@ -219,7 +219,7 @@ func (s *StateMachine) validInitialRemainingTime(ctx context.Context, args ...an
 
 	newInitialRemainingTime := args[0].(time.Duration)
 	if newInitialRemainingTime < minRemainingTime ||
-		newInitialRemainingTime > maxRemainingTime ||
+		newInitialRemainingTime > MaxRemainingTime ||
 		newInitialRemainingTime%RemainingTimerAdjustmentInterval != 0 {
 		return false
 	}
@@ -269,7 +269,7 @@ func (s *StateMachine) increaseInitialRemainingTimeFromCurrentRemainingTime(ctx 
 
 func (s *StateMachine) mustBeBelowMaxCurrentRemainingTime(ctx context.Context, args ...any) bool {
 	newInitialRemainingTime := getInitialRemainingTimeFromCurrentRemainingTime(s.currentRemainingTime, 1)
-	if newInitialRemainingTime > maxRemainingTime {
+	if newInitialRemainingTime > MaxRemainingTime {
 		return false
 	}
 

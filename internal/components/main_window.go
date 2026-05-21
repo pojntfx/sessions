@@ -1,6 +1,7 @@
 package components
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"math"
@@ -15,6 +16,7 @@ import (
 	"codeberg.org/puregotk/puregotk/v4/gtk"
 	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
+	"github.com/pojntfx/sessions/pkg/state"
 	"github.com/rymdport/portal/background"
 )
 
@@ -23,8 +25,8 @@ var (
 )
 
 const (
-	minDialValue = 30
-	maxDialValue = 3600
+	minDialValue = time.Second * 30
+	maxDialValue = state.MaxRemainingTime
 
 	notificationIdVar = "session-finished"
 )
@@ -50,9 +52,12 @@ type MainWindow struct {
 	dragging              bool
 	paused                bool
 	held                  bool
+
+	ctx context.Context
+	s   *state.StateMachine
 }
 
-func NewMainWindow(app *adw.Application, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
+func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
 	obj := gobject.NewObject(gTypeMainWindow, FirstPropertyNameVar, varArgs...)
 
 	var v MainWindow
@@ -69,14 +74,38 @@ func NewMainWindow(app *adw.Application, log *slog.Logger, FirstPropertyNameVar 
 	window.dialWidget = &dial
 	window.setupDialGestures()
 
+	window.ctx = ctx
+
 	return v
 }
 
 func (w *MainWindow) LoadLastPosition() {
 	lastPosition := w.settings.GetInt64(resources.SchemaLastPositionKey)
-	if lastPosition >= minDialValue && lastPosition <= maxDialValue {
+	if lastPosition >= int64(minDialValue.Seconds()) && lastPosition <= int64(maxDialValue.Seconds()) {
 		w.totalSec = int(lastPosition)
 	}
+
+	w.s = state.NewStateMachine(
+		w.ctx,
+		time.Second*time.Duration(w.totalSec),
+		w.log,
+		&state.Hooks{
+			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
+			OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
+
+			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
+			OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
+			OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+
+			OnStartAlarm: func(ctx context.Context) error { return nil },
+
+			OnStopAlarm: func(ctx context.Context) error { return nil },
+
+			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error { return nil },
+		},
+	)
 }
 
 func (w *MainWindow) SaveLastPosition() {
@@ -192,16 +221,16 @@ func (w *MainWindow) UpdateButtons() {
 		w.actionButton.RemoveCssClass("suggested-action")
 		w.actionButton.AddCssClass("destructive-action")
 
-		w.plusButton.SetSensitive(w.totalSec < maxDialValue)
-		w.minusButton.SetSensitive(w.totalSec > minDialValue)
+		w.plusButton.SetSensitive(w.totalSec < int(maxDialValue.Seconds()))
+		w.minusButton.SetSensitive(w.totalSec > int(minDialValue.Seconds()))
 	} else {
 		w.actionButton.SetIconName("media-playback-start-symbolic")
 		w.actionButton.SetLabel(L("_Start Timer"))
 		w.actionButton.RemoveCssClass("destructive-action")
 		w.actionButton.AddCssClass("suggested-action")
 
-		w.plusButton.SetSensitive(w.totalSec < maxDialValue)
-		w.minusButton.SetSensitive(w.totalSec > minDialValue)
+		w.plusButton.SetSensitive(w.totalSec < int(maxDialValue.Seconds()))
+		w.minusButton.SetSensitive(w.totalSec > int(minDialValue.Seconds()))
 	}
 }
 
@@ -324,7 +353,7 @@ func (w *MainWindow) handleDialing(x, y float64) {
 		intervals = 120
 	}
 
-	w.totalSec = intervals * minDialValue
+	w.totalSec = intervals * int(minDialValue.Seconds())
 
 	if w.paused {
 		w.remain = time.Duration(w.totalSec) * time.Second
@@ -399,8 +428,8 @@ func (w *MainWindow) AddTime() {
 		return
 	}
 
-	if w.totalSec < maxDialValue {
-		w.totalSec += minDialValue
+	if w.totalSec < int(maxDialValue.Seconds()) {
+		w.totalSec += int(minDialValue.Seconds())
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}
@@ -416,8 +445,8 @@ func (w *MainWindow) RemoveTime() {
 		return
 	}
 
-	if w.totalSec > minDialValue {
-		w.totalSec -= minDialValue
+	if w.totalSec > int(minDialValue.Seconds()) {
+		w.totalSec -= int(minDialValue.Seconds())
 		if w.running {
 			w.remain = time.Duration(w.totalSec) * time.Second
 		}

@@ -151,7 +151,7 @@ func init() {
 			}
 
 			if dialW.totalSec > 0 {
-				progress := float64(dialW.totalSec) / maxDialValue
+				progress := float64(dialW.totalSec) / maxDialValue.Seconds()
 				end := -math.Pi/2 + 2*math.Pi*progress
 				var angle float64
 				var lineColor gdk.RGBA

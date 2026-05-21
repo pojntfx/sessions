@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"log/slog"
 	"os"
@@ -36,6 +37,9 @@ func init() {
 }
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
 	var settings gio.Settings
 	if SchemaDir == "" {
 		settings = *gio.NewSettings(resources.AppID)
@@ -54,6 +58,7 @@ func main() {
 	}
 
 	app := components.NewApplication(
+		ctx,
 		&settings,
 		slog.Default(),
 		"application_id", resources.AppID,

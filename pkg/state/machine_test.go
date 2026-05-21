@@ -28,12 +28,12 @@ func TestPlusTimer(t *testing.T) {
 			expectErrAt: -1,
 		},
 		{
-			initial:     maxRemainingTime - RemainingTimerAdjustmentInterval,
+			initial:     MaxRemainingTime - RemainingTimerAdjustmentInterval,
 			plusTimes:   1,
 			expectErrAt: -1,
 		},
 		{
-			initial:     maxRemainingTime - RemainingTimerAdjustmentInterval,
+			initial:     MaxRemainingTime - RemainingTimerAdjustmentInterval,
 			plusTimes:   2,
 			expectErrAt: 1,
 		},
@@ -125,7 +125,7 @@ func TestMinusTimer(t *testing.T) {
 		expectErrAt int
 	}{
 		{
-			initial:     maxRemainingTime,
+			initial:     MaxRemainingTime,
 			minusTimes:  1,
 			expectErrAt: -1,
 		},
@@ -353,7 +353,7 @@ func TestStopDragging(t *testing.T) {
 		},
 		{
 			name:          "can not transition from dragging state to counting down state with initial remaining time above maximum remaining time",
-			remainingTime: maxRemainingTime + RemainingTimerAdjustmentInterval,
+			remainingTime: MaxRemainingTime + RemainingTimerAdjustmentInterval,
 			prepare: func(sm *StateMachine) error {
 				return sm.StartDragging(t.Context())
 			},
