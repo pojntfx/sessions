@@ -13,7 +13,6 @@ import (
 	"codeberg.org/puregotk/puregotk/v4/gtk"
 	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
-	"github.com/pojntfx/sessions/pkg/state"
 )
 
 var (
@@ -23,13 +22,12 @@ var (
 type Application struct {
 	adw.Application
 
+	ctx      context.Context
+	settings *gio.Settings
+	log      *slog.Logger
+
 	window      *MainWindow
 	aboutDialog *adw.AboutDialog
-	settings    *gio.Settings
-	log         *slog.Logger
-
-	ctx context.Context
-	s   *state.StateMachine
 }
 
 func NewApplication(ctx context.Context, settings *gio.Settings, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) Application {
@@ -39,10 +37,10 @@ func NewApplication(ctx context.Context, settings *gio.Settings, log *slog.Logge
 	obj.Cast(&v)
 
 	app := (*Application)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
-	app.settings = settings
-	app.log = log
 
 	app.ctx = ctx
+	app.settings = settings
+	app.log = log
 
 	return v
 }

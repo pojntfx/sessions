@@ -14,6 +14,7 @@ import (
 	"codeberg.org/puregotk/puregotk/v4/graphene"
 	"codeberg.org/puregotk/puregotk/v4/gsk"
 	"codeberg.org/puregotk/puregotk/v4/gtk"
+	"github.com/pojntfx/sessions/pkg/state"
 )
 
 const (
@@ -175,7 +176,7 @@ func (d *Dial) positionToRemainingTime(x, y float64) (int, bool) {
 		intervals = 120
 	}
 
-	return intervals * int(minDialValue.Seconds()), true
+	return intervals * int(state.MinInitialRemainingTime.Seconds()), true
 }
 
 func init() {
@@ -235,7 +236,7 @@ func init() {
 			"Remaining seconds",
 			"Remaining seconds on the dial",
 			0,
-			int32(maxDialValue.Seconds()),
+			int32(state.MaxInitialRemainingTime.Seconds()),
 			300,
 			gobject.GParamReadwriteValue,
 		))
@@ -339,7 +340,7 @@ func init() {
 			}
 
 			if dialW.remainingTime > 0 || dialW.countingDown {
-				progress := float64(dialW.remainingTime) / maxDialValue.Seconds()
+				progress := float64(dialW.remainingTime) / state.MaxInitialRemainingTime.Seconds()
 				var angle float64
 				var lineColor gdk.RGBA
 				var fillR, fillG, fillB, fillA float32
