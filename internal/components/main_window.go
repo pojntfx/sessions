@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
-	"math"
 	"runtime"
 	"slices"
 	"time"
@@ -67,12 +66,50 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window.app = app
 	window.log = log
 
-	dial := NewDial(app, "css-name")
+	dial := NewDial(
+		app,
+		func() {
+			if window.alarming {
+				return
+			}
+
+			if window.running {
+				window.paused = true
+			}
+			window.dragging = true
+		},
+		func(totalSec int) {
+			if window.alarming {
+				return
+			}
+
+			window.totalSec = totalSec
+			if window.paused {
+				window.remain = time.Duration(totalSec) * time.Second
+			}
+
+			window.UpdateDial()
+			window.SaveLastPosition()
+		},
+		func() {
+			window.dragging = false
+
+			if window.alarming {
+				return
+			}
+
+			if window.paused {
+				window.paused = false
+			} else if !window.running && window.totalSec > 0 {
+				window.StartTimer()
+			}
+		},
+		"css-name",
+	)
 	dial.Widget.SetHexpand(true)
 	dial.Widget.SetVexpand(true)
 	window.dialArea.Append(&dial.Widget)
 	window.dialWidget = &dial
-	window.setupDialGestures()
 
 	window.ctx = ctx
 
@@ -338,91 +375,6 @@ func (w *MainWindow) StopTimer() {
 	if err := w.s.StopTimer(w.ctx); err != nil {
 		w.log.Error("Could not stop timer", "err", err)
 	}
-}
-
-func (w *MainWindow) handleDialing(x, y float64) {
-	if w.alarming {
-		return
-	}
-
-	if w.running && !w.dragging {
-		w.paused = true
-	}
-
-	width, height := float64(w.dialWidget.Widget.GetWidth()), float64(w.dialWidget.Widget.GetHeight())
-	cx, cy := width/2, height/2
-	dx, dy := x-cx, y-cy
-
-	if math.Sqrt(dx*dx+dy*dy) < 15 {
-		return
-	}
-
-	a := math.Atan2(dy, dx) + math.Pi/2
-	if a < 0 {
-		a += 2 * math.Pi
-	}
-
-	intervals := int((a / (2 * math.Pi)) * 120)
-	if intervals == 0 {
-		intervals = 120
-	}
-
-	w.totalSec = intervals * int(minDialValue.Seconds())
-
-	if w.paused {
-		w.remain = time.Duration(w.totalSec) * time.Second
-	}
-
-	w.UpdateDial()
-	w.SaveLastPosition()
-}
-
-func (w *MainWindow) setupDialGestures() {
-	drag := gtk.NewGestureDrag()
-	onDragBegin := func(_ gtk.GestureDrag, x float64, y float64) {
-		if w.alarming {
-			return
-		}
-
-		w.dragging = true
-		w.handleDialing(x, y)
-	}
-	drag.ConnectDragBegin(&onDragBegin)
-	onDragUpdate := func(drag gtk.GestureDrag, dx float64, dy float64) {
-		if w.dragging {
-			var x, y float64
-			drag.GetStartPoint(&x, &y)
-			w.handleDialing(x+dx, y+dy)
-		}
-	}
-	drag.ConnectDragUpdate(&onDragUpdate)
-	onDragEnd := func(_ gtk.GestureDrag, dx float64, dy float64) {
-		w.dragging = false
-
-		if w.alarming {
-			return
-		}
-
-		if w.paused {
-			w.paused = false
-		} else if !w.running && w.totalSec > 0 {
-			w.StartTimer()
-		}
-	}
-	drag.ConnectDragEnd(&onDragEnd)
-
-	click := gtk.NewGestureClick()
-	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
-		if w.alarming {
-			return
-		}
-
-		w.handleDialing(x, y)
-	}
-	click.ConnectPressed(&onPress)
-
-	w.dialWidget.Widget.AddController(&drag.EventController)
-	w.dialWidget.Widget.AddController(&click.Gesture.EventController)
 }
 
 func (w *MainWindow) ToggleTimer() {

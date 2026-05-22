@@ -28,7 +28,14 @@ type Dial struct {
 	remain   time.Duration
 }
 
-func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) Dial {
+func NewDial(
+	app *adw.Application,
+	onDragBegin func(),
+	onPositionChanged func(totalSec int),
+	onDragEnd func(),
+	FirstPropertyNameVar string,
+	varArgs ...interface{},
+) Dial {
 	obj := gobject.NewObject(gTypeDial, FirstPropertyNameVar, varArgs...)
 
 	var v Dial
@@ -42,6 +49,38 @@ func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...inter
 	}
 	app.GetStyleManager().ConnectNotify(&styleChangedCallback)
 
+	drag := gtk.NewGestureDrag()
+	onDragBeginCb := func(_ gtk.GestureDrag, x float64, y float64) {
+		onDragBegin()
+		if totalSec, ok := v.positionToTotalSec(x, y); ok {
+			onPositionChanged(totalSec)
+		}
+	}
+	drag.ConnectDragBegin(&onDragBeginCb)
+	onDragUpdateCb := func(drag gtk.GestureDrag, dx float64, dy float64) {
+		var x, y float64
+		drag.GetStartPoint(&x, &y)
+		if totalSec, ok := v.positionToTotalSec(x+dx, y+dy); ok {
+			onPositionChanged(totalSec)
+		}
+	}
+	drag.ConnectDragUpdate(&onDragUpdateCb)
+	onDragEndCb := func(_ gtk.GestureDrag, dx float64, dy float64) {
+		onDragEnd()
+	}
+	drag.ConnectDragEnd(&onDragEndCb)
+
+	click := gtk.NewGestureClick()
+	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
+		if totalSec, ok := v.positionToTotalSec(x, y); ok {
+			onPositionChanged(totalSec)
+		}
+	}
+	click.ConnectPressed(&onPress)
+
+	v.Widget.AddController(&drag.EventController)
+	v.Widget.AddController(&click.Gesture.EventController)
+
 	return v
 }
 
@@ -53,6 +92,28 @@ func (d *Dial) SetTimer(totalSec int, running bool, remain time.Duration) {
 	dialW.remain = remain
 
 	d.Widget.QueueDraw()
+}
+
+func (d *Dial) positionToTotalSec(x, y float64) (int, bool) {
+	width, height := float64(d.Widget.GetWidth()), float64(d.Widget.GetHeight())
+	cx, cy := width/2, height/2
+	dx, dy := x-cx, y-cy
+
+	if math.Sqrt(dx*dx+dy*dy) < 15 {
+		return 0, false
+	}
+
+	a := math.Atan2(dy, dx) + math.Pi/2
+	if a < 0 {
+		a += 2 * math.Pi
+	}
+
+	intervals := int((a / (2 * math.Pi)) * 120)
+	if intervals == 0 {
+		intervals = 120
+	}
+
+	return intervals * int(minDialValue.Seconds()), true
 }
 
 func init() {
