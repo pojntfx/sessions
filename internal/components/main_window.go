@@ -72,17 +72,17 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window.dialArea.Append(&dial.Widget)
 	window.dialWidget = &dial
 
-	var totalSecToLabel gobject.BindingTransformFunc = func(_ uintptr, from *gobject.Value, to *gobject.Value, _ uintptr) bool {
-		totalSec := int(from.GetInt())
-		to.SetString(fmt.Sprintf("%02d:%02d", totalSec/60, totalSec%60))
+	var remainingToLabel gobject.BindingTransformFunc = func(_ uintptr, from *gobject.Value, to *gobject.Value, _ uintptr) bool {
+		remainingTime := int(from.GetInt())
+		to.SetString(fmt.Sprintf("%02d:%02d", remainingTime/60, remainingTime%60))
 		return true
 	}
 	dial.Widget.Object.BindPropertyFull(
-		"total-sec",
+		"remaining-time",
 		&window.label.Widget.Object,
 		"label",
 		gobject.GBindingSyncCreateValue,
-		&totalSecToLabel,
+		&remainingToLabel,
 		nil,
 		0,
 		nil,
@@ -107,12 +107,12 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 
-		totalSec := dial.GetTotalSec()
-		window.totalSec = totalSec
+		remainingTime := dial.GetRemainingTime()
+		window.totalSec = remainingTime
 		if window.paused {
-			window.remain = time.Duration(totalSec) * time.Second
+			window.remain = time.Duration(remainingTime) * time.Second
 			window.paused = false
-		} else if !window.running && totalSec > 0 {
+		} else if !window.running && remainingTime > 0 {
 			window.StartTimer()
 		}
 		window.SaveLastPosition()
@@ -358,15 +358,15 @@ func (w *MainWindow) UpdateButtons() {
 }
 
 func (w *MainWindow) UpdateDial() {
-	w.dialWidget.SetTotalSec(w.totalSec)
 	if w.alarming {
-		w.dialWidget.SetTimer(true, 0)
-		w.label.SetText("00:00")
+		w.dialWidget.SetCountingDown(true)
+		w.dialWidget.SetRemainingTime(0)
 	} else if w.running {
-		w.dialWidget.SetTimer(w.running, w.remain)
-		w.label.SetText(fmt.Sprintf("%02d:%02d", int(w.remain.Minutes()), int(w.remain.Seconds())%60))
+		w.dialWidget.SetCountingDown(true)
+		w.dialWidget.SetRemainingTime(int(w.remain.Seconds()))
 	} else {
-		w.dialWidget.SetTimer(w.running, w.remain)
+		w.dialWidget.SetCountingDown(false)
+		w.dialWidget.SetRemainingTime(w.totalSec)
 	}
 }
 

@@ -3,7 +3,6 @@ package components
 import (
 	"math"
 	"runtime"
-	"time"
 	"unsafe"
 
 	"codeberg.org/puregotk/purego"
@@ -21,9 +20,11 @@ const (
 	signalDialDragBegin = "drag-begin"
 	signalDialDragEnd   = "drag-end"
 
-	propertyDialTotalSec = "total-sec"
+	propertyDialRemainingTime = "remaining-time"
+	propertyDialCountingDown  = "counting-down"
 
-	propertyIdDialTotalSec uint32 = 1
+	propertyIdDialRemainingTime uint32 = 1
+	propertyIdDialCountingDown  uint32 = 2
 )
 
 var (
@@ -33,10 +34,9 @@ var (
 type Dial struct {
 	gtk.Widget
 
-	app      *adw.Application
-	totalSec int
-	running  bool
-	remain   time.Duration
+	app           *adw.Application
+	remainingTime int
+	countingDown  bool
 }
 
 func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) Dial {
@@ -53,28 +53,28 @@ func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...inter
 	}
 	app.GetStyleManager().ConnectNotify(&styleChangedCallback)
 
-	updateTotalSecFromPosition := func(x, y float64) {
-		totalSec, ok := v.positionToTotalSec(x, y)
+	updateRemainingTimeFromPosition := func(x, y float64) {
+		remainingTime, ok := v.positionToRemainingTime(x, y)
 		if !ok {
 			return
 		}
 		var val gobject.Value
 		val.Init(types.GType(gobject.TypeIntVal))
-		val.SetInt(int32(totalSec))
-		obj.SetProperty(propertyDialTotalSec, &val)
+		val.SetInt(int32(remainingTime))
+		obj.SetProperty(propertyDialRemainingTime, &val)
 		val.Unset()
 	}
 
 	drag := gtk.NewGestureDrag()
 	onDragBeginCb := func(_ gtk.GestureDrag, x float64, y float64) {
 		gobject.SignalEmit(obj, gobject.SignalLookup(signalDialDragBegin, gTypeDial), 0)
-		updateTotalSecFromPosition(x, y)
+		updateRemainingTimeFromPosition(x, y)
 	}
 	drag.ConnectDragBegin(&onDragBeginCb)
 	onDragUpdateCb := func(drag gtk.GestureDrag, dx float64, dy float64) {
 		var x, y float64
 		drag.GetStartPoint(&x, &y)
-		updateTotalSecFromPosition(x+dx, y+dy)
+		updateRemainingTimeFromPosition(x+dx, y+dy)
 	}
 	drag.ConnectDragUpdate(&onDragUpdateCb)
 	onDragEndCb := func(_ gtk.GestureDrag, dx float64, dy float64) {
@@ -84,7 +84,7 @@ func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...inter
 
 	click := gtk.NewGestureClick()
 	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
-		updateTotalSecFromPosition(x, y)
+		updateRemainingTimeFromPosition(x, y)
 	}
 	click.ConnectPressed(&onPress)
 
@@ -122,33 +122,41 @@ func (x *Dial) ConnectDragEnd(cb *func()) uint32 {
 	return gobject.SignalConnect(x.GoPointer(), signalDialDragEnd, cbRefPtr)
 }
 
-func (d *Dial) SetTimer(running bool, remain time.Duration) {
-	dialW := (*Dial)(unsafe.Pointer(d.Widget.GetData(dataKeyGoInstance)))
-
-	dialW.running = running
-	dialW.remain = remain
-
-	d.Widget.QueueDraw()
-}
-
-func (d *Dial) SetTotalSec(totalSec int) {
+func (d *Dial) SetRemainingTime(remainingTime int) {
 	var val gobject.Value
 	val.Init(types.GType(gobject.TypeIntVal))
-	val.SetInt(int32(totalSec))
-	d.SetProperty(propertyDialTotalSec, &val)
+	val.SetInt(int32(remainingTime))
+	d.SetProperty(propertyDialRemainingTime, &val)
 	val.Unset()
 }
 
-func (d *Dial) GetTotalSec() int {
+func (d *Dial) GetRemainingTime() int {
 	var val gobject.Value
 	val.Init(types.GType(gobject.TypeIntVal))
-	d.GetProperty(propertyDialTotalSec, &val)
-	totalSec := int(val.GetInt())
+	d.GetProperty(propertyDialRemainingTime, &val)
+	remainingTime := int(val.GetInt())
 	val.Unset()
-	return totalSec
+	return remainingTime
 }
 
-func (d *Dial) positionToTotalSec(x, y float64) (int, bool) {
+func (d *Dial) SetCountingDown(countingDown bool) {
+	var val gobject.Value
+	val.Init(types.GType(gobject.TypeBooleanVal))
+	val.SetBoolean(countingDown)
+	d.SetProperty(propertyDialCountingDown, &val)
+	val.Unset()
+}
+
+func (d *Dial) GetCountingDown() bool {
+	var val gobject.Value
+	val.Init(types.GType(gobject.TypeBooleanVal))
+	d.GetProperty(propertyDialCountingDown, &val)
+	countingDown := val.GetBoolean()
+	val.Unset()
+	return countingDown
+}
+
+func (d *Dial) positionToRemainingTime(x, y float64) (int, bool) {
 	width, height := float64(d.Widget.GetWidth()), float64(d.Widget.GetHeight())
 	cx, cy := width/2, height/2
 	dx, dy := x-cx, y-cy
@@ -201,29 +209,42 @@ func init() {
 		objClass := (*gobject.ObjectClass)(unsafe.Pointer(tc))
 
 		objClass.OverrideSetProperty(func(o *gobject.Object, u uint32, v *gobject.Value, ps *gobject.ParamSpec) {
+			w := (*Dial)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
 			switch u {
-			case propertyIdDialTotalSec:
-				w := (*Dial)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
-				w.totalSec = int(v.GetInt())
+			case propertyIdDialRemainingTime:
+				w.remainingTime = int(v.GetInt())
+				w.Widget.QueueDraw()
+			case propertyIdDialCountingDown:
+				w.countingDown = v.GetBoolean()
 				w.Widget.QueueDraw()
 			}
 		})
 
 		objClass.OverrideGetProperty(func(o *gobject.Object, u uint32, v *gobject.Value, ps *gobject.ParamSpec) {
+			w := (*Dial)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
 			switch u {
-			case propertyIdDialTotalSec:
-				w := (*Dial)(unsafe.Pointer(o.GetData(dataKeyGoInstance)))
-				v.SetInt(int32(w.totalSec))
+			case propertyIdDialRemainingTime:
+				v.SetInt(int32(w.remainingTime))
+			case propertyIdDialCountingDown:
+				v.SetBoolean(w.countingDown)
 			}
 		})
 
-		objClass.InstallProperty(propertyIdDialTotalSec, gobject.NewParamSpecInt(
-			propertyDialTotalSec,
-			"Total seconds",
-			"Total seconds on the dial",
-			int32(minDialValue.Seconds()),
+		objClass.InstallProperty(propertyIdDialRemainingTime, gobject.NewParamSpecInt(
+			propertyDialRemainingTime,
+			"Remaining seconds",
+			"Remaining seconds on the dial",
+			0,
 			int32(maxDialValue.Seconds()),
 			300,
+			gobject.GParamReadwriteValue,
+		))
+
+		objClass.InstallProperty(propertyIdDialCountingDown, gobject.NewParamSpecBoolean(
+			propertyDialCountingDown,
+			"Counting down",
+			"Whether the dial is counting down",
+			false,
 			gobject.GParamReadwriteValue,
 		))
 
@@ -235,10 +256,9 @@ func init() {
 			o.Cast(&parent)
 
 			w := &Dial{
-				Widget:   parent,
-				totalSec: 300,
-				running:  false,
-				remain:   0,
+				Widget:        parent,
+				remainingTime: 300,
+				countingDown:  false,
 			}
 
 			var pinner runtime.Pinner
@@ -318,25 +338,23 @@ func init() {
 				strokeBorder(innerBorderPath)
 			}
 
-			if dialW.totalSec > 0 {
-				progress := float64(dialW.totalSec) / maxDialValue.Seconds()
-				end := -math.Pi/2 + 2*math.Pi*progress
+			if dialW.remainingTime > 0 || dialW.countingDown {
+				progress := float64(dialW.remainingTime) / maxDialValue.Seconds()
 				var angle float64
 				var lineColor gdk.RGBA
 				var fillR, fillG, fillB, fillA float32
 				noFill := false
 
-				if dialW.running && dialW.remain > 0 {
-					ratio := dialW.remain.Seconds() / float64(dialW.totalSec)
-					angle = -math.Pi/2 + 2*math.Pi*progress*ratio
+				if dialW.countingDown && dialW.remainingTime > 0 {
+					angle = -math.Pi/2 + 2*math.Pi*progress
 					lineColor = errColor
 					fillR, fillG, fillB, fillA = errColor.Red, errColor.Green, errColor.Blue, 0.3
-				} else if dialW.running && dialW.remain == 0 {
+				} else if dialW.countingDown && dialW.remainingTime == 0 {
 					angle = -math.Pi / 2
 					lineColor = errColor
 					noFill = true
 				} else {
-					angle = end
+					angle = -math.Pi/2 + 2*math.Pi*progress
 					lineColor = accent
 					fillR, fillG, fillB, fillA = 0.6, 0.6, 0.6, 0.2
 				}
