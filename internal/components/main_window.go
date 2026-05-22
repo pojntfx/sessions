@@ -66,50 +66,58 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window.app = app
 	window.log = log
 
-	dial := NewDial(
-		app,
-		func() {
-			if window.alarming {
-				return
-			}
-
-			if window.running {
-				window.paused = true
-			}
-			window.dragging = true
-		},
-		func(totalSec int) {
-			if window.alarming {
-				return
-			}
-
-			window.totalSec = totalSec
-			if window.paused {
-				window.remain = time.Duration(totalSec) * time.Second
-			}
-
-			window.UpdateDial()
-			window.SaveLastPosition()
-		},
-		func() {
-			window.dragging = false
-
-			if window.alarming {
-				return
-			}
-
-			if window.paused {
-				window.paused = false
-			} else if !window.running && window.totalSec > 0 {
-				window.StartTimer()
-			}
-		},
-		"css-name",
-	)
+	dial := NewDial(app, "css-name")
 	dial.Widget.SetHexpand(true)
 	dial.Widget.SetVexpand(true)
 	window.dialArea.Append(&dial.Widget)
 	window.dialWidget = &dial
+
+	var totalSecToLabel gobject.BindingTransformFunc = func(_ uintptr, from *gobject.Value, to *gobject.Value, _ uintptr) bool {
+		totalSec := int(from.GetInt())
+		to.SetString(fmt.Sprintf("%02d:%02d", totalSec/60, totalSec%60))
+		return true
+	}
+	dial.Widget.Object.BindPropertyFull(
+		"total-sec",
+		&window.label.Widget.Object,
+		"label",
+		gobject.GBindingSyncCreateValue,
+		&totalSecToLabel,
+		nil,
+		0,
+		nil,
+	)
+
+	onDialDragBegin := func() {
+		if window.alarming {
+			return
+		}
+
+		if window.running {
+			window.paused = true
+		}
+		window.dragging = true
+	}
+	dial.ConnectDragBegin(&onDialDragBegin)
+
+	onDialDragEnd := func() {
+		window.dragging = false
+
+		if window.alarming {
+			return
+		}
+
+		totalSec := dial.GetTotalSec()
+		window.totalSec = totalSec
+		if window.paused {
+			window.remain = time.Duration(totalSec) * time.Second
+			window.paused = false
+		} else if !window.running && totalSec > 0 {
+			window.StartTimer()
+		}
+		window.SaveLastPosition()
+	}
+	dial.ConnectDragEnd(&onDialDragEnd)
 
 	window.ctx = ctx
 
@@ -350,19 +358,16 @@ func (w *MainWindow) UpdateButtons() {
 }
 
 func (w *MainWindow) UpdateDial() {
-	var m, s int
+	w.dialWidget.SetTotalSec(w.totalSec)
 	if w.alarming {
-		m, s = 0, 0
-		w.dialWidget.SetTimer(w.totalSec, true, 0)
+		w.dialWidget.SetTimer(true, 0)
+		w.label.SetText("00:00")
 	} else if w.running {
-		m, s = int(w.remain.Minutes()), int(w.remain.Seconds())%60
-		w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
+		w.dialWidget.SetTimer(w.running, w.remain)
+		w.label.SetText(fmt.Sprintf("%02d:%02d", int(w.remain.Minutes()), int(w.remain.Seconds())%60))
 	} else {
-		m, s = w.totalSec/60, w.totalSec%60
-		w.dialWidget.SetTimer(w.totalSec, w.running, w.remain)
+		w.dialWidget.SetTimer(w.running, w.remain)
 	}
-
-	w.label.SetText(fmt.Sprintf("%02d:%02d", m, s))
 }
 
 func (w *MainWindow) StartTimer() {
