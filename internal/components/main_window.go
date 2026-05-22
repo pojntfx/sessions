@@ -142,70 +142,95 @@ func (w *MainWindow) loadLastPosition() {
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStartingTimer: func(ctx context.Context) error {
-				w.stopAlarmPlayback()
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.stopAlarmPlayback()
 
-				w.running = true
-				w.remain = time.Duration(w.totalSec) * time.Second
+					w.running = true
+					w.remain = time.Duration(w.totalSec) * time.Second
 
-				w.updateButtons()
-				w.updateDial()
+					w.updateButtons()
+					w.updateDial()
 
-				w.holdApp()
+					w.holdApp()
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
 
 			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
-				w.totalSec = int(initialRemainingTime.Seconds())
-				if w.running {
-					w.remain = initialRemainingTime
-				}
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.totalSec = int(initialRemainingTime.Seconds())
+					if w.running {
+						w.remain = initialRemainingTime
+					}
 
-				w.updateDial()
-				w.updateButtons()
-				w.saveLastPosition()
+					w.updateDial()
+					w.updateButtons()
+					w.saveLastPosition()
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
 
 			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
-				w.remain = currentRemainingTime
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.remain = currentRemainingTime
 
-				w.updateDial()
+					w.updateDial()
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStoppingTimer: func(ctx context.Context) error {
-				w.running = false
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.running = false
 
-				w.updateButtons()
-				w.updateDial()
+					w.updateButtons()
+					w.updateDial()
 
-				w.stopAlarmPlayback()
+					w.stopAlarmPlayback()
 
-				w.releaseApp()
+					w.releaseApp()
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
 
 			OnStartAlarm: func(ctx context.Context) error {
-				w.running = false
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.running = false
 
-				w.startAlarmPlayback()
+					w.startAlarmPlayback()
 
-				w.updateButtons()
-				w.updateDial()
+					w.updateButtons()
+					w.updateDial()
 
-				n := gio.NewNotification(L("Session Finished"))
-				n.SetBody(L("Time to take a break"))
-				n.SetPriority(gio.GNotificationPriorityHighValue)
-				// We need to attach to `app`, not `win` since it's possible that no window
-				// is focused when the notification is activated
-				n.SetDefaultAction("app.stopAlarmPlayback")
+					n := gio.NewNotification(L("Session Finished"))
+					n.SetBody(L("Time to take a break"))
+					n.SetPriority(gio.GNotificationPriorityHighValue)
+					// We need to attach to `app`, not `win` since it's possible that no window
+					// is focused when the notification is activated
+					n.SetDefaultAction("app.stopAlarmPlayback")
 
-				w.app.SendNotification(notificationIdVar, n)
+					w.app.SendNotification(notificationIdVar, n)
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
@@ -213,37 +238,15 @@ func (w *MainWindow) loadLastPosition() {
 			OnStopAlarm: func(ctx context.Context) error { return nil },
 
 			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error {
-				if slices.Contains(permittedTriggers, state.TriggerMinusTimer) {
-					fn := glib.SourceFunc(func(_ uintptr) bool {
-						w.minusButton.SetSensitive(true)
+				minus := slices.Contains(permittedTriggers, state.TriggerMinusTimer)
+				plus := slices.Contains(permittedTriggers, state.TriggerPlusTimer)
+				fn := glib.SourceFunc(func(_ uintptr) bool {
+					w.minusButton.SetSensitive(minus)
+					w.plusButton.SetSensitive(plus)
 
-						return false
-					})
-					glib.IdleAdd(&fn, 0)
-				} else {
-					fn := glib.SourceFunc(func(_ uintptr) bool {
-						w.minusButton.SetSensitive(false)
-
-						return false
-					})
-					glib.IdleAdd(&fn, 0)
-				}
-
-				if slices.Contains(permittedTriggers, state.TriggerPlusTimer) {
-					fn := glib.SourceFunc(func(_ uintptr) bool {
-						w.plusButton.SetSensitive(true)
-
-						return false
-					})
-					glib.IdleAdd(&fn, 0)
-				} else {
-					fn := glib.SourceFunc(func(_ uintptr) bool {
-						w.plusButton.SetSensitive(false)
-
-						return false
-					})
-					glib.IdleAdd(&fn, 0)
-				}
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
 
 				return nil
 			},
