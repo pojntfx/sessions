@@ -86,7 +86,7 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
         margin-end: 12;
 
         Button minus_button {
-          action-name: "app.removeTime";
+          action-name: "win.removeTime";
           icon-name: "list-remove-symbolic";
           tooltip-text: _("Remove 30 seconds");
           valign: center;
@@ -97,7 +97,7 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
         }
 
         Button action_button {
-          action-name: "app.toggleTimer";
+          action-name: "win.toggleTimer";
           icon-name: "media-playback-start-symbolic";
           label: _("_Start Timer");
           use-underline: true;
@@ -109,7 +109,7 @@ template $SessionsMainWindow: Adw.ApplicationWindow {
         }
 
         Button plus_button {
-          action-name: "app.addTime";
+          action-name: "win.addTime";
           icon-name: "list-add-symbolic";
           tooltip-text: _("Add 30 seconds");
           valign: center;

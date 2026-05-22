@@ -92,36 +92,9 @@ func init() {
 			var app gtk.Application
 			a.Cast(&app)
 
-			obj := NewMainWindow(sessionsApp.ctx, &sessionsApp.Application, sessionsApp.log, "application", app)
+			obj := NewMainWindow(sessionsApp.ctx, &sessionsApp.Application, sessionsApp.log, sessionsApp.settings, "application", app)
 
 			sessionsApp.window = (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
-			sessionsApp.window.ctx = sessionsApp.ctx
-			sessionsApp.window.settings = sessionsApp.settings
-			sessionsApp.window.LoadLastPosition()
-
-			sessionsApp.window.UpdateButtons()
-			sessionsApp.window.UpdateDial()
-
-			toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
-			onToggleTimer := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.ToggleTimer()
-			}
-			toggleTimerAction.ConnectActivate(&onToggleTimer)
-			sessionsApp.Application.AddAction(toggleTimerAction)
-
-			addTimeAction := gio.NewSimpleAction("addTime", nil)
-			onAddTime := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.AddTime()
-			}
-			addTimeAction.ConnectActivate(&onAddTime)
-			sessionsApp.Application.AddAction(addTimeAction)
-
-			removeTimeAction := gio.NewSimpleAction("removeTime", nil)
-			onRemoveTime := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.RemoveTime()
-			}
-			removeTimeAction.ConnectActivate(&onRemoveTime)
-			sessionsApp.Application.AddAction(removeTimeAction)
 
 			openAboutAction := gio.NewSimpleAction("openAbout", nil)
 			onOpenAbout := func(gio.SimpleAction, uintptr) {
@@ -129,21 +102,6 @@ func init() {
 			}
 			openAboutAction.ConnectActivate(&onOpenAbout)
 			sessionsApp.Application.AddAction(openAboutAction)
-
-			stopAlarmPlaybackAction := gio.NewSimpleAction("stopAlarmPlayback", nil)
-			onStopAlarmPlaybackAction := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.StopAlarmPlayback()
-				sessionsApp.Application.Activate()
-			}
-			stopAlarmPlaybackAction.ConnectActivate(&onStopAlarmPlaybackAction)
-			sessionsApp.Application.AddAction(stopAlarmPlaybackAction)
-
-			closeWindowAction := gio.NewSimpleAction("closeWindow", nil)
-			onCloseWindow := func(gio.SimpleAction, uintptr) {
-				sessionsApp.window.ApplicationWindow.Close()
-			}
-			closeWindowAction.ConnectActivate(&onCloseWindow)
-			sessionsApp.Application.AddAction(closeWindowAction)
 
 			quitAction := gio.NewSimpleAction("quit", nil)
 			onQuit := func(gio.SimpleAction, uintptr) {
@@ -153,11 +111,7 @@ func init() {
 			sessionsApp.Application.AddAction(quitAction)
 
 			sessionsApp.Application.SetAccelsForAction("app.shortcuts", []string{`<Primary>question`})
-			sessionsApp.Application.SetAccelsForAction("app.closeWindow", []string{`<Primary>w`})
 			sessionsApp.Application.SetAccelsForAction("app.quit", []string{`<Primary>q`})
-			sessionsApp.Application.SetAccelsForAction("app.toggleTimer", []string{`<Primary>space`})
-			sessionsApp.Application.SetAccelsForAction("app.addTime", []string{`<Primary>plus`, `<Primary>equal`})
-			sessionsApp.Application.SetAccelsForAction("app.removeTime", []string{`<Primary>minus`})
 
 			sessionsApp.Application.AddWindow(&sessionsApp.window.ApplicationWindow.Window)
 			sessionsApp.window.ApplicationWindow.Present()

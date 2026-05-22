@@ -56,7 +56,7 @@ type MainWindow struct {
 	s   *state.StateMachine
 }
 
-func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
+func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, settings *gio.Settings, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
 	obj := gobject.NewObject(gTypeMainWindow, FirstPropertyNameVar, varArgs...)
 
 	var v MainWindow
@@ -65,6 +65,8 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window := (*MainWindow)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
 	window.app = app
 	window.log = log
+	window.settings = settings
+	window.ctx = ctx
 
 	dial := NewDial(app, "css-name")
 	dial.Widget.SetHexpand(true)
@@ -113,18 +115,21 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			window.remain = time.Duration(remainingTime) * time.Second
 			window.paused = false
 		} else if !window.running && remainingTime > 0 {
-			window.StartTimer()
+			window.startTimer()
 		}
-		window.SaveLastPosition()
+		window.saveLastPosition()
 	}
 	dial.ConnectDragEnd(&onDialDragEnd)
 
-	window.ctx = ctx
+	window.loadLastPosition()
+	window.registerActions()
+	window.updateButtons()
+	window.updateDial()
 
 	return v
 }
 
-func (w *MainWindow) LoadLastPosition() {
+func (w *MainWindow) loadLastPosition() {
 	lastPosition := w.settings.GetInt64(resources.SchemaLastPositionKey)
 	if lastPosition >= int64(minDialValue.Seconds()) && lastPosition <= int64(maxDialValue.Seconds()) {
 		w.totalSec = int(lastPosition)
@@ -137,13 +142,13 @@ func (w *MainWindow) LoadLastPosition() {
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStartingTimer: func(ctx context.Context) error {
-				w.StopAlarmPlayback()
+				w.stopAlarmPlayback()
 
 				w.running = true
 				w.remain = time.Duration(w.totalSec) * time.Second
 
-				w.UpdateButtons()
-				w.UpdateDial()
+				w.updateButtons()
+				w.updateDial()
 
 				w.holdApp()
 
@@ -156,9 +161,9 @@ func (w *MainWindow) LoadLastPosition() {
 					w.remain = initialRemainingTime
 				}
 
-				w.UpdateDial()
-				w.UpdateButtons()
-				w.SaveLastPosition()
+				w.updateDial()
+				w.updateButtons()
+				w.saveLastPosition()
 
 				return nil
 			},
@@ -166,7 +171,7 @@ func (w *MainWindow) LoadLastPosition() {
 			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
 				w.remain = currentRemainingTime
 
-				w.UpdateDial()
+				w.updateDial()
 
 				return nil
 			},
@@ -175,10 +180,10 @@ func (w *MainWindow) LoadLastPosition() {
 			OnAfterStoppingTimer: func(ctx context.Context) error {
 				w.running = false
 
-				w.UpdateButtons()
-				w.UpdateDial()
+				w.updateButtons()
+				w.updateDial()
 
-				w.StopAlarmPlayback()
+				w.stopAlarmPlayback()
 
 				w.releaseApp()
 
@@ -188,14 +193,16 @@ func (w *MainWindow) LoadLastPosition() {
 			OnStartAlarm: func(ctx context.Context) error {
 				w.running = false
 
-				w.StartAlarmPlayback()
+				w.startAlarmPlayback()
 
-				w.UpdateButtons()
-				w.UpdateDial()
+				w.updateButtons()
+				w.updateDial()
 
 				n := gio.NewNotification(L("Session Finished"))
 				n.SetBody(L("Time to take a break"))
 				n.SetPriority(gio.GNotificationPriorityHighValue)
+				// We need to attach to `app`, not `win` since it's possible that no window
+				// is focused when the notification is activated
 				n.SetDefaultAction("app.stopAlarmPlayback")
 
 				w.app.SendNotification(notificationIdVar, n)
@@ -245,7 +252,7 @@ func (w *MainWindow) LoadLastPosition() {
 	w.s.FlushPermittedTriggers(w.ctx)
 }
 
-func (w *MainWindow) SaveLastPosition() {
+func (w *MainWindow) saveLastPosition() {
 	w.settings.SetInt64(resources.SchemaLastPositionKey, int64(w.totalSec))
 }
 
@@ -302,7 +309,7 @@ func (w *MainWindow) releaseApp() {
 	}
 }
 
-func (w *MainWindow) StartAlarmPlayback() {
+func (w *MainWindow) startAlarmPlayback() {
 	w.alarming = true
 	w.alarmClockElapsedFile.Seek(0)
 	w.alarmClockElapsedFile.Play()
@@ -313,7 +320,7 @@ func (w *MainWindow) StartAlarmPlayback() {
 	w.releaseApp()
 }
 
-func (w *MainWindow) StopAlarmPlayback() {
+func (w *MainWindow) stopAlarmPlayback() {
 	w.alarmClockElapsedFile.SetPlaying(false)
 	w.alarmClockElapsedFile.Seek(0)
 
@@ -329,8 +336,8 @@ func (w *MainWindow) stopAlarming() {
 	w.running = false
 	w.stopFlash()
 
-	w.UpdateButtons()
-	w.UpdateDial()
+	w.updateButtons()
+	w.updateDial()
 
 	w.releaseApp()
 }
@@ -343,7 +350,7 @@ func (w *MainWindow) stopFlash() {
 	w.label.RemoveCssClass("dial__display--alarming")
 }
 
-func (w *MainWindow) UpdateButtons() {
+func (w *MainWindow) updateButtons() {
 	if w.alarming || w.running {
 		w.actionButton.SetIconName("media-playback-stop-symbolic")
 		w.actionButton.SetLabel(L("_Stop"))
@@ -357,7 +364,7 @@ func (w *MainWindow) UpdateButtons() {
 	}
 }
 
-func (w *MainWindow) UpdateDial() {
+func (w *MainWindow) updateDial() {
 	if w.alarming {
 		w.dialWidget.SetCountingDown(true)
 		w.dialWidget.SetRemainingTime(0)
@@ -370,30 +377,30 @@ func (w *MainWindow) UpdateDial() {
 	}
 }
 
-func (w *MainWindow) StartTimer() {
+func (w *MainWindow) startTimer() {
 	if err := w.s.StartTimer(w.ctx); err != nil {
 		w.log.Error("Could not start timer", "err", err)
 	}
 }
 
-func (w *MainWindow) StopTimer() {
+func (w *MainWindow) stopTimer() {
 	if err := w.s.StopTimer(w.ctx); err != nil {
 		w.log.Error("Could not stop timer", "err", err)
 	}
 }
 
-func (w *MainWindow) ToggleTimer() {
+func (w *MainWindow) toggleTimer() {
 	if w.alarming {
 		w.stopAlarming()
-		w.StopAlarmPlayback()
+		w.stopAlarmPlayback()
 	} else if w.running {
-		w.StopTimer()
+		w.stopTimer()
 	} else if w.totalSec > 0 {
-		w.StartTimer()
+		w.startTimer()
 	}
 }
 
-func (w *MainWindow) AddTime() {
+func (w *MainWindow) addTime() {
 	if w.alarming {
 		return
 	}
@@ -403,7 +410,7 @@ func (w *MainWindow) AddTime() {
 	}
 }
 
-func (w *MainWindow) RemoveTime() {
+func (w *MainWindow) removeTime() {
 	if w.alarming {
 		return
 	}
@@ -411,6 +418,49 @@ func (w *MainWindow) RemoveTime() {
 	if err := w.s.MinusTimer(w.ctx); err != nil {
 		w.log.Error("Could not remove time", "err", err)
 	}
+}
+
+func (w *MainWindow) registerActions() {
+	toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
+	onToggleTimer := func(gio.SimpleAction, uintptr) {
+		w.toggleTimer()
+	}
+	toggleTimerAction.ConnectActivate(&onToggleTimer)
+	w.AddAction(toggleTimerAction)
+
+	addTimeAction := gio.NewSimpleAction("addTime", nil)
+	onAddTime := func(gio.SimpleAction, uintptr) {
+		w.addTime()
+	}
+	addTimeAction.ConnectActivate(&onAddTime)
+	w.AddAction(addTimeAction)
+
+	removeTimeAction := gio.NewSimpleAction("removeTime", nil)
+	onRemoveTime := func(gio.SimpleAction, uintptr) {
+		w.removeTime()
+	}
+	removeTimeAction.ConnectActivate(&onRemoveTime)
+	w.AddAction(removeTimeAction)
+
+	closeWindowAction := gio.NewSimpleAction("closeWindow", nil)
+	onCloseWindow := func(gio.SimpleAction, uintptr) {
+		w.Close()
+	}
+	closeWindowAction.ConnectActivate(&onCloseWindow)
+	w.AddAction(closeWindowAction)
+
+	stopAlarmPlaybackAction := gio.NewSimpleAction("stopAlarmPlayback", nil)
+	onStopAlarmPlaybackAction := func(gio.SimpleAction, uintptr) {
+		w.stopAlarmPlayback()
+		w.app.Activate()
+	}
+	stopAlarmPlaybackAction.ConnectActivate(&onStopAlarmPlaybackAction)
+	w.app.AddAction(stopAlarmPlaybackAction)
+
+	w.app.SetAccelsForAction("win.closeWindow", []string{`<Primary>w`})
+	w.app.SetAccelsForAction("win.toggleTimer", []string{`<Primary>space`})
+	w.app.SetAccelsForAction("win.addTime", []string{`<Primary>plus`, `<Primary>equal`})
+	w.app.SetAccelsForAction("win.removeTime", []string{`<Primary>minus`})
 }
 
 func init() {
