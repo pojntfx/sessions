@@ -49,7 +49,6 @@ type MainWindow struct {
 	running               bool
 	alarming              bool
 	remain                time.Duration
-	timer                 uint32
 	dragging              bool
 	paused                bool
 	held                  bool
@@ -92,7 +91,19 @@ func (w *MainWindow) LoadLastPosition() {
 		w.log,
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-			OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
+			OnAfterStartingTimer: func(ctx context.Context) error {
+				w.StopAlarmPlayback()
+
+				w.running = true
+				w.remain = time.Duration(w.totalSec) * time.Second
+
+				w.UpdateButtons()
+				w.UpdateDial()
+
+				w.holdApp()
+
+				return nil
+			},
 
 			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 				w.totalSec = int(initialRemainingTime.Seconds())
@@ -106,12 +117,46 @@ func (w *MainWindow) LoadLastPosition() {
 
 				return nil
 			},
-			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+
+			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
+				w.remain = currentRemainingTime
+
+				w.UpdateDial()
+
+				return nil
+			},
 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-			OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+			OnAfterStoppingTimer: func(ctx context.Context) error {
+				w.running = false
 
-			OnStartAlarm: func(ctx context.Context) error { return nil },
+				w.UpdateButtons()
+				w.UpdateDial()
+
+				w.StopAlarmPlayback()
+
+				w.releaseApp()
+
+				return nil
+			},
+
+			OnStartAlarm: func(ctx context.Context) error {
+				w.running = false
+
+				w.StartAlarmPlayback()
+
+				w.UpdateButtons()
+				w.UpdateDial()
+
+				n := gio.NewNotification(L("Session Finished"))
+				n.SetBody(L("Time to take a break"))
+				n.SetPriority(gio.GNotificationPriorityHighValue)
+				n.SetDefaultAction("app.stopAlarmPlayback")
+
+				w.app.SendNotification(notificationIdVar, n)
+
+				return nil
+			},
 
 			OnStopAlarm: func(ctx context.Context) error { return nil },
 
@@ -283,75 +328,15 @@ func (w *MainWindow) UpdateDial() {
 	w.label.SetText(fmt.Sprintf("%02d:%02d", m, s))
 }
 
-func (w *MainWindow) createSessionFinishedHandler() glib.SourceFunc {
-	return func(uintptr) bool {
-		if !w.running {
-			return false
-		}
-
-		w.remain -= time.Second
-		w.UpdateDial()
-
-		if w.remain <= 0 {
-			w.running = false
-			if w.timer > 0 {
-				glib.SourceRemove(w.timer)
-				w.timer = 0
-			}
-
-			w.StartAlarmPlayback()
-
-			w.UpdateButtons()
-			w.UpdateDial()
-
-			n := gio.NewNotification(L("Session Finished"))
-			n.SetBody(L("Time to take a break"))
-			n.SetPriority(gio.GNotificationPriorityHighValue)
-			n.SetDefaultAction("app.stopAlarmPlayback")
-
-			w.app.SendNotification(notificationIdVar, n)
-
-			return false
-		}
-
-		return true
-	}
-}
-
 func (w *MainWindow) StartTimer() {
-	w.StopAlarmPlayback()
-
-	w.running = true
-	w.remain = time.Duration(w.totalSec) * time.Second
-
-	w.UpdateButtons()
-	w.UpdateDial()
-
-	cb := w.createSessionFinishedHandler()
-	w.timer = glib.TimeoutAdd(1000, &cb, 0)
-
-	w.holdApp()
+	if err := w.s.StartTimer(w.ctx); err != nil {
+		w.log.Error("Could not start timer", "err", err)
+	}
 }
 
 func (w *MainWindow) StopTimer() {
-	w.running = false
-	if w.timer > 0 {
-		glib.SourceRemove(w.timer)
-		w.timer = 0
-	}
-
-	w.UpdateButtons()
-	w.UpdateDial()
-
-	w.StopAlarmPlayback()
-
-	w.releaseApp()
-}
-
-func (w *MainWindow) resumeTimer() {
-	if w.remain > 0 {
-		cb := w.createSessionFinishedHandler()
-		w.timer = glib.TimeoutAdd(1000, &cb, 0)
+	if err := w.s.StopTimer(w.ctx); err != nil {
+		w.log.Error("Could not stop timer", "err", err)
 	}
 }
 
@@ -362,10 +347,6 @@ func (w *MainWindow) handleDialing(x, y float64) {
 
 	if w.running && !w.dragging {
 		w.paused = true
-		if w.timer > 0 {
-			glib.SourceRemove(w.timer)
-			w.timer = 0
-		}
 	}
 
 	width, height := float64(w.dialWidget.Widget.GetWidth()), float64(w.dialWidget.Widget.GetHeight())
@@ -424,7 +405,6 @@ func (w *MainWindow) setupDialGestures() {
 
 		if w.paused {
 			w.paused = false
-			w.resumeTimer()
 		} else if !w.running && w.totalSec > 0 {
 			w.StartTimer()
 		}
@@ -538,7 +518,6 @@ func init() {
 				totalSec:              300,
 				running:               false,
 				remain:                0,
-				timer:                 0,
 				dragging:              false,
 				paused:                false,
 			}
