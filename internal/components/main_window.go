@@ -85,6 +85,9 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 		toggleTimerAction = gio.NewSimpleAction("toggleTimer", nil)
 		addTimeAction     = gio.NewSimpleAction("addTime", nil)
 		removeTimeAction  = gio.NewSimpleAction("removeTime", nil)
+
+		canStopTimer,
+		canStopAlarming bool
 	)
 	window.s = state.NewStateMachine(
 		window.ctx,
@@ -104,8 +107,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			},
 
 			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
+				lastInitialRemainingTime = initialRemainingTime
+
 				fn := glib.SourceFunc(func(u uintptr) bool {
-					window.dialWidget.SetRemainingTime(int(initialRemainingTime.Seconds()))
+					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
 					return false
 				})
@@ -127,6 +132,8 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStoppingTimer: func(ctx context.Context) error {
 				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
+
 					window.dialWidget.SetCountingDown(false)
 
 					return false
@@ -157,7 +164,8 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 						window.actionButton.AddCssClass("suggested-action")
 					}
 
-					if slices.Contains(permittedTriggers, state.TriggerStopTimer) || slices.Contains(permittedTriggers, state.TriggerStopAlarming) {
+					canStopTimer, canStopAlarming = slices.Contains(permittedTriggers, state.TriggerStopTimer), slices.Contains(permittedTriggers, state.TriggerStopAlarming)
+					if canStopTimer || canStopAlarming {
 						window.actionButton.SetIconName("media-playback-stop-symbolic")
 						window.actionButton.SetLabel(L("_Stop"))
 						window.actionButton.RemoveCssClass("suggested-action")
@@ -192,7 +200,33 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	}
 	dial.ConnectDragEnd(&onDialDragEnd)
 
-	onToggleTimer := func(gio.SimpleAction, uintptr) {}
+	onToggleTimer := func(gio.SimpleAction, uintptr) {
+		if canStopTimer {
+			if err := window.s.StopTimer(window.ctx); err != nil {
+				window.log.Error("Could not stop timer", "err", err)
+
+				return
+			}
+
+			return
+		}
+
+		if canStopAlarming {
+			if err := window.s.StopAlarming(window.ctx); err != nil {
+				window.log.Error("Could not stop alarming", "err", err)
+
+				return
+			}
+
+			return
+		}
+
+		if err := window.s.StartTimer(window.ctx); err != nil {
+			window.log.Error("Could not start timer", "err", err)
+
+			return
+		}
+	}
 	toggleTimerAction.ConnectActivate(&onToggleTimer)
 	window.AddAction(toggleTimerAction)
 
