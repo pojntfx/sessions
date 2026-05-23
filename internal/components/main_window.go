@@ -77,12 +77,6 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 		nil,
 	)
 
-	onDialDragBegin := func() {}
-	dial.ConnectDragBegin(&onDialDragBegin)
-
-	onDialDragEnd := func() {}
-	dial.ConnectDragEnd(&onDialDragEnd)
-
 	lastInitialRemainingTime := time.Second * time.Duration(window.settings.GetInt64(resources.SchemaLastPositionKey))
 	window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
@@ -117,6 +111,24 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 		},
 	)
 	window.s.FlushPermittedTriggers(window.ctx)
+
+	onDialDragBegin := func() {
+		if err := window.s.StartDragging(window.ctx); err != nil {
+			window.log.Error("Could not start dragging", "err", err)
+
+			return
+		}
+	}
+	dial.ConnectDragBegin(&onDialDragBegin)
+
+	onDialDragEnd := func() {
+		if err := window.s.StopDragging(window.ctx, time.Duration(window.dialWidget.GetRemainingTime())*time.Second); err != nil {
+			window.log.Error("Could not stop dragging", "err", err)
+
+			return
+		}
+	}
+	dial.ConnectDragEnd(&onDialDragEnd)
 
 	toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
 	onToggleTimer := func(gio.SimpleAction, uintptr) {}
