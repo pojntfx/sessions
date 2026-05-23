@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"runtime"
+	"slices"
 	"time"
 	"unsafe"
 
@@ -14,7 +15,7 @@ import (
 	"codeberg.org/puregotk/puregotk/v4/gobject"
 	"codeberg.org/puregotk/puregotk/v4/gtk"
 
-	// . "github.com/pojntfx/go-gettext/pkg/i18n"
+	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
 	"github.com/pojntfx/sessions/pkg/state"
 )
@@ -80,13 +81,27 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	lastInitialRemainingTime := time.Second * time.Duration(window.settings.GetInt64(resources.SchemaLastPositionKey))
 	window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
+	var (
+		toggleTimerAction = gio.NewSimpleAction("toggleTimer", nil)
+		addTimeAction     = gio.NewSimpleAction("addTime", nil)
+		removeTimeAction  = gio.NewSimpleAction("removeTime", nil)
+	)
 	window.s = state.NewStateMachine(
 		window.ctx,
 		lastInitialRemainingTime,
 		window.log,
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-			OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
+			OnAfterStartingTimer: func(ctx context.Context) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetCountingDown(true)
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
 
 			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 				fn := glib.SourceFunc(func(u uintptr) bool {
@@ -98,16 +113,63 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 
 				return nil
 			},
-			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetRemainingTime(int(currentRemainingTime.Seconds()))
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-			OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
+			OnAfterStoppingTimer: func(ctx context.Context) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetCountingDown(false)
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
 
 			OnStartAlarm: func(ctx context.Context) error { return nil },
 
 			OnStopAlarm: func(ctx context.Context) error { return nil },
 
-			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error { return nil },
+			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					toggleTimerAction.SetEnabled(
+						slices.Contains(permittedTriggers, state.TriggerStartTimer) ||
+							slices.Contains(permittedTriggers, state.TriggerStopTimer) ||
+							slices.Contains(permittedTriggers, state.TriggerStopAlarming),
+					)
+					removeTimeAction.SetEnabled(slices.Contains(permittedTriggers, state.TriggerMinusTimer))
+					addTimeAction.SetEnabled(slices.Contains(permittedTriggers, state.TriggerPlusTimer))
+
+					if slices.Contains(permittedTriggers, state.TriggerStartTimer) {
+						window.actionButton.SetIconName("media-playback-start-symbolic")
+						window.actionButton.SetLabel(L("_Start Timer"))
+						window.actionButton.RemoveCssClass("destructive-action")
+						window.actionButton.AddCssClass("suggested-action")
+					}
+
+					if slices.Contains(permittedTriggers, state.TriggerStopTimer) || slices.Contains(permittedTriggers, state.TriggerStopAlarming) {
+						window.actionButton.SetIconName("media-playback-stop-symbolic")
+						window.actionButton.SetLabel(L("_Stop"))
+						window.actionButton.RemoveCssClass("suggested-action")
+						window.actionButton.AddCssClass("destructive-action")
+					}
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
 		},
 	)
 	window.s.FlushPermittedTriggers(window.ctx)
@@ -130,12 +192,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	}
 	dial.ConnectDragEnd(&onDialDragEnd)
 
-	toggleTimerAction := gio.NewSimpleAction("toggleTimer", nil)
 	onToggleTimer := func(gio.SimpleAction, uintptr) {}
 	toggleTimerAction.ConnectActivate(&onToggleTimer)
 	window.AddAction(toggleTimerAction)
 
-	addTimeAction := gio.NewSimpleAction("addTime", nil)
 	onAddTime := func(gio.SimpleAction, uintptr) {
 		if err := window.s.PlusTimer(window.ctx); err != nil {
 			window.log.Error("Could not add time to timer", "err", err)
@@ -146,7 +206,6 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	addTimeAction.ConnectActivate(&onAddTime)
 	window.AddAction(addTimeAction)
 
-	removeTimeAction := gio.NewSimpleAction("removeTime", nil)
 	onRemoveTime := func(gio.SimpleAction, uintptr) {
 		if err := window.s.MinusTimer(window.ctx); err != nil {
 			window.log.Error("Could not remove time from timer", "err", err)
