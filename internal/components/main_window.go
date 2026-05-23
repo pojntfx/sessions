@@ -24,6 +24,10 @@ var (
 	gTypeMainWindow gobject.Type
 )
 
+const (
+	notificationIdVar = "session-finished"
+)
+
 type MainWindow struct {
 	adw.ApplicationWindow
 
@@ -37,7 +41,10 @@ type MainWindow struct {
 	actionButton *gtk.Button
 	plusButton   *gtk.Button
 	minusButton  *gtk.Button
-	app          *adw.Application
+
+	alarmClockElapsedFile *gtk.MediaFile
+
+	app *adw.Application
 
 	s *state.StateMachine
 }
@@ -143,9 +150,58 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 				return nil
 			},
 
-			OnStartAlarm: func(ctx context.Context) error { return nil },
+			OnStartAlarm: func(ctx context.Context) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetRemainingTime(0)
 
-			OnStopAlarm: func(ctx context.Context) error { return nil },
+					window.dialWidget.SetCountingDown(true)
+
+					window.dialWidget.SetSensitive(false)
+
+					window.label.AddCssClass("dial__display--alarming")
+
+					n := gio.NewNotification(L("Session Finished"))
+					n.SetBody(L("Time to take a break"))
+					n.SetPriority(gio.GNotificationPriorityHighValue)
+					// We need to attach to `app`, not `win` since it's possible that no window
+					// is focused when the notification is activated
+					n.SetDefaultAction("app.stopAlarmPlayback")
+
+					window.app.SendNotification(notificationIdVar, n)
+
+					window.alarmClockElapsedFile.Seek(0)
+					window.alarmClockElapsedFile.Play()
+
+					window.label.Announce(L("Session Finished"), gtk.AccessibleAnnouncementPriorityHighValue)
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
+
+			OnStopAlarm: func(ctx context.Context) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
+
+					window.dialWidget.SetCountingDown(false)
+
+					window.dialWidget.SetSensitive(true)
+
+					window.label.RemoveCssClass("dial__display--alarming")
+
+					window.alarmClockElapsedFile.SetPlaying(false)
+					window.alarmClockElapsedFile.Seek(0)
+
+					window.app.WithdrawNotification(notificationIdVar)
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
 
 			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error {
 				fn := glib.SourceFunc(func(u uintptr) bool {
@@ -326,6 +382,8 @@ func init() {
 				actionButton: &actionButton,
 				plusButton:   &plusButton,
 				minusButton:  &minusButton,
+
+				alarmClockElapsedFile: gtk.NewMediaFileForResource(resources.ResourceAlarmClockElapsedPath),
 			}
 
 			var pinner runtime.Pinner
