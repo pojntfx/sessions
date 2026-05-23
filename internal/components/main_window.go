@@ -83,16 +83,28 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	onDialDragEnd := func() {}
 	dial.ConnectDragEnd(&onDialDragEnd)
 
+	lastInitialRemainingTime := time.Second * time.Duration(window.settings.GetInt64(resources.SchemaLastPositionKey))
+	window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
+
 	window.s = state.NewStateMachine(
 		window.ctx,
-		time.Second*time.Duration(window.settings.GetInt64(resources.SchemaLastPositionKey)),
+		lastInitialRemainingTime,
 		window.log,
 		&state.Hooks{
 			OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
 
-			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
-			OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
+			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
+				fn := glib.SourceFunc(func(u uintptr) bool {
+					window.dialWidget.SetRemainingTime(int(initialRemainingTime.Seconds()))
+
+					return false
+				})
+				glib.IdleAdd(&fn, 0)
+
+				return nil
+			},
+			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
 			OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
 			OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
@@ -112,12 +124,24 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window.AddAction(toggleTimerAction)
 
 	addTimeAction := gio.NewSimpleAction("addTime", nil)
-	onAddTime := func(gio.SimpleAction, uintptr) {}
+	onAddTime := func(gio.SimpleAction, uintptr) {
+		if err := window.s.PlusTimer(window.ctx); err != nil {
+			window.log.Error("Could not add time to timer", "err", err)
+
+			return
+		}
+	}
 	addTimeAction.ConnectActivate(&onAddTime)
 	window.AddAction(addTimeAction)
 
 	removeTimeAction := gio.NewSimpleAction("removeTime", nil)
-	onRemoveTime := func(gio.SimpleAction, uintptr) {}
+	onRemoveTime := func(gio.SimpleAction, uintptr) {
+		if err := window.s.MinusTimer(window.ctx); err != nil {
+			window.log.Error("Could not remove time from timer", "err", err)
+
+			return
+		}
+	}
 	removeTimeAction.ConnectActivate(&onRemoveTime)
 	window.AddAction(removeTimeAction)
 
