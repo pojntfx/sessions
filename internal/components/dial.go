@@ -286,9 +286,30 @@ func init() {
 			r := math.Min(cx, cy) - 15
 
 			styleContext := widget.GetStyleContext()
-			var accent, errColor gdk.RGBA
+			var accent, errColor, destructiveColor, windowBg gdk.RGBA
 			styleContext.LookupColor("accent_bg_color", &accent)
 			styleContext.LookupColor("error_color", &errColor)
+			styleContext.LookupColor("destructive_color", &destructiveColor)
+			styleContext.LookupColor("window_bg_color", &windowBg)
+
+			// We use manually sampled values these since we a slightly lighter colour than the button colours
+			var trackColor gdk.RGBA
+			if dialW.app.GetStyleManager().GetDark() {
+				trackColor = gdk.RGBA{Red: 0x34 / 255.0, Green: 0x34 / 255.0, Blue: 0x37 / 255.0, Alpha: 1.0}
+			} else {
+				trackColor = gdk.RGBA{Red: 0xD8 / 255.0, Green: 0xD8 / 255.0, Blue: 0xD8 / 255.0, Alpha: 1.0}
+			}
+			if !widget.IsSensitive() {
+				// Matches the text colour of a .destructive-action libadwaita button
+				const disabledOpacity float32 = 0.5
+				a := disabledOpacity * destructiveColor.Alpha
+				trackColor = gdk.RGBA{
+					Red:   destructiveColor.Red*a + windowBg.Red*(1-a),
+					Green: destructiveColor.Green*a + windowBg.Green*(1-a),
+					Blue:  destructiveColor.Blue*a + windowBg.Blue*(1-a),
+					Alpha: 1.0,
+				}
+			}
 
 			highContrast := dialW.app.GetStyleManager().GetHighContrast()
 
@@ -306,13 +327,6 @@ func init() {
 				}
 			}
 
-			grayColor := gdk.RGBA{
-				Red:   0.7,
-				Green: 0.7,
-				Blue:  0.7,
-				Alpha: 1.0,
-			}
-
 			fullCircleBuilder := gsk.NewPathBuilder()
 			defer fullCircleBuilder.Unref()
 			centerPoint := graphene.Point{X: float32(cx), Y: float32(cy)}
@@ -321,7 +335,7 @@ func init() {
 			defer fullCirclePath.Unref()
 			fullCircleStroke := gsk.NewStroke(10.0)
 			defer fullCircleStroke.Free()
-			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &grayColor)
+			snapshot.AppendStroke(fullCirclePath, fullCircleStroke, &trackColor)
 
 			if highContrast {
 				outerBorderBuilder := gsk.NewPathBuilder()
@@ -339,23 +353,18 @@ func init() {
 				strokeBorder(innerBorderPath)
 			}
 
-			if dialW.remainingTime > 0 || dialW.countingDown {
+			// Skip the arc when remaining=0 and we're counting down, else we get a red flash
+			// until we render the non-sensitive colour
+			if widget.IsSensitive() && !(dialW.countingDown && dialW.remainingTime == 0) && (dialW.remainingTime > 0 || dialW.countingDown) {
 				progress := float64(dialW.remainingTime) / state.MaxInitialRemainingTime.Seconds()
-				var angle float64
+				angle := -math.Pi/2 + 2*math.Pi*progress
 				var lineColor gdk.RGBA
 				var fillR, fillG, fillB, fillA float32
-				noFill := false
 
-				if dialW.countingDown && dialW.remainingTime > 0 {
-					angle = -math.Pi/2 + 2*math.Pi*progress
+				if dialW.countingDown {
 					lineColor = errColor
 					fillR, fillG, fillB, fillA = errColor.Red, errColor.Green, errColor.Blue, 0.3
-				} else if dialW.countingDown && dialW.remainingTime == 0 {
-					angle = -math.Pi / 2
-					lineColor = errColor
-					noFill = true
 				} else {
-					angle = -math.Pi/2 + 2*math.Pi*progress
 					lineColor = accent
 					fillR, fillG, fillB, fillA = 0.6, 0.6, 0.6, 0.2
 				}
@@ -383,27 +392,25 @@ func init() {
 					}
 				}
 
-				if !noFill {
-					if isFullCircle {
-						fullFillBuilder := gsk.NewPathBuilder()
-						defer fullFillBuilder.Unref()
-						fullFillBuilder.AddCircle(&graphene.Point{X: float32(cx), Y: float32(cy)}, float32(r))
-						fullFillPath := fullFillBuilder.ToPath()
-						defer fullFillPath.Unref()
-						snapshot.AppendFill(fullFillPath, gsk.FillRuleWindingValue, &fillColor)
-						strokeBorder(fullFillPath)
-					} else {
-						arcBuilder := gsk.NewPathBuilder()
-						defer arcBuilder.Unref()
-						arcBuilder.MoveTo(float32(cx), float32(cy))
-						arcBuilder.LineTo(startX, startY)
-						drawArcOrCircle(arcBuilder, float32(r), float32(r), endX, endY)
-						arcBuilder.LineTo(float32(cx), float32(cy))
-						arcPath := arcBuilder.ToPath()
-						defer arcPath.Unref()
-						snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
-						strokeBorder(arcPath)
-					}
+				if isFullCircle {
+					fullFillBuilder := gsk.NewPathBuilder()
+					defer fullFillBuilder.Unref()
+					fullFillBuilder.AddCircle(&graphene.Point{X: float32(cx), Y: float32(cy)}, float32(r))
+					fullFillPath := fullFillBuilder.ToPath()
+					defer fullFillPath.Unref()
+					snapshot.AppendFill(fullFillPath, gsk.FillRuleWindingValue, &fillColor)
+					strokeBorder(fullFillPath)
+				} else {
+					arcBuilder := gsk.NewPathBuilder()
+					defer arcBuilder.Unref()
+					arcBuilder.MoveTo(float32(cx), float32(cy))
+					arcBuilder.LineTo(startX, startY)
+					drawArcOrCircle(arcBuilder, float32(r), float32(r), endX, endY)
+					arcBuilder.LineTo(float32(cx), float32(cy))
+					arcPath := arcBuilder.ToPath()
+					defer arcPath.Unref()
+					snapshot.AppendFill(arcPath, gsk.FillRuleWindingValue, &fillColor)
+					strokeBorder(arcPath)
 				}
 
 				lineStrokeColor := gdk.RGBA{
