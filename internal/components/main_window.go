@@ -151,6 +151,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 
 				fn := glib.SourceFunc(func(u uintptr) bool {
 					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
+					window.settings.SetInt64(resources.SchemaLastPositionKey, int64(lastInitialRemainingTime.Seconds()))
 
 					return false
 				})
