@@ -18,6 +18,7 @@ import (
 	. "github.com/pojntfx/go-gettext/pkg/i18n"
 	"github.com/pojntfx/sessions/assets/resources"
 	"github.com/pojntfx/sessions/pkg/state"
+	"github.com/rymdport/portal/background"
 )
 
 var (
@@ -46,7 +47,8 @@ type MainWindow struct {
 
 	app *adw.Application
 
-	s *state.StateMachine
+	s    *state.StateMachine
+	held bool
 }
 
 func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, settings *gio.Settings, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
@@ -106,6 +108,37 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 				fn := glib.SourceFunc(func(u uintptr) bool {
 					window.dialWidget.SetCountingDown(true)
 
+					if !window.held {
+						res, err := background.RequestBackground("", &background.RequestOptions{
+							// TRANSLATORS: Reason given when requesting permission to run in the background from the system.
+							Reason: L("Running the Timer in the Background"),
+						})
+						if err != nil {
+							window.log.Error("Could not request permission to run in background via background portal", "err", err)
+
+							return false
+						}
+
+						if !res.Background { // Permission to run the background was denied
+							return false
+						}
+
+						if err := background.SetStatus(background.StatusOptions{
+							// TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
+							Message: L("Timer Running"),
+						},
+						); err != nil {
+							window.log.Error("Could not set app status via background portal", "err", err)
+
+							return false
+						}
+
+						window.app.Hold()
+						window.SetHideOnClose(true)
+
+						window.held = true
+					}
+
 					return false
 				})
 				glib.IdleAdd(&fn, 0)
@@ -143,6 +176,22 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 
 					window.dialWidget.SetCountingDown(false)
 
+					if window.held {
+						if err := background.SetStatus(background.StatusOptions{
+							Message: "",
+						},
+						); err != nil {
+							window.log.Error("Could not clear app status via background portal", "err", err)
+
+							return false
+						}
+
+						window.SetHideOnClose(false)
+						window.app.Release()
+
+						window.held = false
+					}
+
 					return false
 				})
 				glib.IdleAdd(&fn, 0)
@@ -155,6 +204,37 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 					window.dialWidget.SetRemainingTime(0)
 
 					window.dialWidget.SetCountingDown(true)
+
+					if !window.held {
+						res, err := background.RequestBackground("", &background.RequestOptions{
+							// TRANSLATORS: Reason given when requesting permission to run in the background from the system.
+							Reason: L("Running the Timer in the Background"),
+						})
+						if err != nil {
+							window.log.Error("Could not request permission to run in background via background portal", "err", err)
+
+							return false
+						}
+
+						if !res.Background { // Permission to run the background was denied
+							return false
+						}
+
+						if err := background.SetStatus(background.StatusOptions{
+							// TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background and the session has finished.
+							Message: L("Session Finished"),
+						},
+						); err != nil {
+							window.log.Error("Could not set app status via background portal", "err", err)
+
+							return false
+						}
+
+						window.app.Hold()
+						window.SetHideOnClose(true)
+
+						window.held = true
+					}
 
 					window.dialWidget.SetSensitive(false)
 
@@ -186,6 +266,22 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
 					window.dialWidget.SetCountingDown(false)
+
+					if window.held {
+						if err := background.SetStatus(background.StatusOptions{
+							Message: "",
+						},
+						); err != nil {
+							window.log.Error("Could not clear app status via background portal", "err", err)
+
+							return false
+						}
+
+						window.SetHideOnClose(false)
+						window.app.Release()
+
+						window.held = false
+					}
 
 					window.dialWidget.SetSensitive(true)
 
@@ -307,12 +403,22 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	window.AddAction(removeTimeAction)
 
 	closeWindowAction := gio.NewSimpleAction("closeWindow", nil)
-	onCloseWindow := func(gio.SimpleAction, uintptr) {}
+	onCloseWindow := func(gio.SimpleAction, uintptr) {
+		window.Close()
+	}
 	closeWindowAction.ConnectActivate(&onCloseWindow)
 	window.AddAction(closeWindowAction)
 
 	stopAlarmPlaybackAction := gio.NewSimpleAction("stopAlarmPlayback", nil)
-	onStopAlarmPlaybackAction := func(gio.SimpleAction, uintptr) { window.app.Activate() }
+	onStopAlarmPlaybackAction := func(gio.SimpleAction, uintptr) {
+		if err := window.s.StopAlarming(window.ctx); err != nil {
+			window.log.Error("Could not stop alarming", "err", err)
+
+			return
+		}
+
+		window.app.Activate()
+	}
 	stopAlarmPlaybackAction.ConnectActivate(&onStopAlarmPlaybackAction)
 	window.app.AddAction(stopAlarmPlaybackAction)
 
