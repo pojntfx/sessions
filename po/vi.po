@@ -70,7 +70,7 @@ msgstr "Thời gian còn lại"
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:199
+#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:319
 msgid "_Start Timer"
 msgstr "_Bắt đầu hẹn giờ"
 
@@ -83,33 +83,35 @@ msgid "_About Sessions"
 msgstr "_Giới thiệu Sessions"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
-#: ../internal/components/application.go:83
+#: ../internal/components/application.go:88
 msgid "translator-credits"
 msgstr "Loc Huynh <huynhloc.contact@gmail.com>"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
-#: ../internal/components/main_window.go:92
+#: ../internal/components/main_window.go:114
+#: ../internal/components/main_window.go:214
 msgid "Running the Timer in the Background"
 msgstr "Chạy bộ hẹn giờ ở chế độ nền"
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
-#: ../internal/components/main_window.go:108
+#: ../internal/components/main_window.go:128
 msgid "Timer Running"
 msgstr "Hẹn giờ đang chạy"
 
-#: ../internal/components/main_window.go:144
-#: ../internal/components/main_window.go:245
+#. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background and the session has finished.
+#: ../internal/components/main_window.go:228
+#: ../internal/components/main_window.go:247
+#: ../internal/components/main_window.go:259
 msgid "Session Finished"
 msgstr "Phiên kết thúc"
 
-#: ../internal/components/main_window.go:183
-#: ../internal/components/main_window.go:191
-msgid "_Stop"
-msgstr "_Dừng"
-
-#: ../internal/components/main_window.go:246
+#: ../internal/components/main_window.go:248
 msgid "Time to take a break"
 msgstr "Đã đến lúc phải nghỉ ngơi"
+
+#: ../internal/components/main_window.go:327
+msgid "_Stop"
+msgstr "_Dừng"
 
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
