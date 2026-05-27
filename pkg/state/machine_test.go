@@ -44,8 +44,7 @@ func TestPlusTimer(t *testing.T) {
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.plusTimes, fromCountingDown),
 				func(t *testing.T) {
 					var (
-						onBeforeStartingTimerCalled = 0
-						onAfterStartingTimerCalled  = 0
+						onAfterStartingTimerCalled = 0
 
 						internalInitialRemainingTime = tt.initial
 					)
@@ -53,16 +52,12 @@ func TestPlusTimer(t *testing.T) {
 						t,
 						tt.initial,
 						&Hooks{
-							OnBeforeStartingTimer: func(ctx context.Context) error {
-								onBeforeStartingTimerCalled++
-
-								return nil
-							},
-							OnAfterStartingTimer: func(ctx context.Context) error {
+							OnStartTimer: func(ctx context.Context) error {
 								onAfterStartingTimerCalled++
 
 								return nil
 							},
+							OnStopTimer: func(ctx context.Context) error { return nil },
 
 							OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 								internalInitialRemainingTime = initialRemainingTime
@@ -71,12 +66,8 @@ func TestPlusTimer(t *testing.T) {
 							},
 							OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-							OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-							OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
-
 							OnStartAlarm: func(ctx context.Context) error { return nil },
-
-							OnStopAlarm: func(ctx context.Context) error { return nil },
+							OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 						},
@@ -89,7 +80,6 @@ func TestPlusTimer(t *testing.T) {
 						// After we stop dragging, the timer should be running.
 						// We only assert the initial remaining time and assert whether the timer starts running
 						// in TestEndToEnd, not here, this test does not have a race
-						require.Equal(t, 1, onBeforeStartingTimerCalled)
 						require.Equal(t, 1, onAfterStartingTimerCalled)
 					}
 
@@ -107,7 +97,6 @@ func TestPlusTimer(t *testing.T) {
 
 					if fromCountingDown {
 						// The timer should still be running if we increased during the counting down phase
-						require.Equal(t, 2, onBeforeStartingTimerCalled)
 						require.Equal(t, 2, onAfterStartingTimerCalled)
 					}
 
@@ -151,8 +140,7 @@ func TestMinusTimer(t *testing.T) {
 				fmt.Sprintf("initial %v plusTimes %v fromCountingDown %v", tt.initial, tt.minusTimes, fromCountingDown),
 				func(t *testing.T) {
 					var (
-						onBeforeStartingTimerCalled = 0
-						onAfterStartingTimerCalled  = 0
+						onAfterStartingTimerCalled = 0
 
 						internalInitialRemainingTime = tt.initial
 					)
@@ -160,16 +148,12 @@ func TestMinusTimer(t *testing.T) {
 						t,
 						tt.initial,
 						&Hooks{
-							OnBeforeStartingTimer: func(ctx context.Context) error {
-								onBeforeStartingTimerCalled++
-
-								return nil
-							},
-							OnAfterStartingTimer: func(ctx context.Context) error {
+							OnStartTimer: func(ctx context.Context) error {
 								onAfterStartingTimerCalled++
 
 								return nil
 							},
+							OnStopTimer: func(ctx context.Context) error { return nil },
 
 							OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 								internalInitialRemainingTime = initialRemainingTime
@@ -178,12 +162,8 @@ func TestMinusTimer(t *testing.T) {
 							},
 							OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-							OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-							OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
-
 							OnStartAlarm: func(ctx context.Context) error { return nil },
-
-							OnStopAlarm: func(ctx context.Context) error { return nil },
+							OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 							OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 						},
@@ -196,7 +176,6 @@ func TestMinusTimer(t *testing.T) {
 						// After we stop dragging, the timer should be running.
 						// We only assert the initial remaining time and assert whether the timer starts running
 						// in TestEndToEnd, not here, this test does not have a race
-						require.Equal(t, 1, onBeforeStartingTimerCalled)
 						require.Equal(t, 1, onAfterStartingTimerCalled)
 					}
 
@@ -217,11 +196,9 @@ func TestMinusTimer(t *testing.T) {
 							// If we tried to decrease during the counting down phase, but failed on the first decrease,
 							// then we only start the timer once (when we initially started dragging), we don't restart
 							// the timer when fail to decrease
-							require.Equal(t, 1, onBeforeStartingTimerCalled)
 							require.Equal(t, 1, onAfterStartingTimerCalled)
 						} else {
 							// The timer should still be running if we decreased during the counting down phase
-							require.Equal(t, 2, onBeforeStartingTimerCalled)
 							require.Equal(t, 2, onAfterStartingTimerCalled)
 						}
 					}
@@ -303,18 +280,14 @@ func TestStartDragging(t *testing.T) {
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
+						OnStartTimer: func(ctx context.Context) error { return nil },
+						OnStopTimer:  func(ctx context.Context) error { return nil },
 
 						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
 						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
-
 						OnStartAlarm: func(ctx context.Context) error { return nil },
-
-						OnStopAlarm: func(ctx context.Context) error { return nil },
+						OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
@@ -339,11 +312,10 @@ func TestStartDragging(t *testing.T) {
 
 func TestStopDragging(t *testing.T) {
 	var stopDraggingTests = []struct {
-		name          string
-		remainingTime time.Duration
-		prepare       func(*StateMachine) error
-		expectErr     bool
-		onBeforeStartingTimerCalled,
+		name                       string
+		remainingTime              time.Duration
+		prepare                    func(*StateMachine) error
+		expectErr                  bool
 		onAfterStartingTimerCalled int
 	}{
 		{
@@ -352,9 +324,8 @@ func TestStopDragging(t *testing.T) {
 			prepare: func(sm *StateMachine) error {
 				return sm.StartDragging(t.Context())
 			},
-			expectErr:                   false,
-			onBeforeStartingTimerCalled: 1,
-			onAfterStartingTimerCalled:  1,
+			expectErr:                  false,
+			onAfterStartingTimerCalled: 1,
 		},
 		{
 			name:          "can not transition from dragging state to counting down state with initial remaining time below minimum remaining time",
@@ -394,8 +365,7 @@ func TestStopDragging(t *testing.T) {
 			tt.name,
 			func(t *testing.T) {
 				var (
-					onBeforeStartingTimerCalled = 0
-					onAfterStartingTimerCalled  = 0
+					onAfterStartingTimerCalled = 0
 
 					internalInitialRemainingTime = MinInitialRemainingTime
 				)
@@ -403,16 +373,12 @@ func TestStopDragging(t *testing.T) {
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error {
-							onBeforeStartingTimerCalled++
-
-							return nil
-						},
-						OnAfterStartingTimer: func(ctx context.Context) error {
+						OnStartTimer: func(ctx context.Context) error {
 							onAfterStartingTimerCalled++
 
 							return nil
 						},
+						OnStopTimer: func(ctx context.Context) error { return nil },
 
 						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 							internalInitialRemainingTime = initialRemainingTime
@@ -421,12 +387,8 @@ func TestStopDragging(t *testing.T) {
 						},
 						OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
-
 						OnStartAlarm: func(ctx context.Context) error { return nil },
-
-						OnStopAlarm: func(ctx context.Context) error { return nil },
+						OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
@@ -451,7 +413,6 @@ func TestStopDragging(t *testing.T) {
 					require.Equal(t, tt.remainingTime, internalInitialRemainingTime)
 				}
 
-				require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
 				require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
 			},
 		)
@@ -460,11 +421,10 @@ func TestStopDragging(t *testing.T) {
 
 func TestStopTimer(t *testing.T) {
 	var stopTimerTests = []struct {
-		name          string
-		remainingTime time.Duration
-		prepare       func(*StateMachine) error
-		expectErr     bool
-		onBeforeStoppingTimerCalled,
+		name                       string
+		remainingTime              time.Duration
+		prepare                    func(*StateMachine) error
+		expectErr                  bool
 		onAfterStoppingTimerCalled int
 	}{
 		{
@@ -476,9 +436,8 @@ func TestStopTimer(t *testing.T) {
 
 				return sm.StopDragging(t.Context(), DefaultInitialRemainingTime)
 			},
-			expectErr:                   false,
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			expectErr:                  false,
+			onAfterStoppingTimerCalled: 1,
 		},
 		{
 			name: "can not transition from dragging state to stopped state",
@@ -496,9 +455,8 @@ func TestStopTimer(t *testing.T) {
 
 				return sm.timerFinished(t.Context())
 			},
-			expectErr:                   true,
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			expectErr:                  true,
+			onAfterStoppingTimerCalled: 1,
 		},
 	}
 	for _, tt := range stopTimerTests {
@@ -506,33 +464,24 @@ func TestStopTimer(t *testing.T) {
 			tt.name,
 			func(t *testing.T) {
 				var (
-					onBeforeStoppingTimerCalled = 0
-					onAfterStoppingTimerCalled  = 0
+					onAfterStoppingTimerCalled = 0
 				)
 				s := newTestingStateMachine(
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
-
-						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
-						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
-
-						OnBeforeStoppingTimer: func(ctx context.Context) error {
-							onBeforeStoppingTimerCalled++
-
-							return nil
-						},
-						OnAfterStoppingTimer: func(ctx context.Context) error {
+						OnStartTimer: func(ctx context.Context) error { return nil },
+						OnStopTimer: func(ctx context.Context) error {
 							onAfterStoppingTimerCalled++
 
 							return nil
 						},
 
-						OnStartAlarm: func(ctx context.Context) error { return nil },
+						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
+						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						OnStopAlarm: func(ctx context.Context) error { return nil },
+						OnStartAlarm: func(ctx context.Context) error { return nil },
+						OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
@@ -547,7 +496,6 @@ func TestStopTimer(t *testing.T) {
 					require.NoError(t, err)
 				}
 
-				require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
 				require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
 			},
 		)
@@ -556,10 +504,9 @@ func TestStopTimer(t *testing.T) {
 
 func TestStartTimer(t *testing.T) {
 	var startTimerTests = []struct {
-		name      string
-		prepare   func(*StateMachine) error
-		expectErr bool
-		onBeforeStartingTimerCalled,
+		name                       string
+		prepare                    func(*StateMachine) error
+		expectErr                  bool
 		onAfterStartingTimerCalled int
 	}{
 		{
@@ -567,9 +514,8 @@ func TestStartTimer(t *testing.T) {
 			prepare: func(sm *StateMachine) error {
 				return nil
 			},
-			expectErr:                   false,
-			onBeforeStartingTimerCalled: 1,
-			onAfterStartingTimerCalled:  1,
+			expectErr:                  false,
+			onAfterStartingTimerCalled: 1,
 		},
 		{
 			name: "can not transition from dragging state to counting down state",
@@ -584,33 +530,24 @@ func TestStartTimer(t *testing.T) {
 			tt.name,
 			func(t *testing.T) {
 				var (
-					onBeforeStartingTimerCalled = 0
-					onAfterStartingTimerCalled  = 0
+					onAfterStartingTimerCalled = 0
 				)
 				s := newTestingStateMachine(
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error {
-							onBeforeStartingTimerCalled++
-
-							return nil
-						},
-						OnAfterStartingTimer: func(ctx context.Context) error {
+						OnStartTimer: func(ctx context.Context) error {
 							onAfterStartingTimerCalled++
 
 							return nil
 						},
+						OnStopTimer: func(ctx context.Context) error { return nil },
 
 						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
 						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
-						OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
-
 						OnStartAlarm: func(ctx context.Context) error { return nil },
-
-						OnStopAlarm: func(ctx context.Context) error { return nil },
+						OnStopAlarm:  func(ctx context.Context) error { return nil },
 
 						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
 					},
@@ -625,7 +562,6 @@ func TestStartTimer(t *testing.T) {
 					require.NoError(t, err)
 				}
 
-				require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
 				require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
 			},
 		)
@@ -664,21 +600,17 @@ func TestTimerFinished(t *testing.T) {
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
+						OnStartTimer: func(ctx context.Context) error { return nil },
+						OnStopTimer:  func(ctx context.Context) error { return nil },
 
 						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
 						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
-
-						OnBeforeStoppingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStoppingTimer:  func(ctx context.Context) error { return nil },
 
 						OnStartAlarm: func(ctx context.Context) error {
 							onStartAlarmCalled++
 
 							return nil
 						},
-
 						OnStopAlarm: func(ctx context.Context) error { return nil },
 
 						OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []Trigger) error { return nil },
@@ -706,7 +638,6 @@ func TestStopAlarming(t *testing.T) {
 		prepare   func(*StateMachine) error
 		expectErr bool
 		onStopAlarmCalled,
-		onBeforeStoppingTimerCalled,
 		onAfterStoppingTimerCalled int
 	}{
 		{
@@ -718,10 +649,9 @@ func TestStopAlarming(t *testing.T) {
 
 				return sm.timerFinished(t.Context())
 			},
-			expectErr:                   false,
-			onStopAlarmCalled:           1,
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			expectErr:                  false,
+			onStopAlarmCalled:          1,
+			onAfterStoppingTimerCalled: 1,
 		},
 		{
 			name: "can not transition from counting down state to stopped state",
@@ -736,33 +666,24 @@ func TestStopAlarming(t *testing.T) {
 			tt.name,
 			func(t *testing.T) {
 				var (
-					onStopAlarmCalled           = 0
-					onBeforeStoppingTimerCalled = 0
-					onAfterStoppingTimerCalled  = 0
+					onStopAlarmCalled          = 0
+					onAfterStoppingTimerCalled = 0
 				)
 				s := newTestingStateMachine(
 					t,
 					MinInitialRemainingTime,
 					&Hooks{
-						OnBeforeStartingTimer: func(ctx context.Context) error { return nil },
-						OnAfterStartingTimer:  func(ctx context.Context) error { return nil },
-
-						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
-						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
-
-						OnBeforeStoppingTimer: func(ctx context.Context) error {
-							onBeforeStoppingTimerCalled++
-
-							return nil
-						},
-						OnAfterStoppingTimer: func(ctx context.Context) error {
+						OnStartTimer: func(ctx context.Context) error { return nil },
+						OnStopTimer: func(ctx context.Context) error {
 							onAfterStoppingTimerCalled++
 
 							return nil
 						},
 
-						OnStartAlarm: func(ctx context.Context) error { return nil },
+						OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error { return nil },
+						OnCurrentRemainingTimeTick:   func(ctx context.Context, currentRemainingTime time.Duration) error { return nil },
 
+						OnStartAlarm: func(ctx context.Context) error { return nil },
 						OnStopAlarm: func(ctx context.Context) error {
 							onStopAlarmCalled++
 
@@ -783,7 +704,6 @@ func TestStopAlarming(t *testing.T) {
 				}
 
 				require.Equal(t, tt.onStopAlarmCalled, onStopAlarmCalled)
-				require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
 				require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
 			},
 		)
@@ -796,12 +716,10 @@ func TestEndToEnd(t *testing.T) {
 
 		runScenario func(t *testing.T, s *StateMachine)
 
-		onBeforeStartingTimerCalled,
 		onAfterStartingTimerCalled int
 
 		internalInitialRemainingTime time.Duration
 
-		onBeforeStoppingTimerCalled,
 		onAfterStoppingTimerCalled,
 
 		onStartAlarmCalled,
@@ -826,13 +744,11 @@ func TestEndToEnd(t *testing.T) {
 				require.NoError(t, s.StopAlarming(t.Context()))
 			},
 
-			onBeforeStartingTimerCalled: 1,
-			onAfterStartingTimerCalled:  1,
+			onAfterStartingTimerCalled: 1,
 
 			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 3,
 
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			onAfterStoppingTimerCalled: 1,
 
 			onStartAlarmCalled: 1,
 
@@ -863,13 +779,11 @@ func TestEndToEnd(t *testing.T) {
 				require.NoError(t, s.StopAlarming(t.Context()))
 			},
 
-			onBeforeStartingTimerCalled: 1,
-			onAfterStartingTimerCalled:  1,
+			onAfterStartingTimerCalled: 1,
 
 			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 5,
 
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			onAfterStoppingTimerCalled: 1,
 
 			onStartAlarmCalled: 1,
 
@@ -898,13 +812,11 @@ func TestEndToEnd(t *testing.T) {
 				time.Sleep(RemainingTimerAdjustmentInterval * 6) // We run this *6, not *5, to make sure that `onCurrentRemainingTimeTick` no longer fires after stopping
 			},
 
-			onBeforeStartingTimerCalled: 1,
-			onAfterStartingTimerCalled:  1,
+			onAfterStartingTimerCalled: 1,
 
 			internalInitialRemainingTime: RemainingTimerAdjustmentInterval * 5,
 
-			onBeforeStoppingTimerCalled: 1,
-			onAfterStoppingTimerCalled:  1,
+			onAfterStoppingTimerCalled: 1,
 
 			onStartAlarmCalled: 1,
 
@@ -930,13 +842,11 @@ func TestEndToEnd(t *testing.T) {
 					}
 
 					var (
-						onBeforeStartingTimerCalled = 0
-						onAfterStartingTimerCalled  = 0
+						onAfterStartingTimerCalled = 0
 
 						internalInitialRemainingTime = MinInitialRemainingTime
 
-						onBeforeStoppingTimerCalled = 0
-						onAfterStoppingTimerCalled  = 0
+						onAfterStoppingTimerCalled = 0
 
 						onStartAlarmCalled = 0
 
@@ -950,13 +860,13 @@ func TestEndToEnd(t *testing.T) {
 						t,
 						MinInitialRemainingTime,
 						&Hooks{
-							OnBeforeStartingTimer: func(ctx context.Context) error {
-								onBeforeStartingTimerCalled++
+							OnStartTimer: func(ctx context.Context) error {
+								onAfterStartingTimerCalled++
 
 								return nil
 							},
-							OnAfterStartingTimer: func(ctx context.Context) error {
-								onAfterStartingTimerCalled++
+							OnStopTimer: func(ctx context.Context) error {
+								onAfterStoppingTimerCalled++
 
 								return nil
 							},
@@ -972,23 +882,11 @@ func TestEndToEnd(t *testing.T) {
 								return nil
 							},
 
-							OnBeforeStoppingTimer: func(ctx context.Context) error {
-								onBeforeStoppingTimerCalled++
-
-								return nil
-							},
-							OnAfterStoppingTimer: func(ctx context.Context) error {
-								onAfterStoppingTimerCalled++
-
-								return nil
-							},
-
 							OnStartAlarm: func(ctx context.Context) error {
 								onStartAlarmCalled++
 
 								return nil
 							},
-
 							OnStopAlarm: func(ctx context.Context) error {
 								onStopAlarmCalled++
 
@@ -1007,14 +905,12 @@ func TestEndToEnd(t *testing.T) {
 
 					tt.runScenario(t, s)
 
-					require.Equal(t, tt.onBeforeStartingTimerCalled, onBeforeStartingTimerCalled)
 					require.Equal(t, tt.onAfterStartingTimerCalled, onAfterStartingTimerCalled)
 
 					require.Equal(t, tt.internalInitialRemainingTime, internalInitialRemainingTime)
 
 					require.Equal(t, expectedOnCurrentRemainingTimeTickCallArguments, onCurrentRemainingTimeTickCallArguments)
 
-					require.Equal(t, tt.onBeforeStoppingTimerCalled, onBeforeStoppingTimerCalled)
 					require.Equal(t, tt.onAfterStoppingTimerCalled, onAfterStoppingTimerCalled)
 
 					require.Equal(t, tt.onStartAlarmCalled, onStartAlarmCalled)

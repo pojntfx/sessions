@@ -11,18 +11,14 @@ import (
 )
 
 type Hooks struct {
-	OnBeforeStartingTimer func(ctx context.Context) error
-	OnAfterStartingTimer  func(ctx context.Context) error
+	OnStartTimer func(ctx context.Context) error
+	OnStopTimer  func(ctx context.Context) error
 
 	OnInitialRemainingTimeChange func(ctx context.Context, initialRemainingTime time.Duration) error
 	OnCurrentRemainingTimeTick   func(ctx context.Context, currentRemainingTime time.Duration) error
 
-	OnBeforeStoppingTimer func(ctx context.Context) error
-	OnAfterStoppingTimer  func(ctx context.Context) error
-
 	OnStartAlarm func(ctx context.Context) error
-
-	OnStopAlarm func(ctx context.Context) error
+	OnStopAlarm  func(ctx context.Context) error
 
 	OnPermittedTriggersChange func(ctx context.Context, permittedTriggers []Trigger) error
 }
@@ -345,11 +341,6 @@ func (s *StateMachine) StopAlarming(ctx context.Context) error {
 }
 
 func (s *StateMachine) startTimer(ctx context.Context, args ...any) error {
-	s.log.InfoContext(ctx, "Calling onBeforeStartingTimer hook")
-	if err := s.hooks.OnBeforeStartingTimer(ctx); err != nil {
-		return err
-	}
-
 	s.currentRemainingTime = s.initialRemainingTime
 	s.ticker = time.NewTicker(tickerInterval)
 	s.tickerCtx, s.cancelTickerCtx = context.WithCancel(s.ctx)
@@ -381,8 +372,8 @@ func (s *StateMachine) startTimer(ctx context.Context, args ...any) error {
 		}
 	}()
 
-	s.log.InfoContext(ctx, "Calling onAfterStartingTimer hook")
-	if err := s.hooks.OnAfterStartingTimer(ctx); err != nil {
+	s.log.InfoContext(ctx, "Calling onStartTimer hook")
+	if err := s.hooks.OnStartTimer(ctx); err != nil {
 		return err
 	}
 
@@ -390,17 +381,12 @@ func (s *StateMachine) startTimer(ctx context.Context, args ...any) error {
 }
 
 func (s *StateMachine) stopTimer(ctx context.Context, args ...any) error {
-	s.log.InfoContext(ctx, "Calling onBeforeStoppingTimer hook")
-	if err := s.hooks.OnBeforeStoppingTimer(ctx); err != nil {
-		return err
-	}
-
 	if err := s.stopTimerWithoutHooks(ctx, args...); err != nil {
 		return err
 	}
 
-	s.log.InfoContext(ctx, "Calling onAfterStoppingTimer hook")
-	if err := s.hooks.OnAfterStoppingTimer(ctx); err != nil {
+	s.log.InfoContext(ctx, "Calling onStopTimer hook")
+	if err := s.hooks.OnStopTimer(ctx); err != nil {
 		return err
 	}
 
