@@ -70,7 +70,7 @@ msgstr ""
 msgid "05:00"
 msgstr "05:00"
 
-#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:319
+#: ../assets/resources/window.blp:102 ../internal/components/main_window.go:342
 msgid "_Start Timer"
 msgstr "_定時開始"
 
@@ -88,28 +88,28 @@ msgid "translator-credits"
 msgstr "Philip <philipyu3.14@gmail.com>"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
-#: ../internal/components/main_window.go:114
-#: ../internal/components/main_window.go:214
+#: ../internal/components/main_window.go:119
+#: ../internal/components/main_window.go:231
 msgid "Running the Timer in the Background"
 msgstr ""
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background.
-#: ../internal/components/main_window.go:128
+#: ../internal/components/main_window.go:133
 msgid "Timer Running"
 msgstr ""
 
 #. TRANSLATORS: Message shown in the background apps list next to the app while the app is running in the background and the session has finished.
-#: ../internal/components/main_window.go:228
-#: ../internal/components/main_window.go:247
-#: ../internal/components/main_window.go:259
+#: ../internal/components/main_window.go:245
+#: ../internal/components/main_window.go:264
+#: ../internal/components/main_window.go:276
 msgid "Session Finished"
 msgstr "會期完"
 
-#: ../internal/components/main_window.go:248
+#: ../internal/components/main_window.go:265
 msgid "Time to take a break"
 msgstr ""
 
-#: ../internal/components/main_window.go:327
+#: ../internal/components/main_window.go:350
 msgid "_Stop"
 msgstr "_停"
 
