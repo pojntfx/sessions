@@ -72,6 +72,12 @@
     </screenshots>
 
     <releases>
+        <release version="0.1.20" date='2026-05-29T00:00:00Z00:00'>
+            <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.20</url>
+            <description translate="no">
+                <p>Improve stability when the app runs for extended periods of time</p>
+            </description>
+        </release>
         <release version="0.1.19" date='2026-05-26T00:00:00Z00:00'>
             <url type="details">https://github.com/pojntfx/sessions/releases/tag/v0.1.19</url>
             <description translate="no">

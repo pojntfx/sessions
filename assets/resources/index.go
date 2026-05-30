@@ -12,7 +12,7 @@ import (
 
 const (
 	AppID      = "com.pojtinger.felicitas.Sessions"
-	AppVersion = "0.1.19"
+	AppVersion = "0.1.20"
 )
 
 //go:generate sh -c "blueprint-compiler batch-compile . . *.blp && glib-compile-resources *.gresource.xml"
