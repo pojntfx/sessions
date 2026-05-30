@@ -104,7 +104,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 		window.log,
 		&state.Hooks{
 			OnStartTimer: func(ctx context.Context) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetCountingDown(true)
 
 					if !window.held {
@@ -147,7 +150,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 				return nil
 			},
 			OnStopTimer: func(ctx context.Context) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
 					window.dialWidget.SetCountingDown(false)
@@ -180,7 +186,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			OnInitialRemainingTimeChange: func(ctx context.Context, initialRemainingTime time.Duration) error {
 				lastInitialRemainingTime = initialRemainingTime
 
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 					window.settings.SetInt64(resources.SchemaLastPositionKey, int64(lastInitialRemainingTime.Seconds()))
 
@@ -191,7 +200,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 				return nil
 			},
 			OnCurrentRemainingTimeTick: func(ctx context.Context, currentRemainingTime time.Duration) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetRemainingTime(int(currentRemainingTime.Seconds()))
 
 					return false
@@ -202,7 +214,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			},
 
 			OnStartAlarm: func(ctx context.Context) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetRemainingTime(0)
 
 					window.dialWidget.SetCountingDown(true)
@@ -265,7 +280,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 				return nil
 			},
 			OnStopAlarm: func(ctx context.Context) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					window.dialWidget.SetRemainingTime(int(lastInitialRemainingTime.Seconds()))
 
 					window.dialWidget.SetCountingDown(false)
@@ -305,7 +323,10 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			},
 
 			OnPermittedTriggersChange: func(ctx context.Context, permittedTriggers []state.Trigger) error {
-				fn := glib.SourceFunc(func(u uintptr) bool {
+				var fn glib.SourceFunc
+				fn = glib.SourceFunc(func(u uintptr) bool {
+					defer glib.UnrefCallback(&fn)
+
 					toggleTimerAction.SetEnabled(
 						slices.Contains(permittedTriggers, state.TriggerStartTimer) ||
 							slices.Contains(permittedTriggers, state.TriggerStopTimer) ||
