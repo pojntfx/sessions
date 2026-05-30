@@ -49,6 +49,8 @@ type MainWindow struct {
 
 	s    *state.StateMachine
 	held bool
+
+	callbacks []interface{}
 }
 
 func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, settings *gio.Settings, FirstPropertyNameVar string, varArgs ...interface{}) MainWindow {
@@ -367,6 +369,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 	}
+	window.callbacks = append(window.callbacks, &onDialDragBegin)
 	dial.ConnectDragBegin(&onDialDragBegin)
 
 	onDialDragEnd := func() {
@@ -376,6 +379,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 	}
+	window.callbacks = append(window.callbacks, &onDialDragEnd)
 	dial.ConnectDragEnd(&onDialDragEnd)
 
 	onToggleTimer := func(gio.SimpleAction, uintptr) {
@@ -405,6 +409,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 	}
+	window.callbacks = append(window.callbacks, &onToggleTimer)
 	toggleTimerAction.ConnectActivate(&onToggleTimer)
 	window.AddAction(toggleTimerAction)
 
@@ -415,6 +420,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 	}
+	window.callbacks = append(window.callbacks, &onAddTime)
 	addTimeAction.ConnectActivate(&onAddTime)
 	window.AddAction(addTimeAction)
 
@@ -425,6 +431,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 			return
 		}
 	}
+	window.callbacks = append(window.callbacks, &onRemoveTime)
 	removeTimeAction.ConnectActivate(&onRemoveTime)
 	window.AddAction(removeTimeAction)
 
@@ -432,6 +439,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	onCloseWindow := func(gio.SimpleAction, uintptr) {
 		window.Close()
 	}
+	window.callbacks = append(window.callbacks, &closeWindowAction)
 	closeWindowAction.ConnectActivate(&onCloseWindow)
 	window.AddAction(closeWindowAction)
 
@@ -445,6 +453,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 
 		window.app.Activate()
 	}
+	window.callbacks = append(window.callbacks, &onStopAlarmPlaybackAction)
 	stopAlarmPlaybackAction.ConnectActivate(&onStopAlarmPlaybackAction)
 	window.app.AddAction(stopAlarmPlaybackAction)
 
@@ -516,12 +525,20 @@ func init() {
 				minusButton:  &minusButton,
 
 				alarmClockElapsedFile: gtk.NewMediaFileForResource(resources.ResourceAlarmClockElapsedPath),
+
+				callbacks: []interface{}{},
 			}
 
 			var pinner runtime.Pinner
 			pinner.Pin(w)
 
 			var cleanupCallback glib.DestroyNotify = func(data uintptr) {
+				for _, callback := range w.callbacks {
+					if err := glib.UnrefCallback(callback); err != nil {
+						w.log.Error("Could not unref callback", "err", err)
+					}
+				}
+
 				pinner.Unpin()
 			}
 			o.SetDataFull(dataKeyGoInstance, uintptr(unsafe.Pointer(w)), &cleanupCallback)
