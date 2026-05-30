@@ -5,6 +5,7 @@ go 1.25.0
 tool github.com/dennwc/flatpak-go-mod
 
 require (
+	codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80
 	codeberg.org/puregotk/puregotk v0.0.0-20260420231554-98419d54d2d2
 	github.com/neilotoole/slogt v1.1.0
 	github.com/pojntfx/go-gettext v0.4.2
@@ -14,7 +15,6 @@ require (
 )
 
 require (
-	codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dennwc/flatpak-go-mod v0.1.1-0.20250809093520-ddf8d84264aa // indirect
 	github.com/goccy/go-yaml v1.18.0 // indirect

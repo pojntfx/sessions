@@ -5,6 +5,13 @@
     "type": "file"
   },
   {
+    "dest": "vendor/codeberg.org/puregotk/purego",
+    "sha256": "0d5fb9e11934b151ac357a9c0660e4dcd287d2f93db0829356415f6e6a8ef84b",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/codeberg.org/puregotk/purego/@v/v0.0.0-20260224095105-2513c838cb80.zip"
+  },
+  {
     "dest": "vendor/codeberg.org/puregotk/puregotk",
     "sha256": "e7fded6b4e364e3f2926d9470a991de1e422a712849008a24c347b2ccd96b5cf",
     "strip-components": 3,
@@ -45,13 +52,6 @@
     "strip-components": 3,
     "type": "archive",
     "url": "https://proxy.golang.org/github.com/stretchr/testify/@v/v1.11.1.zip"
-  },
-  {
-    "dest": "vendor/codeberg.org/puregotk/purego",
-    "sha256": "0d5fb9e11934b151ac357a9c0660e4dcd287d2f93db0829356415f6e6a8ef84b",
-    "strip-components": 3,
-    "type": "archive",
-    "url": "https://proxy.golang.org/codeberg.org/puregotk/purego/@v/v0.0.0-20260224095105-2513c838cb80.zip"
   },
   {
     "dest": "vendor/github.com/davecgh/go-spew",

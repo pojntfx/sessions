@@ -439,7 +439,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 	onCloseWindow := func(gio.SimpleAction, uintptr) {
 		window.Close()
 	}
-	window.callbacks = append(window.callbacks, &closeWindowAction)
+	window.callbacks = append(window.callbacks, &onCloseWindow)
 	closeWindowAction.ConnectActivate(&onCloseWindow)
 	window.AddAction(closeWindowAction)
 
