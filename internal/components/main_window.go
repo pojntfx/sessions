@@ -65,7 +65,7 @@ func NewMainWindow(ctx context.Context, app *adw.Application, log *slog.Logger, 
 
 	window.ctx = ctx
 
-	dial := NewDial(window.app, "css-name")
+	dial := NewDial(window.app, window.log, "css-name")
 	dial.Widget.SetHexpand(true)
 	dial.Widget.SetVexpand(true)
 	window.dialArea.Append(&dial.Widget)

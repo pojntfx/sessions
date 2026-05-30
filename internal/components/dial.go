@@ -1,6 +1,7 @@
 package components
 
 import (
+	"log/slog"
 	"math"
 	"runtime"
 	"unsafe"
@@ -35,23 +36,30 @@ var (
 type Dial struct {
 	gtk.Widget
 
+	log *slog.Logger
+
 	app           *adw.Application
 	remainingTime int
 	countingDown  bool
+
+	callbacks []interface{}
 }
 
-func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...interface{}) Dial {
+func NewDial(app *adw.Application, log *slog.Logger, FirstPropertyNameVar string, varArgs ...interface{}) Dial {
 	obj := gobject.NewObject(gTypeDial, FirstPropertyNameVar, varArgs...)
 
 	var v Dial
 	obj.Cast(&v)
 
 	dial := (*Dial)(unsafe.Pointer(obj.GetData(dataKeyGoInstance)))
+	dial.log = log
+
 	dial.app = app
 
 	var styleChangedCallback func(gobject.Object, uintptr) = func(_ gobject.Object, _ uintptr) {
 		v.Widget.QueueDraw()
 	}
+	dial.callbacks = append(dial.callbacks, &styleChangedCallback)
 	app.GetStyleManager().ConnectNotify(&styleChangedCallback)
 
 	updateRemainingTimeFromPosition := func(x, y float64) {
@@ -71,22 +79,26 @@ func NewDial(app *adw.Application, FirstPropertyNameVar string, varArgs ...inter
 		gobject.SignalEmit(obj, gobject.SignalLookup(signalDialDragBegin, gTypeDial), 0)
 		updateRemainingTimeFromPosition(x, y)
 	}
+	dial.callbacks = append(dial.callbacks, &onDragBeginCb)
 	drag.ConnectDragBegin(&onDragBeginCb)
 	onDragUpdateCb := func(drag gtk.GestureDrag, dx float64, dy float64) {
 		var x, y float64
 		drag.GetStartPoint(&x, &y)
 		updateRemainingTimeFromPosition(x+dx, y+dy)
 	}
+	dial.callbacks = append(dial.callbacks, &onDragUpdateCb)
 	drag.ConnectDragUpdate(&onDragUpdateCb)
 	onDragEndCb := func(_ gtk.GestureDrag, dx float64, dy float64) {
 		gobject.SignalEmit(obj, gobject.SignalLookup(signalDialDragEnd, gTypeDial), 0)
 	}
+	dial.callbacks = append(dial.callbacks, &onDragEndCb)
 	drag.ConnectDragEnd(&onDragEndCb)
 
 	click := gtk.NewGestureClick()
 	onPress := func(_ gtk.GestureClick, _ int32, x float64, y float64) {
 		updateRemainingTimeFromPosition(x, y)
 	}
+	dial.callbacks = append(dial.callbacks, &onPress)
 	click.ConnectPressed(&onPress)
 
 	v.Widget.AddController(&drag.EventController)
@@ -260,12 +272,20 @@ func init() {
 				Widget:        parent,
 				remainingTime: 300,
 				countingDown:  false,
+
+				callbacks: []interface{}{},
 			}
 
 			var pinner runtime.Pinner
 			pinner.Pin(w)
 
 			var cleanupCallback glib.DestroyNotify = func(data uintptr) {
+				for _, callback := range w.callbacks {
+					if err := glib.UnrefCallback(callback); err != nil {
+						w.log.Error("Could not unref callback", "err", err)
+					}
+				}
+
 				pinner.Unpin()
 			}
 			o.SetDataFull(dataKeyGoInstance, uintptr(unsafe.Pointer(w)), &cleanupCallback)
