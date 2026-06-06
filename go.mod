@@ -7,6 +7,7 @@ tool github.com/dennwc/flatpak-go-mod
 require (
 	codeberg.org/puregotk/purego v0.0.0-20260224095105-2513c838cb80
 	codeberg.org/puregotk/puregotk v0.0.0-20260420231554-98419d54d2d2
+	github.com/mappu/miqt v0.14.0
 	github.com/neilotoole/slogt v1.1.0
 	github.com/pojntfx/go-gettext v0.4.2
 	github.com/qmuntal/stateless v1.8.0

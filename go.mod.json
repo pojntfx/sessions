@@ -19,6 +19,13 @@
     "url": "https://proxy.golang.org/codeberg.org/puregotk/puregotk/@v/v0.0.0-20260420231554-98419d54d2d2.zip"
   },
   {
+    "dest": "vendor/github.com/mappu/miqt",
+    "sha256": "4324a3192b941c4d3b1788c9930dc560e3a8ef3d1ede12f586f1ac712d17b320",
+    "strip-components": 3,
+    "type": "archive",
+    "url": "https://proxy.golang.org/github.com/mappu/miqt/@v/v0.14.0.zip"
+  },
+  {
     "dest": "vendor/github.com/neilotoole/slogt",
     "sha256": "2d581091f136e279eb6a860023bee8ec3ac57d285d96e90f06c81692dac7b9d0",
     "strip-components": 3,
