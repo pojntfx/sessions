@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-27 13:39+0200\n"
-"PO-Revision-Date: 2026-03-31 06:09+0000\n"
+"PO-Revision-Date: 2026-06-19 13:01+0000\n"
 "Last-Translator: Victoria Niedzielska <victorian@gnome.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/sessions/sessions/"
 "pl/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
@@ -81,7 +81,7 @@ msgstr "_Skróty klawiszowe"
 
 #: ../assets/resources/window.blp:134
 msgid "_About Sessions"
-msgstr "_O programie"
+msgstr "_O aplikacji"
 
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:88
