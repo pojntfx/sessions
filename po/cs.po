@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-07 17:34+0200\n"
-"PO-Revision-Date: 2026-04-08 16:10+0000\n"
-"Last-Translator: Fjuro <fjuro@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-08-21 11:51+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/sessions/sessions/"
 "cs/>\n"
 "Language: cs\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
@@ -50,7 +50,7 @@ msgstr "Přidat 30 sekund"
 #: ../assets/resources/shortcuts-dialog.blp:43
 #: ../assets/resources/window.blp:91
 msgid "Remove 30 seconds"
-msgstr "Odebrat 30 sekund"
+msgstr "Ubrat 30 sekund"
 
 #: ../assets/resources/window.blp:7 ../assets/resources/window.blp:13
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
@@ -134,7 +134,7 @@ msgid ""
 msgstr ""
 "Relace jsou jednoduchým vizuálním časovačem navrženým specificky pro "
 "techniku pomodoro, což vám pomůže zůstat produktivní rozdělením práce na "
-"relace s pravidelnými pauzami."
+"relace s pravidelnými přestávkami."
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
