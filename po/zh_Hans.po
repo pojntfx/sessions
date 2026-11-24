@@ -3,8 +3,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-30 07:37+0200\n"
-"PO-Revision-Date: 2026-03-31 06:09+0000\n"
-"Last-Translator: Chen Pan <pan0xc@foxmail.com>\n"
+"PO-Revision-Date: 2026-11-25 20:51+0000\n"
+"Last-Translator: Jimmy Yu <hammerklavier-cn@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/sessions/sessions/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: ../assets/resources/shortcuts-dialog.blp:6
 msgid "General"
@@ -56,7 +57,7 @@ msgstr "减30秒"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:4
 #: ../assets/resources/metainfo.xml.in:7
 msgid "Sessions"
-msgstr "Sessions"
+msgstr "会话"
 
 #: ../assets/resources/window.blp:19
 msgid "Main Menu"
@@ -85,7 +86,7 @@ msgstr "关于Sessions(_A)"
 #. TRANSLATORS: Replace "translator-credits" with your name/username, and optionally an email or URL.
 #: ../internal/components/application.go:88
 msgid "translator-credits"
-msgstr "Chen Pan <pan0xc@foxmail.com>"
+msgstr "Chen Pan <pan0xc@foxmail.com>; Yu Xiaosong <hammerklavier@139.com>"
 
 #. TRANSLATORS: Reason given when requesting permission to run in the background from the system.
 #: ../internal/components/main_window.go:119
@@ -116,14 +117,14 @@ msgstr "停止(_S)"
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:5
 #: ../assets/resources/metainfo.xml.in:8
 msgid "Focus with timed work intervals"
-msgstr ""
+msgstr "以预定的工作间隔专注"
 
 #. TRANSLATORS: Search terms to find this application.
 #. Do NOT translate or localize the semicolons!
 #. The list MUST also end with a semicolon!
 #: ../assets/meta/com.pojtinger.felicitas.Sessions.desktop.in:13
 msgid "pomodoro;timer;productivity;focus;work intervals;task management;"
-msgstr ""
+msgstr "番茄; 计时器; 生产率; 专注; 工作间隔; 任务管理;"
 
 #: ../assets/resources/metainfo.xml.in:10
 msgid ""
@@ -134,7 +135,7 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:13
 msgid "It enables you to:"
-msgstr ""
+msgstr "这使得你能够"
 
 #: ../assets/resources/metainfo.xml.in:15
 msgid "Start focused work sessions with customizable timer durations"
@@ -146,15 +147,15 @@ msgstr ""
 
 #: ../assets/resources/metainfo.xml.in:17
 msgid "Take regular breaks to maintain productivity"
-msgstr ""
+msgstr "规律地休息以保证工作效率"
 
 #: ../assets/resources/metainfo.xml.in:65
 msgid "Setting up a new timer session"
-msgstr ""
+msgstr "设置一个新的计时器会话"
 
 #: ../assets/resources/metainfo.xml.in:70
 msgid "Timer running during a work session"
-msgstr ""
+msgstr "在工作时段期间，计时器正在运行"
 
 #: ../assets/resources/index.gschema.xml:6
 msgid "Last timer position"
